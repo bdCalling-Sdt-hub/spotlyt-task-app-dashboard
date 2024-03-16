@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+  color: #318130 !important;
+  border-color: #318130;
+  /* background: #318130; */
+}
+
+.ant-menu-light .ant-menu-item-selected,
+.ant-menu-light > .ant-menu .ant-menu-item-selected {
+  background-color: white;
+  color: #318130 !important;
+  height: 60px;
+}
+li.ant-menu-item.ant-menu-item-only-child {
+}
+
+.ant-menu-light.ant-menu-inline .ant-menu-item {
+  margin-bottom: 20px;
+  height: 60px;
+  color: white;
+}
+.ant-menu-light:not(.ant-menu-horizontal)
+  .ant-menu-item:not(.ant-menu-item-selected):hover {
+  color: white;
+}
+.ant-menu-light .ant-menu-submenu-selected >.ant-menu-submenu-title{
+    color: white;
+    border: 1px solid white;
+    height: 60px;
+}
+.ant-menu-inline.ant-menu-root .ant-menu-submenu-title{
+    color: white;
+    /* border: 1px solid white; */
+    height: 60px;
+}
+.ant-badge-count {
+  position: absolute !important;
+  top: 10px !important;
+  right: 9px !important;
+  inset-inline-end: 0;
+  transform: translate(50%, -50%);
+  transform-origin: 100% 0%;
+}
+
+
+/* table  */
+
+.ant-table-cell:first-child{
+  border-start-start-radius: 0px !important;
+}
+.ant-table-cell:last-child{
+  border-start-end-radius: 0px !important;
+}
+.ant-table-thead > tr > th::before{
+  display: none;
+}
+.ant-table-thead > tr > th{
+  background-color: #318130 !important;
+  color: white !important;
+  border-bottom: none !important;
+}
+
+/* date  */
+
+.custom-date-picker{
+  background-color: #318130;
+  color:white;
+  /* border: 1px solid #FA1131; */
+  height: 40px;
+  
+}
+.custom-date-picker:hover{
+  background-color: #318130;
+  color:white;
+  /* border: 1px solid #FA1131 !important; */
+  
+}
+.ant-btn-primary{
+  color: rgb(255 255 255);
+  background: #318130;
+}
+.custom-date-picker::-moz-focus-outer{
+  background-color: #318130 !important;
+  color:white;
+  /* border: 1px solid #FA1131 !important; */
+  
+}
+.custom-date-picker input::placeholder {
+  color: rgba(255, 255, 255, 0.418) !important;
+}
+
+/* modal */
+.ant-modal .ant-modal-content{
+  background-color: rgba(0, 0, 0, 0.603);
+  border: 2px solid #318130;
+  padding: 0px;
+}
+.ant-modal .ant-modal-close{
+  color: white;
+  font-weight: bold;
+  background-color: #318130;
+  
+}
+.ant-modal .ant-modal-close:hover{
+  color: white;
+  font-weight: bold;
+  background-color: #318130;
+}
