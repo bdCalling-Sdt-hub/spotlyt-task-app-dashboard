@@ -72,6 +72,7 @@ li.ant-menu-item.ant-menu-item-only-child {
   height: 40px;
   
 }
+
 .custom-date-picker:hover{
   background-color: #318130;
   color:white;
@@ -108,4 +109,29 @@ li.ant-menu-item.ant-menu-item-only-child {
   color: white;
   font-weight: bold;
   background-color: #318130;
+}
+
+.PhoneInputInput{
+  outline: none;
+  /* background-color: #EBF6FE; */
+  background-color:  #F7F7F7;
+  padding: 1rem;
+  border-radius:5px ;
+}
+.PhoneInputCountry{
+  margin-right: 15px !important;
+  display: flex !important;
+  gap:10px;
+  background-color:  #F7F7F7;
+  padding: 1rem;
+  border-radius:5px ;
+}
+
+.ant-upload{
+  background-color: white !important;
+  width: 242px !important;
+  border-radius: 40%;
+}
+.jodit-workplace{
+  height: 400px!important;
 }

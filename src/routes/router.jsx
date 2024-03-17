@@ -13,6 +13,15 @@ import Video from "../pages/Main/Video/Video";
 import Corporate from "../pages/Main/Corporate/Corporate";
 import EmployeeTaskRegister from "../pages/Main/EmployeeTaskRegister/EmployeeTaskRegister";
 import RegisterTaskDetails from "../pages/Main/RegisterTaskDetails/RegisterTaskDetails";
+import ProfileInformation from "../pages/Main/ProfileInformation/ProfileInformation";
+import EditProfileInformation from "../pages/Main/EditProfileInformation/EditProfileInformation";
+import Settings from "../pages/Main/Settings/Settings";
+import PrivacyPolicy from "../pages/Main/Settings/PrivacyPolicy";
+import EditPrivacyPolicy from "../pages/Main/Settings/EditPrivacyPolicy";
+import TearmsAndCondition from "../pages/Main/Settings/TearmsAndCondition";
+import EditTramsAndCondition from "../pages/Main/Settings/EditTearmsAndCondition";
+import AboutUs from "../pages/Main/Settings/AboutUs";
+import EditAboutUs from "../pages/Main/Settings/EditAboutUs";
 
 
 
@@ -55,14 +64,14 @@ const router = createBrowserRouter([
           path: "/employees-task-register/:id",
           element: <RegisterTaskDetails/>,
         },
-        // {
-        //   path: "/events/edit-event",
-        //   element: <EditEvent/>,
-        // },
-        // {
-        //   path: "/matches",
-        //   element: <Matches/>,
-        // },
+        {
+          path: "/profile-information",
+          element: <ProfileInformation/>,
+        },
+        {
+          path: "/edit-profile-information",
+          element: <EditProfileInformation/>,
+        },
         // {
         //   path: "/matches/add-matches",
         //   element: <AddMatches/>,
@@ -72,34 +81,34 @@ const router = createBrowserRouter([
         //   element: <EditMatches/>,
         // },
   
-        // {
-        //   path: "/settings",
-        //   element: <Setting />,
-        // },
-        // {
-        //   path: "/settings/privacy-policy",
-        //   element: <PrivacyPolicy/>,
-        // },
-        // {
-        //   path: "/settings/edit-privacy-policy",
-        //   element: <EditPrivacyPolicy />,
-        // },
-        // {
-        //   path: "/settings/terms-conditions",
-        //   element: <TermsAndConditions/>,
-        // },
-        // {
-        //   path: "/settings/edit-terms-conditions",
-        //   element: <EditTermsAndConditions/>,
-        // },
-        // {
-        //   path: "/settings/about-us",
-        //   element: <AboutUs/>,
-        // },
-        // {
-        //   path: "/settings/edit-about-us",
-        //   element: <EditAboutUs/>,
-        // },
+        {
+          path: "/settings",
+          element: <Settings/>,
+        },
+        {
+          path: "/settings/privacy-policy",
+          element: <PrivacyPolicy/>,
+        },
+        {
+          path: "/settings/edit-privacy-policy",
+          element: <EditPrivacyPolicy />,
+        },
+        {
+          path: "/settings/terms-and-conditions",
+          element: <TearmsAndCondition/>,
+        },
+        {
+          path: "/settings/edit-terms-and-conditions",
+          element: <EditTramsAndCondition/>,
+        },
+        {
+          path: "/settings/about-us",
+          element: <AboutUs/>,
+        },
+        {
+          path: "/settings/edit-about-us",
+          element: <EditAboutUs/>,
+        },
        
         // {
         //   path: "/settings/:settingType",

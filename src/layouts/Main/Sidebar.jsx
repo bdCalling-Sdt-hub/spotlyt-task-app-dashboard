@@ -139,7 +139,7 @@ const Sidebar = () => {
  
     getItem(
       <p
-        // onClick={(e) => navigate("/settings")}
+        onClick={(e) => navigate("/settings")}
         className="text-[20px] leading-normal"
       >
         Settings

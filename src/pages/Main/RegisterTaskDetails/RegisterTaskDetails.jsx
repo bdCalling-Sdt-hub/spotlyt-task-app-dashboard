@@ -16,7 +16,7 @@ const RegisterTaskDetails = () => {
           Employees Task Register
         </h1>
       </div>
-      <div className="shadow-2xl rounded-xl">
+      <div className="shadow-2xl rounded-xl pb-10">
         <div className="flex gap-40 justify-between my-[30px] py-[40px] px-[60px] border-b-2">
           <div className="flex-1 ">
             <p className="text-[20px] font-medium">Employee Details</p>
@@ -87,13 +87,18 @@ const RegisterTaskDetails = () => {
         </div>
         <div className="mx-[40px]">
             <h1 className="text-[18px] font-medium">Task Screenshot</h1>
-            <div className="flex gap-2">
+            <div className="flex">
                 <img src={img} alt="" />
                 <img src={img} alt="" />
                 <img src={img} alt="" />
             </div>
         </div>
+        <div className="flex justify-end gap-5 mr-10">
+        <p className="py-3 cursor-pointer px-20 rounded-xl text-red-500 border-2 border-red-600">Cancel</p>
+        <p  className="py-3 cursor-pointer px-20 rounded-xl bg-[#318130] text-white">Approved</p>
       </div>
+      </div>
+      
     </div>
   );
 };
