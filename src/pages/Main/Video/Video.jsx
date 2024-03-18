@@ -1,4 +1,4 @@
-import { DatePicker, Modal, Space, Table } from 'antd';
+import { ConfigProvider, DatePicker, Modal, Space, Table } from 'antd';
 import { useState } from 'react';
 import { BsInfoCircle } from "react-icons/bs";
 
@@ -207,7 +207,7 @@ const Video = () => {
     return (
         <div className=" ml-[24px]">
         <div className=" flex justify-between items-center">
-          <h1 className="text-[24px] font-medium">Video Tasks</h1>
+          <h1 className="text-[30px] font-medium">Video Tasks</h1>
           <DatePicker
             className="custom-date-picker"
             onChange={onChange}
@@ -217,8 +217,19 @@ const Video = () => {
         </div>
         <div className=" rounded-t-lg mt-[24px] shadow-2xl">
           <div className="flex py-[22px] mx-[20px] justify-between items-center">
-            <p className=" test-[24px] font-medium">Task List</p>
+            <p className=" text-[24px] font-medium">Task List</p>
           </div>
+          <ConfigProvider
+          theme={{
+            components: {
+              Table: {
+                headerBg: "#318130",
+                headerColor: "white",
+                headerBorderRadius: 2,
+              },
+            },
+          }}
+        >
           <Table
             pagination={{
               position: ["bottomCenter"],
@@ -226,6 +237,7 @@ const Video = () => {
             columns={columns}
             dataSource={data}
           />
+        </ConfigProvider>
         </div>
         <Modal
           open={isModalOpen}

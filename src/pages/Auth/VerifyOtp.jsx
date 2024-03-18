@@ -2,7 +2,7 @@ import { Button, Form, Input } from "antd";
 import { GoArrowLeft } from "react-icons/go";
 import { HiOutlineMailOpen } from "react-icons/hi";
 import { Link, useNavigate,  } from "react-router-dom";
-import logo from "../../assets/logo.png"
+import logo from "../../assets/logo2.png"
 import otpImg from "../../assets/otv.png";
 import { useState } from "react";
 import OTPInput from "react-otp-input";

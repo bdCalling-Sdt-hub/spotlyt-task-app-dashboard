@@ -13,6 +13,7 @@ import { FaRegClipboard } from "react-icons/fa6";
 import { FaClipboardCheck } from "react-icons/fa";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { IoIosArrowForward } from "react-icons/io";
+import { MdLogout } from "react-icons/md";
 import { Menu } from "antd";
 import { useState } from "react";
 
@@ -28,19 +29,15 @@ function getItem(label, key, icon, children) {
 }
 
 
-const Sidebar = () => {
+const Sidebar = ({collapsed}) => {
   const [mode, setMode] = useState("inline");
   const [theme, setTheme] = useState("light");
-  const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   const handleLogOut = () => {
     // localStorage.removeItem('token')
     // localStorage.removeItem('login-user')
     // localStorage.removeItem('user-update')
-    // navigate('/')
-  };
-  const toggleCollapsed = () => {
-    setCollapsed(!collapsed);
+   
   };
 
   const logout = () => {
@@ -60,6 +57,7 @@ const Sidebar = () => {
     //     Swal.fire("Ok", "", "info");
     //   }
     // });
+    navigate('/auth')
   };
 
 
@@ -69,34 +67,34 @@ const Sidebar = () => {
         Dashboard
       </p>,
       "1",
-      <BiSolidDashboard style={{ fontSize: "28px" }} />
+      <BiSolidDashboard style={{ fontSize: "24px" }} />
     ),
     getItem(
-      <p onClick={(e) => navigate("/all-client")} className="text-[20px] leading-normal">All Client</p>,
+      <p onClick={(e) => navigate("/all-client")} className="text-[18px] leading-normal">All Client</p>,
       "2",
-      <FaUsers  style={{ fontSize: "28px" }} />,
+      <FaUsers  style={{ fontSize: "24px" }} />,
     ),
 
     getItem(
-      <p onClick={(e) => navigate("/all-employee")} className="text-[20px] leading-normal">All Employee</p>,
+      <p onClick={(e) => navigate("/all-employee")} className="text-[18px] leading-normal">All Employee</p>,
       "3",
-      <FaUsers  style={{ fontSize: "28px" }} />
+      <FaUsers  style={{ fontSize: "24px" }} />
      
     ),
     getItem(
       <p
         // onClick={(e) => navigate("/appointments")}
-        className="text-[20px] leading-normal"
+        className="text-[18px] leading-normal"
       >
         Tasks
       </p>,
       "4",
-      <FaRegClipboard  style={{ fontSize: "28px" }} />,
+      <FaRegClipboard  style={{ fontSize: "24px" }} />,
        [
         getItem(
           <li
             onClick={(e) => navigate("/tasks/social-media")}
-            className="text-[20px] leading-normal"
+            className="text-[18px] leading-normal"
           >
             Social Media
           </li>,
@@ -105,7 +103,7 @@ const Sidebar = () => {
         getItem(
           <li
             onClick={(e) => navigate("/tasks/video")}
-            className="text-[20px] leading-normal"
+            className="text-[18px] leading-normal"
           >
             Video
           </li>,
@@ -114,7 +112,7 @@ const Sidebar = () => {
         getItem(
           <li
             onClick={(e) => navigate("/tasks/corporate")}
-            className="text-[20px] leading-normal"
+            className="text-[18px] leading-normal"
           >
             Corporate
           </li>,
@@ -126,12 +124,12 @@ const Sidebar = () => {
     getItem(
       <p
         onClick={(e) => navigate("/employees-task-register")}
-        className="text-[20px] leading-normal"
+        className="text-[18px] leading-normal"
       >
         Employees Task Register
       </p>,
       "8",
-      <FaClipboardCheck  style={{ fontSize: "28px" }} />
+      <FaClipboardCheck  style={{ fontSize: "24px" }} />
     ),
    
 
@@ -140,19 +138,19 @@ const Sidebar = () => {
     getItem(
       <p
         onClick={(e) => navigate("/settings")}
-        className="text-[20px] leading-normal"
+        className="text-[18px] leading-normal"
       >
         Settings
       </p>,
       "9",
-      <CiSettings   style={{ fontSize: "28px" }}/> 
+      <CiSettings   style={{ fontSize: "24px" }}/> 
     ),
     getItem(
-      <p onClick={logout} className="text-[20px] leading-normal">
+      <p onClick={logout} className="text-[18px] leading-normal">
         Logout
       </p>,
       "10",
-      <TbLogout2  style={{ fontSize: "28px" }}/>
+      <MdLogout  style={{ fontSize: "24px" }}/>
     ),
   ];
 

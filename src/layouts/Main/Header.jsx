@@ -4,14 +4,32 @@ import { Badge, Dropdown, Button, Menu } from "antd";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa6";
 import { MdMenu } from "react-icons/md";
+import {
+ 
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+
+} from '@ant-design/icons';
 // import SearchBox from "../SearchBox/SearchBox";
 
-const Header = () => {
+const Header = ({toggleCollapsed,collapsed}) => {
   const navigate = useNavigate();
   return (
     <div className="flex justify-between items-center rounded-md mb-[24px] p-[16px] bg-[#318130]">
       <div className="flex items-center gap-5">
-        <MdMenu className="h-[42px] w-[42px] text-[white]" />
+
+      {/* <Button
+        type="primary"
+        onClick={toggleCollapsed}
+        style={{
+          marginBottom: 16,
+        }}
+      >
+        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+      </Button>
+        <MdMenu className="h-[42px] w-[42px] text-[white]" /> */}
+
+
         {location.pathname == "/dashboard/users" ||
         location.pathname == "/dashboard/appointments" ||
         location.pathname == "/dashboard/earnings" ? (

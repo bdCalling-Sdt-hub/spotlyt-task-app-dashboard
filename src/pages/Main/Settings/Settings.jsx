@@ -142,13 +142,10 @@ const handleForgetPassword = (values) =>{
           title={
             <div
               onClick={() => setIsModalOpen(false)}
-              style={{fontFamily:'Aldrich'}}
-              className="flex bg-[#000000] items-center cursor-pointer text-white px-[60px] pt-[60px]"
+              // style={{fontFamily:'Aldrich'}}
+              className="flex items-center cursor-pointer text-white px-[60px] pt-[60px]"
             >
-                {/* <div style={{fontFamily:'Aldrich'}} className="flex justify-center items-center gap-2 flex-col border-b border-b-gray-300">
-          <img className="w-[140px] h-[140px] rounded-full" src={user?.img} alt="" />
-          <p className="text-white text-[16px] mb-[16px]">{user?.name}</p>
-        </div> */}
+               
               <div className="object-contain">
                 <img src={logo} alt="" />
                 <div className="flex items-center gap-2">
@@ -190,7 +187,7 @@ const handleForgetPassword = (values) =>{
               )} */}
   
           {modelTitle === "Change password" && (
-            <div style={{fontFamily:'Aldrich'}} className="px-[60px] pb-[60px]">
+            <div className="px-[60px] pb-[60px]">
               <p className="text-[14px] mb-[14px] text-[white]">
                 Your password must be 8-10 character long.{" "}
               </p>

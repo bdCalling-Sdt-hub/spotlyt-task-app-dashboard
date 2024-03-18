@@ -39,13 +39,15 @@ const EditTramsAndCondition = () => {
       <Button
         onClick={handleUpdate}
         block
-        style={{
-          marginTop: "30px",
-          backgroundColor: "#318130",
-          color: "#fff",
-          height: "50px",
-        }}
+        // style={{
+        //   marginTop: "30px",
+        //   backgroundColor: "#318130",
+        //   color: "#fff",
+        //   height: "50px",
+        // }}
+        className="mt-[30px] bg-[#318130] text-[white] h-[50px] hover:text-white "
       >
+        
         Update
         </Button>
       </div>

@@ -1,4 +1,4 @@
-import { Space, Table } from "antd";
+import { ConfigProvider, Space, Table } from "antd";
 import { Link } from "react-router-dom";
 import { BsInfoCircle } from "react-icons/bs";
 
@@ -84,7 +84,20 @@ const RecentSocialMedia = () => {
         <p className="ml-[14px] font-medium">FACEBOOK - INSTAGRAM - TIKTOK </p>
       </div>
       <div>
-        <Table pagination={false} columns={columns} dataSource={dataSource} />
+      <ConfigProvider
+  theme={{
+    components: {
+      Table: {
+        headerBg: "white",
+        headerColor:"black",
+        headerBorderRadius: 2,
+      },
+    },
+  }}
+>
+<Table  pagination={false} columns={columns} dataSource={dataSource} />
+</ConfigProvider>
+        
       </div>
     </div>
   );
