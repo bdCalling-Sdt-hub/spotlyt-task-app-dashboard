@@ -3,6 +3,8 @@ import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import JoditEditor from "jodit-react";
 import { useRef, useState } from "react";
+import baseURL from "../../../config";
+import Swal from "sweetalert2";
 
 const EditAboutUs = () => {
     const navigate = useNavigate();
@@ -10,8 +12,40 @@ const EditAboutUs = () => {
     const [content, setContent] = useState("");
     
   
-    const handleUpdate = ()=>{
-      
+    const handleUpdate = async ()=>{
+      console.log(content);
+      try {
+        const response = await baseURL.post(`/about`, {
+          content
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authentication: `Bearer ${localStorage.getItem("token")}`,
+          }
+        }
+        )
+        if(response?.data?.code === 201){
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: response?.data?.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+
+        }
+        navigate("/settings/about-us")
+        console.log(response);
+      }catch(error){
+        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Try Again...",
+          text: error?.response?.data?.message,
+          footer: '<a href="#">Why do I have this issue?</a>',
+        })
+      }
     } 
   
     return (

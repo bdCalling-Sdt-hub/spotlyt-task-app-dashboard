@@ -13,7 +13,7 @@ const ProfileInformation = () => {
   const navigate = useNavigate();
   const baseUrl = import.meta.env.VITE_API_URL;
   useEffect(()=>{
-    const storedUser = localStorage.getItem('user-update');
+    const storedUser = localStorage.getItem('admin');
     const user = JSON.parse(storedUser);
     console.log(user);
     setCurrentUser(user);
@@ -26,7 +26,7 @@ const ProfileInformation = () => {
         <div
             // onClick={
             //     (e) =>navigate(`/edit-profile/${currentUser?.id}`)}
-            onClick={(e)=>navigate('/edit-profile-information')}
+            onClick={(e)=>navigate(`/edit-profile-information/${currentUser?.id}`)}
           className="flex gap-2 items-center py-[15px]
                  px-[40px]
                   bg-[#318130]
@@ -43,17 +43,16 @@ const ProfileInformation = () => {
         <div className="w-[33%] ml-[24px] flex flex-col justify-center items-center gap-[30px]">
           <img
             className="w-[242px] h-[242px] rounded-full"
-            // src={`${baseUrl}${currentUser?.image?.url}`}
-            src={img}
+            src={`${baseUrl}${currentUser?.image?.url}`}
+            // src={img}
             alt=""
           />
           <div className="flex flex-col justify-center items-center">
             <p className="text-[20px] text-[#4E4E4E]">
-                {/* {currentUser?.role.toUpperCase()} */}
-                ADMIN
+                {currentUser?.role.toUpperCase()}
                 </p>
             <h1 className="text-[#222222] text-[30px] font-medium">
-             {/* {currentUser?.name.toUpperCase()} */} Ahad Hossain
+             {currentUser?.fullName?.toUpperCase()} 
             </h1>
           </div>
         </div>
@@ -71,7 +70,7 @@ const ProfileInformation = () => {
                 <Input
               
                   placeholder="First name"
-                  value={currentUser?.name}
+                  value={currentUser?.fullName}
                   className="p-4 bg-[#F7F7F7]
                rounded w-full 
                justify-start 
@@ -129,7 +128,7 @@ const ProfileInformation = () => {
                 readOnly
               />
             </div>
-            <div className="flex-1">
+            {/* <div className="flex-1">
               <label
                 htmlFor=""
                 className="text-[#222222] text-[18px] font-medium mb-[12px]"
@@ -150,7 +149,7 @@ const ProfileInformation = () => {
                 prefix={<CiCalendarDate size={20} />}
                
               />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

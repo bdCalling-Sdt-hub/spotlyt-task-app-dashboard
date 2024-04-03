@@ -11,8 +11,8 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import OTPInput from "react-otp-input";
 import { GoArrowLeft } from "react-icons/go";
-// import baseURL from "../../../config";
-// import Swal from "sweetalert2";
+import baseURL from "../../../config";
+import Swal from "sweetalert2";
 import { HiOutlineMailOpen } from "react-icons/hi";
 
 
@@ -26,6 +26,10 @@ const Settings = () => {
   const onChange = (checked) => {
     console.log(`switch to ${checked}`);
   };
+  useEffect(()=>{
+    const user = JSON.parse(localStorage.getItem("admin"))
+    setEmail(user?.email)
+  },[])
 
   const settingsItem = [
 
@@ -72,19 +76,121 @@ const Settings = () => {
     }
   };
 
-  const handleChangePassword = (values) =>{
+  const handleChangePassword = async (values) =>{
     console.log(values);
+    const data = {
+      oldPassword: values?.oldPassword,
+      newPassword: values?.newPassword,
+    };
+    try {
+      const response = await baseURL.post(`/auth/change-password`, data);
+
+      console.log(response.data);
+      if (response.data.code == 200) {
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: response.data.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate(`/settings`);
+      }
+    } catch (error) {
+      console.log("Registration Fail", error?.response?.data?.message);
+      Swal.fire({
+        icon: "error",
+        title: "Error...",
+        text: error?.response?.data?.message,
+        footer: '<a href="#">Why do I have this issue?</a>',
+      });
+    }
 }  
-const handleVerifyOtp = (values) =>{
-    console.log(values);
-    setModelTitle("Reset Password")
+const handleVerifyOtp = async (e) =>{
+  e.preventDefault();
+  try {
+    const response = await baseURL.post(`/auth/verify-email`, {
+      email: email,
+      oneTimeCode: otp,
+    });
+
+    console.log(response.data);
+    const token = response?.data?.data?.attributes.tokens?.access.token;
+    console.log(token);
+    if (response.data.code == 200) {
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", response?.data?.data?.attributes?.user);
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: response.data.message,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      // navigate(`/set_new_password/${email}`);
+      setModelTitle("Reset Password");
+    }
+  } catch (error) {
+    console.log("Registration Fail", error?.response?.data?.message);
+    Swal.fire({
+      icon: "error",
+      title: "Error...",
+      text: error?.response?.data?.message,
+      footer: '<a href="#">Why do I have this issue?</a>',
+    });
+  }
 }
-const handleResetPassword = (values) =>{
+const handleResetPassword = async (values) =>{
     console.log(values);
+    const data = { email: email, password: values?.password };
+    console.log(data);
+    try {
+      const response = await baseURL.post(`/auth/reset-password`, data);
+
+      console.log(response.data);
+      if (response.data.code == 200) {
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: response.data.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setIsModalOpen(false);
+      }
+    } catch (error) {
+      console.log("Registration Fail", error?.response?.data?.message);
+      Swal.fire({
+        icon: "error",
+        title: "Error...",
+        text: error?.response?.data?.message,
+        footer: '<a href="#">Why do I have this issue?</a>',
+      });
+    }
 }
-const handleForgetPassword = (values) =>{
+const handleForgetPassword = async (values) =>{
     console.log(values);
-    setModelTitle("Verify OTP");
+    try {
+      const response = await baseURL.post(`/auth/forgot-password`, values);
+      if (response.data.code == 200) {
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: response.data.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setModelTitle("Verify OTP");
+      }
+    } catch (error) {
+      console.log("Registration Fail", error?.response?.data?.message);
+      Swal.fire({
+        icon: "error",
+        title: "Error...",
+        text: error?.response?.data?.message,
+        footer: '<a href="#">Why do I have this issue?</a>',
+      });
+    }
 }
     return (
         <div className="ml-[24px] mt-[60px]">
@@ -108,36 +214,6 @@ const handleForgetPassword = (values) =>{
             </h2>
           </div>
         ))}
-  
-        {/* <div className="flex justify-between rounded-lg items-center px-[24px] py-[16px] bg-[white]">
-          <p className="text-[18px] text-[#222222] font-medium">Notification</p>
-          <Switch defaultChecked onChange={onChange} />
-        </div>
-        <div className="flex justify-between rounded-lg my-[24px] items-center px-[24px] py-[16px] bg-[white]">
-          <p className="text-[18px] text-[#222222] font-medium">
-            Change Password
-          </p>
-          <MdKeyboardArrowRight size={20} />
-        </div>
-        <Modal
-          title={
-            <div
-              onClick={() => setIsModalOpen(false)}
-              className="flex items-center cursor-pointer justify-start gap-4 text-[#0071E3] mb-4"
-            >
-              <IconChevronLeft />
-              <p>{modelTitle}</p>
-            </div>
-          }
-          open={isModalOpen}
-          onOk={() => setIsModalOpen(false)}
-          onCancel={() => setIsModalOpen(false)}
-          footer={[]}
-        ></Modal>
-        <div className="flex justify-between rounded-lg my-[24px] items-center px-[24px] py-[16px] bg-[white]">
-          <p className="text-[18px] text-[#222222] font-medium">About Us</p>
-          <MdKeyboardArrowRight size={20} />
-        </div> */}
         <Modal
           title={
             <div
@@ -166,25 +242,7 @@ const handleForgetPassword = (values) =>{
           onCancel={() => setIsModalOpen(false)}
           footer={[]}
         >
-          {/* {modelTitle === "Set hidden fee percentage" && (
-                <form>
-                  <input
-                    type="text"
-                    className="my-4 w-full bg-transparent border-b py-3 px-2 outline-none focus:border-[#b278fb] duration-100"
-                    placeholder="Set hidden fee percentage"
-                    name=""
-                    id=""
-                  />
-  
-                  <button
-                    type="submit"
-                    className="bg-[#b278fb]
-              text-white mt-5 py-3 rounded-full w-full hover:bg-white hover:text-[#b278fb] duration-200"
-                  >
-                    Save
-                  </button>
-                </form>
-              )} */}
+         
   
           {modelTitle === "Change password" && (
             <div className="px-[60px] pb-[60px]">
@@ -306,8 +364,8 @@ const handleForgetPassword = (values) =>{
                   />
                 </Form.Item>
                 <p className=" text-[#FA1131] font-medium">
-                  <button onClick={() => setModelTitle("Forget password")}>
-                    Forget Password
+                  <button onClick={() => setModelTitle("Forgot password")}>
+                    Forgot Password
                   </button>
                 </p>
                 <Form.Item>
@@ -322,7 +380,7 @@ const handleForgetPassword = (values) =>{
             </div>
           )}
   
-          {modelTitle === "Forget password" && (
+          {modelTitle === "Forgot password" && (
             <div  className="px-[60px] pb-[60px]">
               <Form
                 initialValues={{

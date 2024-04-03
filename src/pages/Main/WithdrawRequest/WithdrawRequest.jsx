@@ -2,7 +2,7 @@ import { ConfigProvider, DatePicker, Modal, Space, Table } from 'antd';
 import { useState } from 'react';
 import { BsInfoCircle } from "react-icons/bs";
 
-const AllEmployee = () => {
+const WithdrawRequest = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [client, setClient] = useState();
@@ -40,36 +40,31 @@ const AllEmployee = () => {
         //   key: 'phone',
         // },
         {
-          title: "Employee NID Number",
-          dataIndex: "nidNumber",
-          key: "task",
+          title: "Bank Name",
+          dataIndex: "bankName",
+          key: "bankName",
         },
         {
-          title: "Email",
-          dataIndex: "email",
-          key: "email",
+          title: "A/C Type",
+          dataIndex: "accountType",
+          key: "accountType",
         },
         {
-            title: "Full Address",
-            key: "address",
-            dataIndex: "address",
+            title: "Withdraw Amount",
+            key: "withdrawAmount",
+            dataIndex: "withdrawAmount",
           },
-        {
-          title: "Date",
-          key: "date",
-          dataIndex: "date",
-        },
-        {
-          title: "Status",
-          key: "status",
-          dataIndex: "status",
-          render:(_,record)=>(<>
-              <p className={`text-green-500 font-bold`}>
-                {record?.status}
-              </p>
-          </>)
-
-        },
+          {
+            title: "Status",
+            key: "status",
+            dataIndex: "status",
+            render:(_,record)=>(<>
+                <p className={`text-green-500 font-bold`}>
+                  {record?.status}
+                </p>
+            </>)
+  
+          },
         {
           title: "Action",
           key: "action",
@@ -92,9 +87,12 @@ const AllEmployee = () => {
           task: "Request Facebook Like ",
           date: "02-24-2024",
           email: "ahad.aiman@gmail.com",
-          address: "New York",
+          country: "New York",
           status:"Approve",
           nidNumber: 50041231541,
+          bankName:"International Bank",
+          accountType:"Saving",
+          withdrawAmount:"500"
         },
         {
             key: "2",
@@ -104,9 +102,12 @@ const AllEmployee = () => {
             task: "Request Facebook Like ",
             date: "02-24-2024",
             email: "ahad.aiman@gmail.com",
-            address: "New York",
+            country: "New York",
             status:"Approve",
             nidNumber: 50041231541,
+            bankName:"International Bank",
+            accountType:"Saving",
+            withdrawAmount:"500"
           },
           {
             key: "3",
@@ -116,9 +117,12 @@ const AllEmployee = () => {
             task: "Request Facebook Like ",
             date: "02-24-2024",
             email: "ahad.aiman@gmail.com",
-            address: "New York",
+            country: "New York",
             status:"Approve",
             nidNumber: 50041231541,
+            bankName:"International Bank",
+            accountType:"Saving",
+            withdrawAmount:"500"
           },
         {
           key: "4",
@@ -128,9 +132,12 @@ const AllEmployee = () => {
           task: "Request Facebook Like ",
           date: "02-24-2024",
           email: "ahad.aiman@gmail.com",
-          address: "New York",
+          country: "New York",
           status:"Approve",
           nidNumber: 50041231541,
+          bankName:"International Bank",
+          accountType:"Saving",
+          withdrawAmount:"500"
         },
         {
           key: "5",
@@ -140,9 +147,12 @@ const AllEmployee = () => {
           task: "Request Facebook Like ",
           date: "02-24-2024",
           email: "ahad.aiman@gmail.com",
-          address: "New York",
+          country: "New York",
           status:"Approve",
           nidNumber: 50041231541,
+          bankName:"International Bank",
+          accountType:"Saving",
+          withdrawAmount:"500"
         },
         {
           key: "6",
@@ -152,9 +162,12 @@ const AllEmployee = () => {
           task: "Request Facebook Like ",
           date: "02-24-2024",
           email: "ahad.aiman@gmail.com",
-          address: "New York",
+          country: "New York",
           status:"Approve",
           nidNumber: 50041231541,
+          bankName:"International Bank",
+          accountType:"Saving",
+          withdrawAmount:"500"
         },
         {
           key: "7",
@@ -164,9 +177,12 @@ const AllEmployee = () => {
           task: "Request Facebook Like ",
           date: "02-24-2024",
           email: "ahad.aiman@gmail.com",
-          address: "New York",
+          country: "New York",
           status:"Approve",
           nidNumber: 50041231541,
+          bankName:"International Bank",
+          accountType:"Saving",
+          withdrawAmount:"500"
         },
         {
           key: "8",
@@ -176,9 +192,12 @@ const AllEmployee = () => {
           task: "Request Facebook Like ",
           date: "02-24-2024",
           email: "ahad.aiman@gmail.com",
-          address: "New York",
+          country: "New York",
           status:"Approve",
           nidNumber: 50041231541,
+          bankName:"International Bank",
+          accountType:"Saving",
+          withdrawAmount:"500"
         },
         {
           key: "9",
@@ -188,9 +207,12 @@ const AllEmployee = () => {
           task: "Request Facebook Like ",
           date: "02-24-2024",
           email: "ahad.aiman@gmail.com",
-          address: "New York",
+          country: "New York",
           status:"Approve",
           nidNumber: 50041231541,
+          bankName:"International Bank",
+          accountType:"Saving",
+          withdrawAmount:"500"
         },
         {
           key: "10",
@@ -200,9 +222,12 @@ const AllEmployee = () => {
           task: "Request Facebook Like ",
           date: "02-24-2024",
           email: "ahad.aiman@gmail.com",
-          address: "New York",
+          country: "New York",
           status:"Approve",
           nidNumber: 50041231541,
+          bankName:"International Bank",
+          accountType:"Saving",
+          withdrawAmount:"500"
         },
         {
           key: "11",
@@ -212,9 +237,12 @@ const AllEmployee = () => {
           task: "Request Facebook Like ",
           date: "02-24-2024",
           email: "ahad.aiman@gmail.com",
-          address: "New York",
+          country: "New York",
           status:"Approve",
           nidNumber: 50041231541,
+          bankName:"International Bank",
+          accountType:"Saving",
+          withdrawAmount:"500"
         },
         {
           key: "12",
@@ -224,9 +252,12 @@ const AllEmployee = () => {
           task: "Request Facebook Like ",
           date: "02-24-2024",
           email: "ahad.aiman@gmail.com",
-          address: "New York",
+          country: "New York",
           status:"Approve",
           nidNumber: 50041231541,
+          bankName:"International Bank",
+          accountType:"Saving",
+          withdrawAmount:"500"
         },
       ];
       const onChange = (date, dateString) => {
@@ -234,93 +265,109 @@ const AllEmployee = () => {
       };
     return (
         <div className=" ml-[24px]">
-      <div className=" flex justify-between items-center">
-        <h1 className="text-[30px] font-medium">All Employee</h1>
-        <DatePicker
-          className="custom-date-picker"
-          onChange={onChange}
-          picker="month"
-          suffixIcon
-        />
-      </div>
-      <div className=" rounded-t-lg mt-[24px] shadow-2xl">
-        <div className="flex py-[22px] mx-[20px] justify-between items-center">
-          <p className=" text-[24px] font-medium">Employee List</p>
+        <div className=" flex justify-between items-center">
+          <h1 className="text-[30px] font-medium">Withdrawal Request</h1>
+          <DatePicker
+            className="custom-date-picker"
+            onChange={onChange}
+            picker="month"
+            suffixIcon
+          />
         </div>
-        <ConfigProvider
-  theme={{
-    components: {
-      Table: {
-        headerBg: "#318130",
-        headerColor:"white",
-        headerBorderRadius: 2,
+        <div className=" rounded-t-lg mt-[24px] shadow-2xl">
+          <div className="flex py-[22px] mx-[20px] justify-between items-center">
+            <p className=" text-[24px] font-medium">Withdrawal Reques List</p>
+          </div>
+          <ConfigProvider
+    theme={{
+      components: {
+        Table: {
+          headerBg: "#318130",
+          headerColor:"white",
+          headerBorderRadius: 2,
+        },
       },
-    },
-  }}
->
-<Table
-          pagination={{
-            position: ["bottomCenter"],
-          }}
-          columns={columns}
-          dataSource={data}
-        />
-        </ConfigProvider>
-      </div>
-      <Modal
-        open={isModalOpen}
-        onOk={() => setIsModalOpen(false)}
-        onCancel={() => setIsModalOpen(false)}
-        footer={[]}
-        closeIcon
-      >
-      <div>
-        <div className="flex justify-center items-center gap-2 flex-col border-b pt-10 border-b-gray-300">
-          <img className="w-[140px] h-[140px] rounded-full " src={client?.img} alt="" />
-          <p className="text-white text-[16px] mb-[16px]">{client?.name}</p>
+    }}
+  >
+  <Table
+            pagination={{
+              position: ["bottomCenter"],
+            }}
+            columns={columns}
+            dataSource={data}
+          />
+          </ConfigProvider>
         </div>
-        <div className="p-[20px] text-white">
-          <div className="flex justify-between border-b py-[16px]">
-            <p>Date:</p>
-            <p>
-              {client?.date}
-            </p>
+        <Modal
+          open={isModalOpen}
+          onOk={() => setIsModalOpen(false)}
+          onCancel={() => setIsModalOpen(false)}
+          footer={[]}
+          closeIcon
+        >
+        <div>
+          <div className="flex justify-center items-center gap-2 flex-col border-b pt-10 border-b-gray-300">
+            <img className="w-[140px] h-[140px] rounded-full " src={client?.img} alt="" />
+            <p className="text-white text-[16px] mb-[16px]">{client?.name}</p>
           </div>
-          <div className="flex justify-between border-b py-[16px] ">
-            <p>Employee Name:</p>
-            <p>
-              {client?.name}
-            </p>
+          <div className="p-[20px] text-white">
+            <div className="flex justify-between border-b py-[16px]">
+              <p>Date:</p>
+              <p>
+                {client?.date}
+              </p>
+            </div>
+            <div className="flex justify-between border-b py-[16px] ">
+              <p>Employee Name:</p>
+              <p>
+                {client?.name}
+              </p>
+            </div>
+            <div className="flex justify-between border-b py-[16px]">
+              <p>Bank Name:</p>
+              <p>
+                {client?.bankName}
+              </p>
+            </div>
+            <div className="flex justify-between border-b py-[16px]">
+              <p>A/C Type:</p>
+              <p>
+                {client?.accountType}
+              </p>
+            </div>
+            <div className="flex justify-between border-b py-[16px]">
+              <p>Withdraw Amount:</p>
+              <p>
+                {client?.withdrawAmount}
+              </p>
+            </div>
+            <div className="flex justify-between border-b py-[16px]">
+              <p>Earned Amount:</p>
+              <p>
+                {/* {client?.withdrawAmount} */}
+                1200
+              </p>
+            </div>
+            <div className="flex justify-between border-b py-[16px]">
+              <p>Total Withdraw:</p>
+              <p>
+                {/* {client?.withdrawAmount} */}
+                2 Time
+              </p>
+            </div>
+            <div className="flex justify-center gap-10 items-center pt-[16px]">
+              <p className="px-[55px] cursor-pointer py-[10px] bg-[#318130] rounded-lg">
+                Approve
+              </p>
+              <p className="px-[55px] cursor-pointer py-[10px] text-[#318130] bg-[white] border-2 border-[#318130] rounded-lg">
+               Cancel
+              </p>
+            </div>
           </div>
-          <div className="flex justify-between border-b py-[16px]">
-            <p>Employee NID Number:</p>
-            <p>
-              {client?.nidNumber}
-            </p>
-          </div>
-          <div className="flex justify-between border-b py-[16px]">
-            <p>Email:</p>
-            <p>
-              {client?.email}
-            </p>
-          </div>
-          <div className="flex justify-between py-[16px]">
-            <p>Country:</p>
-            <p>
-              {client?.country}
-            </p>
-          </div>
-          {/* <div className="flex justify-center items-center pt-[16px]">
-            <p className="px-[15px] py-[10px] bg-[#318130] rounded-lg">
-              Approve Employee
-            </p>
-          </div> */}
-
         </div>
-      </div>
-      </Modal>
+        </Modal>
         </div>
     );
 }
 
-export default AllEmployee;
+export default WithdrawRequest;

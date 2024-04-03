@@ -10,28 +10,28 @@ import { LuImagePlus } from "react-icons/lu";
 // import styles from "./EditProfile.module.css";
 // import baseURL from "../../../config";
 import Swal from "sweetalert2";
+import { useGetUserQuery } from "../../../redux/features/getSingleUser";
+import baseURL from "../../../config";
 // import { useGetAllUserQuery } from "../../../redux/features/AllUser/getAllUser";
 // import { useGetUserQuery } from "../../../redux/features/AllUser/getSingleUser";
 // import Loading from "../../../components/Loading/Loading";
 
 const EditProfileInformation = () => {
     const navigate = useNavigate();
-    // const baseUrl = import.meta.env.VITE_API_URL;
-    // const { id } = useParams();
-    // const { data, isLoading } = useGetUserQuery(id);
-    // const user = data?.data?.attributes?.user;
-    const [phoneNumber, setPhoneNumber] = useState("");
-    // const [imageUrl, setImageUrl] = useState(`${baseUrl}${user?.image?.url}`);
-     const [imageUrl, setImageUrl] = useState();
+    const baseUrl = import.meta.env.VITE_API_URL;
+    const { id } = useParams();
+    const { data, isLoading } = useGetUserQuery(id);
+    const user = data?.data?.attributes;
+    console.log(user);
+    const [phoneNumber, setPhoneNumber] = useState(user?.phoneNumber);
+    const [imageUrl, setImageUrl] = useState(`${baseUrl}${user?.image?.url}`);
+    //  const [imageUrl, setImageUrl] = useState();
     const [fileList, setFileList] = useState([]);
-    // useEffect(()=>{
-    //   setImageUrl(`${baseUrl}${user?.image?.url}`)
-    //   setPhoneNumber(user?.phoneNumber)
-    // },[data])
-    //   useEffect(() => {
-    //     setPhoneNumber(currentUser?.phoneNumber);
-    //     setImageUrl(`${baseUrl}${currentUser?.image?.url}`);
-    //   }, [data]);
+    useEffect(()=>{
+      setImageUrl(`${baseUrl}${user?.image?.url}`)
+      // setPhoneNumber(user?.phoneNumber)
+    },[data])
+    console.log(phoneNumber);
     // if (isLoading) {
     //   return <Loading />;
     // }
@@ -67,52 +67,53 @@ const EditProfileInformation = () => {
         },
       };
       const handleUpdateProfile = async (values) => {
-        // const updateProfile = {
-        //   ...values,
-        //   image: fileList[0]?.originFileObj,
-        //   dateOfBirth: `${values.dateOfBirth.$D}-${values.dateOfBirth.$M + 1}-${
-        //     values.dateOfBirth.$y
-        //   }`,
-        //   phoneNumber,
-        // };
-        // const formData = new FormData();
-        // formData.append("name", updateProfile?.name);
+        const updateProfile = {
+          ...values,
+          image: fileList[0]?.originFileObj,
+          // dateOfBirth: `${values.dateOfBirth.$D}-${values.dateOfBirth.$M + 1}-${
+          //   values.dateOfBirth.$y
+          // }`,
+          phoneNumber,
+        };
+        console.log(updateProfile);
+        const formData = new FormData();
+        formData.append("fullName", updateProfile?.fullName);
         // formData.append("email", updateProfile?.email);
-        // formData.append("phoneNumber", updateProfile?.phoneNumber);
+        formData.append("phoneNumber", updateProfile?.phoneNumber);
         // formData.append("dateOfBirth", updateProfile?.dateOfBirth);
-        // if (fileList[0]?.originFileObj) {
-        //   formData.append("image", fileList[0]?.originFileObj);
-        // }
-        // try {
-        //   const response = await baseURL.patch(`/users/${id}`, formData);
-        //   if (response.data.code == 200) {
-        //     Swal.fire({
-        //       position: "top-center",
-        //       icon: "success",
-        //       title: response.data.message,
-        //       showConfirmButton: false,
-        //       timer: 1500,
-        //     });
-        //     localStorage.removeItem("user-update");
-        //     localStorage.setItem(
-        //       "user-update",
-        //       JSON.stringify(response?.data?.data?.attributes)
-        //     );
-        //     console.log(response.data);
-        //     // navigate('/dashboard/', { replace: true });
-        //     setTimeout(()=>window.location.reload() , 1700);
+        if (fileList[0]?.originFileObj) {
+          formData.append("image", fileList[0]?.originFileObj);
+        }
+        try {
+          const response = await baseURL.patch(`/users/${id}`, formData);
+          if (response.data.code == 200) {
+            Swal.fire({
+              position: "top-center",
+              icon: "success",
+              title: response.data.message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            localStorage.removeItem("admin");
+            localStorage.setItem(
+              "admin",
+              JSON.stringify(response?.data?.data?.attributes)
+            );
+            console.log(response.data);
+            // navigate('/dashboard/', { replace: true });
+            setTimeout(()=>window.location.reload() , 1700);
             
-        //   }
-        // } catch (error) {
-        //   console.log("Registration Fail", error?.response?.data?.message);
-        //   Swal.fire({
-        //     icon: "error",
-        //     title: "Error...",
-        //     text: error?.response?.data?.message,
-        //     footer: '<a href="#">Why do I have this issue?</a>',
-        //   });
-        // }
-        // console.log(updateProfile);
+          }
+        } catch (error) {
+          console.log("Registration Fail", error?.response?.data?.message);
+          Swal.fire({
+            icon: "error",
+            title: "Error...",
+            text: error?.response?.data?.message,
+            footer: '<a href="#">Why do I have this issue?</a>',
+          });
+        }
+        console.log(updateProfile);
       };
     return (
         <div >
@@ -121,7 +122,7 @@ const EditProfileInformation = () => {
         className="flex cursor-pointer  items-center ml-[24px] mt-[40px] mb-[63px]"
       >
         <MdOutlineKeyboardArrowLeft size={30} />
-        <h1 className="text-[20px] font-medium"> Edit Profile</h1>
+        <h1 className="text-[20px] font-medium">Edit Profile</h1>
       </div>
       <div className="ml-[24px] bg-white p-[36px] rounded-xl shadow-2xl">
         <Form
@@ -134,7 +135,6 @@ const EditProfileInformation = () => {
           }}
           autoComplete="off"
           onFinish={handleUpdateProfile}
-          //   onFinishFailed={handleCompanyInformationFailed}
         >
           <div className="flex ">
             <div className="w-[33%] ml-[24px] flex flex-col justify-center items-center gap-[30px]">
@@ -199,12 +199,12 @@ const EditProfileInformation = () => {
               </div>
               <div className="flex flex-col justify-center items-center">
                 <p className="text-[20px] text-[#4E4E4E]">
-                  {/* {user?.role.toUpperCase()} */}
-                  ADMIN
+                  {user?.role?.toUpperCase()}
+                 
                 </p>
                 <h1 className="text-[#222222] text-[30px] font-medium">
-                  {/* {user?.name.toUpperCase()} */}
-                  AHAD HOSSAIN
+                  {user?.fullName?.toUpperCase()}
+                
                 </h1>
               </div>
             </div>
@@ -219,7 +219,7 @@ const EditProfileInformation = () => {
                           Name
                         </span>
                       }
-                      name="name"
+                      name="fullName"
                       className="flex-1"
                       rules={[
                         {
@@ -227,7 +227,7 @@ const EditProfileInformation = () => {
                           message: "Please input your First Name!",
                         },
                       ]}
-                    //   initialValue={user?.name}
+                      initialValue={user?.fullName}
                     >
                       <Input
                         placeholder="Name"
@@ -261,10 +261,11 @@ const EditProfileInformation = () => {
                         message: "Please input your Email!",
                       },
                     ]}
-                    // initialValue={user?.email}
+                    initialValue={user?.email}
                   >
                     <Input
                       placeholder="Email"
+                      disabled
                       className="p-4 bg-[#F7F7F7]
               mt-[12px]
                rounded w-full 
@@ -291,46 +292,9 @@ const EditProfileInformation = () => {
                       marginTop: "12px",
                     }}
                     defaultCountry="US"
-                    value={phoneNumber}
+                    value={phoneNumber?.toString()}
                     onChange={setPhoneNumber}
                   />
-                </div>
-                <div className="flex-1">
-                  <Form.Item
-                    label={
-                      <span className="text-[#222222] text-[18px] font-medium">
-                        Date Of Birth
-                      </span>
-                    }
-                    name="dateOfBirth"
-                    className="flex-1"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your Date Of Birth!",
-                      },
-                    ]}
-                    // initialValue={user?.dateOfBirth
-                    //   ? moment(user.dateOfBirth, "DD-M-YYYY")
-                    //   : null}
-                  >
-                    <DatePicker
-                      className="p-4 bg-[#F7F7F7]
-                mt-[12px]
-                 rounded w-full 
-                 justify-start 
-                 border-none
-                 items-center 
-                 gap-4 inline-flex outline-none focus:border-none focus:bg-[#F7F7F7] hover:bg-[#F7F7F7]"
-                      type="date"
-                      prefix={" "}
-                      // defaultValue={
-                      //   user?.dateOfBirth
-                      //     ? moment(user.dateOfBirth, "DD-M-YYYY")
-                      //     : null
-                      // }
-                    />
-                  </Form.Item>
                 </div>
               </div>
             </div>

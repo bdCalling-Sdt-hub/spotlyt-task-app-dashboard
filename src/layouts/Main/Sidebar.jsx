@@ -16,6 +16,8 @@ import { IoIosArrowForward } from "react-icons/io";
 import { MdLogout } from "react-icons/md";
 import { Menu } from "antd";
 import { useState } from "react";
+import { BiMoneyWithdraw } from "react-icons/bi";
+import { MdVerifiedUser } from "react-icons/md";
 
 
 
@@ -82,13 +84,19 @@ const Sidebar = ({collapsed}) => {
      
     ),
     getItem(
+      <p onClick={(e) => navigate("/verify-request")} className="text-[18px] leading-normal">Verify Request</p>,
+      "4",
+      <MdVerifiedUser  style={{ fontSize: "24px" }} />
+     
+    ),
+    getItem(
       <p
         // onClick={(e) => navigate("/appointments")}
         className="text-[18px] leading-normal"
       >
         Tasks
       </p>,
-      "4",
+      "5",
       <FaRegClipboard  style={{ fontSize: "24px" }} />,
        [
         getItem(
@@ -98,7 +106,7 @@ const Sidebar = ({collapsed}) => {
           >
             Social Media
           </li>,
-          "5"
+          "6"
         ),
         getItem(
           <li
@@ -107,7 +115,7 @@ const Sidebar = ({collapsed}) => {
           >
             Video
           </li>,
-          "6"
+          "7"
         ),
         getItem(
           <li
@@ -116,7 +124,7 @@ const Sidebar = ({collapsed}) => {
           >
             Corporate
           </li>,
-          "7"
+          "8"
         ),
       ]
 
@@ -128,11 +136,16 @@ const Sidebar = ({collapsed}) => {
       >
         Employees Task Register
       </p>,
-      "8",
+      "9",
       <FaClipboardCheck  style={{ fontSize: "24px" }} />
     ),
    
-
+    getItem(
+      <p onClick={(e) => navigate("/withdraw-request")} className="text-[18px] leading-normal">Withdrawal Request</p>,
+      "10",
+      <BiMoneyWithdraw  style={{ fontSize: "24px" }} />
+     
+    ),
    
  
     getItem(
@@ -142,14 +155,14 @@ const Sidebar = ({collapsed}) => {
       >
         Settings
       </p>,
-      "9",
+    "11",
       <CiSettings   style={{ fontSize: "24px" }}/> 
     ),
     getItem(
       <p onClick={logout} className="text-[18px] leading-normal">
         Logout
       </p>,
-      "10",
+      "12",
       <MdLogout  style={{ fontSize: "24px" }}/>
     ),
   ];

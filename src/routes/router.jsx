@@ -22,6 +22,8 @@ import TearmsAndCondition from "../pages/Main/Settings/TearmsAndCondition";
 import EditTramsAndCondition from "../pages/Main/Settings/EditTearmsAndCondition";
 import AboutUs from "../pages/Main/Settings/AboutUs";
 import EditAboutUs from "../pages/Main/Settings/EditAboutUs";
+import VerifyRequest from "../pages/Main/VerifyRequest/VerifyRequest";
+import WithdrawRequest from "../pages/Main/WithdrawRequest/WithdrawRequest";
 
 
 
@@ -43,6 +45,14 @@ const router = createBrowserRouter([
         {
           path: "/all-employee",
           element: <AllEmployee/>,
+        },
+        {
+          path: "/verify-request",
+          element: <VerifyRequest/>,
+        },
+        {
+          path: "/withdraw-request",
+          element: <WithdrawRequest/>,
         },
         {
           path: "/tasks/social-media",
@@ -69,7 +79,7 @@ const router = createBrowserRouter([
           element: <ProfileInformation/>,
         },
         {
-          path: "/edit-profile-information",
+          path: "/edit-profile-information/:id",
           element: <EditProfileInformation/>,
         },
         // {
