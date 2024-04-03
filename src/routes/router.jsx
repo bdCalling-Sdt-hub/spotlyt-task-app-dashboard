@@ -24,6 +24,7 @@ import AboutUs from "../pages/Main/Settings/AboutUs";
 import EditAboutUs from "../pages/Main/Settings/EditAboutUs";
 import VerifyRequest from "../pages/Main/VerifyRequest/VerifyRequest";
 import WithdrawRequest from "../pages/Main/WithdrawRequest/WithdrawRequest";
+import AdminRoutes from "./AdminRoutes";
 
 
 
@@ -32,7 +33,7 @@ import WithdrawRequest from "../pages/Main/WithdrawRequest/WithdrawRequest";
 const router = createBrowserRouter([
     {
       path: "/",
-      element: <Main/>,
+      element: <AdminRoutes><Main/></AdminRoutes>,
       children: [
         {
           path: "/",

@@ -5,51 +5,56 @@ import JoditEditor from "jodit-react";
 import { useRef, useState } from "react";
 import Swal from "sweetalert2";
 import baseURL from "../../../config";
+import { useGetTermsQuery } from "../../../redux/features/getTermsApi";
 
 const EditTramsAndCondition = () => {
-    const navigate = useNavigate();
-    const editor = useRef(null);
-    const [content, setContent] = useState("");
-    
-  
-    const handleUpdate = async ()=>{
-      console.log(content);
-      try {
-        const response = await baseURL.post(`/terms`, {
-          content
+  const navigate = useNavigate();
+  const editor = useRef(null);
+  const {data,isLoading,is} = useGetTermsQuery();
+  console.log(data?.data?.attributes[0]?.content);
+  const [content, setContent] = useState(data?.data?.attributes[0]?.content);
+console.log(content);
+  const handleUpdate = async () => {
+    console.log(content);
+    try {
+      const response = await baseURL.post(
+        `/terms`,
+        {
+          content,
         },
         {
           headers: {
             "Content-Type": "application/json",
-            authentication: `Bearer ${localStorage.getItem("token")}`,
-          }
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
-        )
-        if(response?.data?.code === 201){
-          Swal.fire({
-            position: "top-center",
-            icon: "success",
-            title: response?.data?.message,
-            showConfirmButton: false,
-            timer: 1500,
-          });
-  
-        }
-        navigate("/settings/privacy-policy")
-        console.log(response);
-      }catch(error){
-        console.log(error);
+      );
+      if (response?.data?.code === 201) {
         Swal.fire({
-          icon: "error",
-          title: "Try Again...",
-          text: error?.response?.data?.message,
-          footer: '<a href="#">Why do I have this issue?</a>',
-        })
+          position: "top-center",
+          icon: "success",
+          title: response?.data?.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
-    } 
-  
-    return (
-        <div className="relative ml-[24px]">
+     
+      navigate("/settings/terms-and-conditions");
+      window.location.reload();
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Try Again...",
+        text: error?.response?.data?.message,
+        footer: '<a href="#">Why do I have this issue?</a>',
+      });
+    }
+  };
+
+  return (
+    <div className="relative ml-[24px]">
       <div className=" mt-[44px] cursor-pointer flex items-center pb-3 gap-2">
         <MdOutlineKeyboardArrowLeft
           className=""
@@ -61,32 +66,31 @@ const EditTramsAndCondition = () => {
         </h1>
       </div>
       <div className="text-wrap w-full">
-      <JoditEditor
-        ref={editor}
-        value={content}
-        onChange={(newContent) => {
-          setContent(newContent);
-        }}
-        className="text-wrap"
-        style={{ width: '100%' }} 
-      />
-      <Button
-        onClick={handleUpdate}
-        block
-        // style={{
-        //   marginTop: "30px",
-        //   backgroundColor: "#318130",
-        //   color: "#fff",
-        //   height: "50px",
-        // }}
-        className="mt-[30px] bg-[#318130] text-[white] h-[50px] hover:text-white "
-      >
-        
-        Update
+        <JoditEditor
+          ref={editor}
+          value={content}
+          onChange={(newContent) => {
+            setContent(newContent);
+          }}
+          className="text-wrap"
+          style={{ width: "100%" }}
+        />
+        <Button
+          onClick={handleUpdate}
+          block
+          // style={{
+          //   marginTop: "30px",
+          //   backgroundColor: "#318130",
+          //   color: "#fff",
+          //   height: "50px",
+          // }}
+          className="mt-[30px] bg-[#318130] text-[white] h-[50px] hover:text-white "
+        >
+          Update
         </Button>
       </div>
-      </div>
-    );
-}
+    </div>
+  );
+};
 
 export default EditTramsAndCondition;

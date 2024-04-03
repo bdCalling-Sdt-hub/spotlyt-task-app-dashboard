@@ -18,6 +18,7 @@ import { Menu } from "antd";
 import { useState } from "react";
 import { BiMoneyWithdraw } from "react-icons/bi";
 import { MdVerifiedUser } from "react-icons/md";
+import Swal from "sweetalert2";
 
 
 
@@ -43,23 +44,22 @@ const Sidebar = ({collapsed}) => {
   };
 
   const logout = () => {
-    // Swal.fire({
-    //   title: "Do you want to Logout from here?",
-    //   showDenyButton: true,
-    //   showCancelButton: false,
-    //   confirmButtonText: "Yes",
-    //   denyButtonText: `No`,
-    // }).then((result) => {
-    //   if (result.isConfirmed) {
-    //     localStorage.removeItem("token");
-    //     localStorage.removeItem("yourInfo");
+    Swal.fire({
+      title: "Do you want to Logout from here?",
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: "Yes",
+      denyButtonText: `No`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("admin");
 
-    //     navigate("/login");
-    //   } else if (result.isDenied) {
-    //     Swal.fire("Ok", "", "info");
-    //   }
-    // });
-    navigate('/auth')
+        navigate("/auth");
+      } else if (result.isDenied) {
+        Swal.fire("Ok", "", "info");
+      }
+    });
   };
 
 
