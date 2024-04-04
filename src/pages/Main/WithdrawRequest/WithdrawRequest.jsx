@@ -1,23 +1,31 @@
 import { ConfigProvider, DatePicker, Modal, Space, Table } from 'antd';
 import { useState } from 'react';
 import { BsInfoCircle } from "react-icons/bs";
+import { useGetAllWithdrawalQuery } from '../../../redux/features/getAllWithdrawalApi';
 
 const WithdrawRequest = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [client, setClient] = useState();
+    const {data,isLoading,isSuccess} = useGetAllWithdrawalQuery({currentPage})
     const handleView = (value) => {
         setClient(value);
         console.log(value)
         setIsModalOpen(true);
       };
 
+      if(isLoading){
+        return <h1>Loading...</h1>
+      }
+      const url = import.meta.env.VITE_API_URL
+      const list = data?.data?.attributes?.results;
+      console.log(list);
     const columns = [
         {
           title: "#SI",
           dataIndex: "si",
           key: "si",
-          render: (text) => <a>{text}</a>,
+          render: (text, record, index) => index + 1,
         },
         {
           title: "Employee Name",
@@ -27,10 +35,10 @@ const WithdrawRequest = () => {
             <div className="flex gap-2 items-center">
               <img
                 className="w-[34px] h-[34px] rounded-full"
-                src={record.img}
+                src={`${url}${record?.userId?.image?.url}`}
                 alt=""
               />
-              <p className="font-medium">{record.name}</p>
+              <p className="font-medium">{record?.userId?.fullName}</p>
             </div>
           ),
         },
@@ -53,6 +61,12 @@ const WithdrawRequest = () => {
             title: "Withdraw Amount",
             key: "withdrawAmount",
             dataIndex: "withdrawAmount",
+            // render:(_,record)=>(<p>{record?.withdrawAmount}</p>)
+            render: (_, record) => (
+              <div className="flex gap-2 items-center">
+                <p className="font-medium">{record?.withdrawalAmount}</p>
+              </div>
+            ),
           },
           {
             title: "Status",
@@ -78,188 +92,189 @@ const WithdrawRequest = () => {
           ),
         },
       ];
-      const data = [
-        {
-          key: "1",
-          si: 1,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          country: "New York",
-          status:"Approve",
-          nidNumber: 50041231541,
-          bankName:"International Bank",
-          accountType:"Saving",
-          withdrawAmount:"500"
-        },
-        {
-            key: "2",
-            si: 2,
-            name: "John Brown",
-            img: "https://xsgames.co/randomusers/avatar.php?g=female",
-            task: "Request Facebook Like ",
-            date: "02-24-2024",
-            email: "ahad.aiman@gmail.com",
-            country: "New York",
-            status:"Approve",
-            nidNumber: 50041231541,
-            bankName:"International Bank",
-            accountType:"Saving",
-            withdrawAmount:"500"
-          },
-          {
-            key: "3",
-            si: 3,
-            name: "John Brown",
-            img: "https://xsgames.co/randomusers/avatar.php?g=female",
-            task: "Request Facebook Like ",
-            date: "02-24-2024",
-            email: "ahad.aiman@gmail.com",
-            country: "New York",
-            status:"Approve",
-            nidNumber: 50041231541,
-            bankName:"International Bank",
-            accountType:"Saving",
-            withdrawAmount:"500"
-          },
-        {
-          key: "4",
-          si: 4,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          country: "New York",
-          status:"Approve",
-          nidNumber: 50041231541,
-          bankName:"International Bank",
-          accountType:"Saving",
-          withdrawAmount:"500"
-        },
-        {
-          key: "5",
-          si: 5,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          country: "New York",
-          status:"Approve",
-          nidNumber: 50041231541,
-          bankName:"International Bank",
-          accountType:"Saving",
-          withdrawAmount:"500"
-        },
-        {
-          key: "6",
-          si: 6,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          country: "New York",
-          status:"Approve",
-          nidNumber: 50041231541,
-          bankName:"International Bank",
-          accountType:"Saving",
-          withdrawAmount:"500"
-        },
-        {
-          key: "7",
-          si: 7,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          country: "New York",
-          status:"Approve",
-          nidNumber: 50041231541,
-          bankName:"International Bank",
-          accountType:"Saving",
-          withdrawAmount:"500"
-        },
-        {
-          key: "8",
-          si: 8,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          country: "New York",
-          status:"Approve",
-          nidNumber: 50041231541,
-          bankName:"International Bank",
-          accountType:"Saving",
-          withdrawAmount:"500"
-        },
-        {
-          key: "9",
-          si: 9,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          country: "New York",
-          status:"Approve",
-          nidNumber: 50041231541,
-          bankName:"International Bank",
-          accountType:"Saving",
-          withdrawAmount:"500"
-        },
-        {
-          key: "10",
-          si: 10,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          country: "New York",
-          status:"Approve",
-          nidNumber: 50041231541,
-          bankName:"International Bank",
-          accountType:"Saving",
-          withdrawAmount:"500"
-        },
-        {
-          key: "11",
-          si: 11,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          country: "New York",
-          status:"Approve",
-          nidNumber: 50041231541,
-          bankName:"International Bank",
-          accountType:"Saving",
-          withdrawAmount:"500"
-        },
-        {
-          key: "12",
-          si: 12,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          country: "New York",
-          status:"Approve",
-          nidNumber: 50041231541,
-          bankName:"International Bank",
-          accountType:"Saving",
-          withdrawAmount:"500"
-        },
-      ];
+      console.log(data);
+      // const data = [
+      //   {
+      //     key: "1",
+      //     si: 1,
+      //     name: "John Brown",
+      //     img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //     task: "Request Facebook Like ",
+      //     date: "02-24-2024",
+      //     email: "ahad.aiman@gmail.com",
+      //     country: "New York",
+      //     status:"Approve",
+      //     nidNumber: 50041231541,
+      //     bankName:"International Bank",
+      //     accountType:"Saving",
+      //     withdrawAmount:"500"
+      //   },
+      //   {
+      //       key: "2",
+      //       si: 2,
+      //       name: "John Brown",
+      //       img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //       task: "Request Facebook Like ",
+      //       date: "02-24-2024",
+      //       email: "ahad.aiman@gmail.com",
+      //       country: "New York",
+      //       status:"Approve",
+      //       nidNumber: 50041231541,
+      //       bankName:"International Bank",
+      //       accountType:"Saving",
+      //       withdrawAmount:"500"
+      //     },
+      //     {
+      //       key: "3",
+      //       si: 3,
+      //       name: "John Brown",
+      //       img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //       task: "Request Facebook Like ",
+      //       date: "02-24-2024",
+      //       email: "ahad.aiman@gmail.com",
+      //       country: "New York",
+      //       status:"Approve",
+      //       nidNumber: 50041231541,
+      //       bankName:"International Bank",
+      //       accountType:"Saving",
+      //       withdrawAmount:"500"
+      //     },
+      //   {
+      //     key: "4",
+      //     si: 4,
+      //     name: "John Brown",
+      //     img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //     task: "Request Facebook Like ",
+      //     date: "02-24-2024",
+      //     email: "ahad.aiman@gmail.com",
+      //     country: "New York",
+      //     status:"Approve",
+      //     nidNumber: 50041231541,
+      //     bankName:"International Bank",
+      //     accountType:"Saving",
+      //     withdrawAmount:"500"
+      //   },
+      //   {
+      //     key: "5",
+      //     si: 5,
+      //     name: "John Brown",
+      //     img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //     task: "Request Facebook Like ",
+      //     date: "02-24-2024",
+      //     email: "ahad.aiman@gmail.com",
+      //     country: "New York",
+      //     status:"Approve",
+      //     nidNumber: 50041231541,
+      //     bankName:"International Bank",
+      //     accountType:"Saving",
+      //     withdrawAmount:"500"
+      //   },
+      //   {
+      //     key: "6",
+      //     si: 6,
+      //     name: "John Brown",
+      //     img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //     task: "Request Facebook Like ",
+      //     date: "02-24-2024",
+      //     email: "ahad.aiman@gmail.com",
+      //     country: "New York",
+      //     status:"Approve",
+      //     nidNumber: 50041231541,
+      //     bankName:"International Bank",
+      //     accountType:"Saving",
+      //     withdrawAmount:"500"
+      //   },
+      //   {
+      //     key: "7",
+      //     si: 7,
+      //     name: "John Brown",
+      //     img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //     task: "Request Facebook Like ",
+      //     date: "02-24-2024",
+      //     email: "ahad.aiman@gmail.com",
+      //     country: "New York",
+      //     status:"Approve",
+      //     nidNumber: 50041231541,
+      //     bankName:"International Bank",
+      //     accountType:"Saving",
+      //     withdrawAmount:"500"
+      //   },
+      //   {
+      //     key: "8",
+      //     si: 8,
+      //     name: "John Brown",
+      //     img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //     task: "Request Facebook Like ",
+      //     date: "02-24-2024",
+      //     email: "ahad.aiman@gmail.com",
+      //     country: "New York",
+      //     status:"Approve",
+      //     nidNumber: 50041231541,
+      //     bankName:"International Bank",
+      //     accountType:"Saving",
+      //     withdrawAmount:"500"
+      //   },
+      //   {
+      //     key: "9",
+      //     si: 9,
+      //     name: "John Brown",
+      //     img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //     task: "Request Facebook Like ",
+      //     date: "02-24-2024",
+      //     email: "ahad.aiman@gmail.com",
+      //     country: "New York",
+      //     status:"Approve",
+      //     nidNumber: 50041231541,
+      //     bankName:"International Bank",
+      //     accountType:"Saving",
+      //     withdrawAmount:"500"
+      //   },
+      //   {
+      //     key: "10",
+      //     si: 10,
+      //     name: "John Brown",
+      //     img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //     task: "Request Facebook Like ",
+      //     date: "02-24-2024",
+      //     email: "ahad.aiman@gmail.com",
+      //     country: "New York",
+      //     status:"Approve",
+      //     nidNumber: 50041231541,
+      //     bankName:"International Bank",
+      //     accountType:"Saving",
+      //     withdrawAmount:"500"
+      //   },
+      //   {
+      //     key: "11",
+      //     si: 11,
+      //     name: "John Brown",
+      //     img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //     task: "Request Facebook Like ",
+      //     date: "02-24-2024",
+      //     email: "ahad.aiman@gmail.com",
+      //     country: "New York",
+      //     status:"Approve",
+      //     nidNumber: 50041231541,
+      //     bankName:"International Bank",
+      //     accountType:"Saving",
+      //     withdrawAmount:"500"
+      //   },
+      //   {
+      //     key: "12",
+      //     si: 12,
+      //     name: "John Brown",
+      //     img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //     task: "Request Facebook Like ",
+      //     date: "02-24-2024",
+      //     email: "ahad.aiman@gmail.com",
+      //     country: "New York",
+      //     status:"Approve",
+      //     nidNumber: 50041231541,
+      //     bankName:"International Bank",
+      //     accountType:"Saving",
+      //     withdrawAmount:"500"
+      //   },
+      // ];
       const onChange = (date, dateString) => {
         console.log(date, dateString);
       };
@@ -294,7 +309,7 @@ const WithdrawRequest = () => {
               position: ["bottomCenter"],
             }}
             columns={columns}
-            dataSource={data}
+            dataSource={list}
           />
           </ConfigProvider>
         </div>
@@ -307,20 +322,20 @@ const WithdrawRequest = () => {
         >
         <div>
           <div className="flex justify-center items-center gap-2 flex-col border-b pt-10 border-b-gray-300">
-            <img className="w-[140px] h-[140px] rounded-full " src={client?.img} alt="" />
-            <p className="text-white text-[16px] mb-[16px]">{client?.name}</p>
+            <img className="w-[140px] h-[140px] rounded-full " src={`${url}${client?.userId?.image?.url}`} alt="" />
+            <p className="text-white text-[16px] mb-[16px]">{client?.userId?.fullName}</p>
           </div>
           <div className="p-[20px] text-white">
             <div className="flex justify-between border-b py-[16px]">
               <p>Date:</p>
               <p>
-                {client?.date}
+                {client?.createdAt?.split("T")[0]}
               </p>
             </div>
             <div className="flex justify-between border-b py-[16px] ">
               <p>Employee Name:</p>
               <p>
-                {client?.name}
+                {client?.userId?.fullName}
               </p>
             </div>
             <div className="flex justify-between border-b py-[16px]">
@@ -338,23 +353,18 @@ const WithdrawRequest = () => {
             <div className="flex justify-between border-b py-[16px]">
               <p>Withdraw Amount:</p>
               <p>
-                {client?.withdrawAmount}
+                {client?.withdrawalAmount
+}
               </p>
             </div>
-            <div className="flex justify-between border-b py-[16px]">
+            <div className="flex justify-between py-[16px]">
               <p>Earned Amount:</p>
               <p>
-                {/* {client?.withdrawAmount} */}
-                1200
+                R {client?.userId?.rand}
+                
               </p>
             </div>
-            <div className="flex justify-between border-b py-[16px]">
-              <p>Total Withdraw:</p>
-              <p>
-                {/* {client?.withdrawAmount} */}
-                2 Time
-              </p>
-            </div>
+      
             <div className="flex justify-center gap-10 items-center pt-[16px]">
               <p className="px-[55px] cursor-pointer py-[10px] bg-[#318130] rounded-lg">
                 Approve

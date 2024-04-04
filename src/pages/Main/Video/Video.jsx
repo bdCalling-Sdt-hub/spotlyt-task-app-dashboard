@@ -17,7 +17,7 @@ const Video = () => {
           title: "#SI",
           dataIndex: "si",
           key: "si",
-          render: (text) => <a>{text}</a>,
+          render: (text, record, index) => index + 1,
         },
         {
           title: "Client Name",

@@ -1,9 +1,13 @@
 import { ConfigProvider, DatePicker, Modal, Space, Table } from 'antd';
 import { useState } from 'react';
 import { BsInfoCircle } from "react-icons/bs";
+import { useGetVeryfyRequestListQuery } from '../../../redux/features/getVeryfyRequestListApi';
+import baseURL from '../../../config';
+import Swal from 'sweetalert2';
 
 
 const VerifyRequest = () => {
+  const {data:veryfyRequest,isLoading,isSuccess} = useGetVeryfyRequestListQuery();
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [client, setClient] = useState();
@@ -12,13 +16,19 @@ const VerifyRequest = () => {
         console.log(value)
         setIsModalOpen(true);
       };
+      if(isLoading){
+        return <h1>Loading...</h1>
+      }
+      const url = import.meta.env.VITE_API_URL
 
+const list = veryfyRequest?.data?.attributes;
+console.log(list);
     const columns = [
         {
           title: "#SI",
           dataIndex: "si",
           key: "si",
-          render: (text) => <a>{text}</a>,
+          render: (text, record, index) => index + 1,
         },
         {
           title: "Employee Name",
@@ -28,10 +38,10 @@ const VerifyRequest = () => {
             <div className="flex gap-2 items-center">
               <img
                 className="w-[34px] h-[34px] rounded-full"
-                src={record.img}
+                src={`${url}${record?.image?.url}`}
                 alt=""
               />
-              <p className="font-medium">{record?.name}</p>
+              <p className="font-medium">{record?.fullName}</p>
             </div>
           ),
         },
@@ -43,7 +53,7 @@ const VerifyRequest = () => {
         {
           title: "Employee NID Number",
           dataIndex: "nidNumber",
-          key: "task",
+          key: "nidNumber",
         },
         {
           title: "Email",
@@ -54,11 +64,21 @@ const VerifyRequest = () => {
             title: "Full Address",
             key: "address",
             dataIndex: "address",
+            render:(_,record)=>(
+             <p> 
+             { record?.address ? record?.address : "N/A"}
+            </p>
+            )
           },
         {
           title: "Date",
           key: "date",
           dataIndex: "date",
+          render: (_, record) => (
+            <div>
+              <p className="font-medium">{record?.createdAt.split("T")[0]}</p>
+            </div>
+          ),
         },
         {
           title: "Action",
@@ -73,143 +93,184 @@ const VerifyRequest = () => {
           ),
         },
       ];
-      const data = [
-        {
-          key: "1",
-          si: 1,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          address: "New York",
-          nidNumber: 50041231541,
-        },
-        {
-            key: "2",
-            si: 2,
-            name: "John Brown",
-            img: "https://xsgames.co/randomusers/avatar.php?g=female",
-            task: "Request Facebook Like ",
-            date: "02-24-2024",
-            email: "ahad.aiman@gmail.com",
-            address: "New York",
-            nidNumber: 50041231541,
-          },
-          {
-            key: "3",
-            si: 3,
-            name: "John Brown",
-            img: "https://xsgames.co/randomusers/avatar.php?g=female",
-            task: "Request Facebook Like ",
-            date: "02-24-2024",
-            email: "ahad.aiman@gmail.com",
-            address: "New York",
-            nidNumber: 50041231541,
-          },
-        {
-          key: "4",
-          si: 4,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          address: "New York",
-          nidNumber: 50041231541,
-        },
-        {
-          key: "5",
-          si: 5,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          address: "New York",
-          nidNumber: 50041231541,
-        },
-        {
-          key: "6",
-          si: 6,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          address: "New York",
-          nidNumber: 50041231541,
-        },
-        {
-          key: "7",
-          si: 7,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          address: "New York",
-          nidNumber: 50041231541,
-        },
-        {
-          key: "8",
-          si: 8,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          address: "New York",
-          nidNumber: 50041231541,
-        },
-        {
-          key: "9",
-          si: 9,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          address: "New York",
-          nidNumber: 50041231541,
-        },
-        {
-          key: "10",
-          si: 10,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          address: "New York",
-          nidNumber: 50041231541,
-        },
-        {
-          key: "11",
-          si: 11,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          address: "New York",
-          nidNumber: 50041231541,
-        },
-        {
-          key: "12",
-          si: 12,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          address: "New York",
-          nidNumber: 50041231541,
-        },
-      ];
+
+      // const data = [
+      //   {
+      //     key: "1",
+      //     si: 1,
+      //     name: "John Brown",
+      //     img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //     task: "Request Facebook Like ",
+      //     date: "02-24-2024",
+      //     email: "ahad.aiman@gmail.com",
+      //     address: "New York",
+      //     nidNumber: 50041231541,
+      //   },
+      //   {
+      //       key: "2",
+      //       si: 2,
+      //       name: "John Brown",
+      //       img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //       task: "Request Facebook Like ",
+      //       date: "02-24-2024",
+      //       email: "ahad.aiman@gmail.com",
+      //       address: "New York",
+      //       nidNumber: 50041231541,
+      //     },
+      //     {
+      //       key: "3",
+      //       si: 3,
+      //       name: "John Brown",
+      //       img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //       task: "Request Facebook Like ",
+      //       date: "02-24-2024",
+      //       email: "ahad.aiman@gmail.com",
+      //       address: "New York",
+      //       nidNumber: 50041231541,
+      //     },
+      //   {
+      //     key: "4",
+      //     si: 4,
+      //     name: "John Brown",
+      //     img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //     task: "Request Facebook Like ",
+      //     date: "02-24-2024",
+      //     email: "ahad.aiman@gmail.com",
+      //     address: "New York",
+      //     nidNumber: 50041231541,
+      //   },
+      //   {
+      //     key: "5",
+      //     si: 5,
+      //     name: "John Brown",
+      //     img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //     task: "Request Facebook Like ",
+      //     date: "02-24-2024",
+      //     email: "ahad.aiman@gmail.com",
+      //     address: "New York",
+      //     nidNumber: 50041231541,
+      //   },
+      //   {
+      //     key: "6",
+      //     si: 6,
+      //     name: "John Brown",
+      //     img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //     task: "Request Facebook Like ",
+      //     date: "02-24-2024",
+      //     email: "ahad.aiman@gmail.com",
+      //     address: "New York",
+      //     nidNumber: 50041231541,
+      //   },
+      //   {
+      //     key: "7",
+      //     si: 7,
+      //     name: "John Brown",
+      //     img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //     task: "Request Facebook Like ",
+      //     date: "02-24-2024",
+      //     email: "ahad.aiman@gmail.com",
+      //     address: "New York",
+      //     nidNumber: 50041231541,
+      //   },
+      //   {
+      //     key: "8",
+      //     si: 8,
+      //     name: "John Brown",
+      //     img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //     task: "Request Facebook Like ",
+      //     date: "02-24-2024",
+      //     email: "ahad.aiman@gmail.com",
+      //     address: "New York",
+      //     nidNumber: 50041231541,
+      //   },
+      //   {
+      //     key: "9",
+      //     si: 9,
+      //     name: "John Brown",
+      //     img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //     task: "Request Facebook Like ",
+      //     date: "02-24-2024",
+      //     email: "ahad.aiman@gmail.com",
+      //     address: "New York",
+      //     nidNumber: 50041231541,
+      //   },
+      //   {
+      //     key: "10",
+      //     si: 10,
+      //     name: "John Brown",
+      //     img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //     task: "Request Facebook Like ",
+      //     date: "02-24-2024",
+      //     email: "ahad.aiman@gmail.com",
+      //     address: "New York",
+      //     nidNumber: 50041231541,
+      //   },
+      //   {
+      //     key: "11",
+      //     si: 11,
+      //     name: "John Brown",
+      //     img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //     task: "Request Facebook Like ",
+      //     date: "02-24-2024",
+      //     email: "ahad.aiman@gmail.com",
+      //     address: "New York",
+      //     nidNumber: 50041231541,
+      //   },
+      //   {
+      //     key: "12",
+      //     si: 12,
+      //     name: "John Brown",
+      //     img: "https://xsgames.co/randomusers/avatar.php?g=female",
+      //     task: "Request Facebook Like ",
+      //     date: "02-24-2024",
+      //     email: "ahad.aiman@gmail.com",
+      //     address: "New York",
+      //     nidNumber: 50041231541,
+      //   },
+      // ];
       const onChange = (date, dateString) => {
         console.log(date, dateString);
       };
+      const handleApprove = (id) => {
+        console.log(id);
+        try {
+          const response = baseURL.post(`/users/nidVerifyApproval?id=${id}`, {
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          })
+          console.log(response);
+          if(response?.data?.code == 200){
+            Swal.fire({
+              position: 'top-center',
+              icon: 'success',
+              title: `${response?.data?.data?.message}`,
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }else{
+            Swal.fire({
+              position: 'top-center',
+              icon: 'error',
+              title: `${response?.data?.data?.message}`,
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
+        } catch (error) {
+        Swal.fire({
+          position: 'top-center',
+          icon: 'error',
+          title: `${error?.response?.data?.message}`,
+          showConfirmButton: false,
+          timer: 1500
+        })
+        }
+      }
+      const handleCancel = (id) => {
+        
+      }
     return (
         <div className=" ml-[24px]">
         <div className=" flex justify-between items-center">
@@ -241,10 +302,12 @@ const VerifyRequest = () => {
               position: ["bottomCenter"],
             }}
             columns={columns}
-            dataSource={data}
+            dataSource={list}
           />
           </ConfigProvider>
         </div>
+
+
         <Modal
           open={isModalOpen}
           onOk={() => setIsModalOpen(false)}
@@ -254,20 +317,20 @@ const VerifyRequest = () => {
         >
         <div>
           <div className="flex justify-center items-center gap-2 flex-col border-b pt-10 border-b-gray-300">
-            <img className="w-[140px] h-[140px] rounded-full " src={client?.img} alt="" />
-            <p className="text-white text-[16px] mb-[16px]">{client?.name}</p>
+            <img className="w-[140px] h-[140px] rounded-full " src={`${url}${client?.image?.url}`} alt="" />
+            <p className="text-white text-[16px] mb-[16px]">{client?.fullName}</p>
           </div>
           <div className="p-[20px] text-white">
             <div className="flex justify-between border-b py-[16px]">
               <p>Date:</p>
               <p>
-                {client?.date}
+                {client?.createdAt?.split("T")[0]}
               </p>
             </div>
             <div className="flex justify-between border-b py-[16px] ">
               <p>Employee Name:</p>
               <p>
-                {client?.name}
+                {client?.fullName}
               </p>
             </div>
             <div className="flex justify-between border-b py-[16px]">
@@ -285,14 +348,14 @@ const VerifyRequest = () => {
             <div className="flex justify-between border-b py-[16px]">
               <p>Address:</p>
               <p>
-                {client?.address}
+                {client?.address ? client?.address : "N/A"}
               </p>
             </div>
             <div className="flex justify-center gap-10 items-center pt-[16px]">
-              <p className="px-[55px] cursor-pointer py-[10px] bg-[#318130] rounded-lg">
+              <p onClick={()=>handleApprove(client?.id)} className="px-[55px] cursor-pointer py-[10px] bg-[#318130] rounded-lg">
                 Approve
               </p>
-              <p className="px-[55px] cursor-pointer py-[10px] text-[#318130] bg-[white] border-2 border-[#318130] rounded-lg">
+              <p onClick={handleCancel} className="px-[55px] cursor-pointer py-[10px] text-[#318130] bg-[white] border-2 border-[#318130] rounded-lg">
                Cancel
               </p>
             </div>

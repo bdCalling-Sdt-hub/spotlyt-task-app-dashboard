@@ -1,36 +1,45 @@
 import { ConfigProvider, DatePicker, Modal, Space, Table } from 'antd';
 import { useState } from 'react';
 import { BsInfoCircle } from "react-icons/bs";
+import { useGetAllUserQuery } from '../../../redux/features/getAllUserApi';
 
 const AllClient = () => {
+  const [startDate,setStartDate] =  useState('')
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [client, setClient] = useState();
+    const {data,isLoading,isSuccess} = useGetAllUserQuery(currentPage,startDate);
     const handleView = (value) => {
         setClient(value);
         console.log(value)
         setIsModalOpen(true);
       };
+      if(isLoading){
+        return <h1>Loading...</h1>
+      }
+      const url = import.meta.env.VITE_API_URL
+      const list = data?.data?.attributes?.results;
+      console.log(list);
 
     const columns = [
         {
           title: "#SI",
           dataIndex: "si",
           key: "si",
-          render: (text) => <a>{text}</a>,
+          render: (text, record, index) => index + 1,
         },
         {
           title: "Client Name",
-          dataIndex: "name",
-          key: "name",
+          dataIndex: "fullName",
+          key: "fullName",
           render: (_, record) => (
             <div className="flex gap-2 items-center">
               <img
                 className="w-[34px] h-[34px] rounded-full"
-                src={record.img}
+                src={`${url}${record?.image?.url}`}
                 alt=""
               />
-              <p className="font-medium">{record.name}</p>
+              <p className="font-medium">{record.fullName}</p>
             </div>
           ),
         },
@@ -40,24 +49,22 @@ const AllClient = () => {
         //   key: 'phone',
         // },
         {
-          title: "Task Name",
-          dataIndex: "task",
-          key: "task",
-        },
-        {
           title: "Email",
           dataIndex: "email",
           key: "email",
         },
         {
-            title: "Country",
-            key: "country",
-            dataIndex: "country",
+            title: "Full Address",
+            key: "address",
+            dataIndex: "address",
           },
         {
           title: "Date",
           key: "date",
           dataIndex: "date",
+          render: (_, record) => (
+            <p>{record?.createdAt?.split("T")[0]}</p>
+          )
         },
         {
           title: "Action",
@@ -72,142 +79,14 @@ const AllClient = () => {
           ),
         },
       ];
-      const data = [
-        {
-          key: "1",
-          si: 1,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          country: "New York",
-          amount: 500,
-        },
-        {
-            key: "2",
-            si: 2,
-            name: "John Brown",
-            img: "https://xsgames.co/randomusers/avatar.php?g=female",
-            task: "Request Facebook Like ",
-            date: "02-24-2024",
-            email: "ahad.aiman@gmail.com",
-            country: "New York",
-            amount: 500,
-          },
-          {
-            key: "3",
-            si: 3,
-            name: "John Brown",
-            img: "https://xsgames.co/randomusers/avatar.php?g=female",
-            task: "Request Facebook Like ",
-            date: "02-24-2024",
-            email: "ahad.aiman@gmail.com",
-            country: "New York",
-            amount: 500,
-          },
-        {
-          key: "4",
-          si: 4,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          country: "New York",
-          amount: 500,
-        },
-        {
-          key: "5",
-          si: 5,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          country: "New York",
-          amount: 500,
-        },
-        {
-          key: "6",
-          si: 6,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          country: "New York",
-          amount: 500,
-        },
-        {
-          key: "7",
-          si: 7,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          country: "New York",
-          amount: 500,
-        },
-        {
-          key: "8",
-          si: 8,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          country: "New York",
-          amount: 500,
-        },
-        {
-          key: "9",
-          si: 9,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          country: "New York",
-          amount: 500,
-        },
-        {
-          key: "10",
-          si: 10,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          country: "New York",
-          amount: 500,
-        },
-        {
-          key: "11",
-          si: 11,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          country: "New York",
-          amount: 500,
-        },
-        {
-          key: "12",
-          si: 12,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          date: "02-24-2024",
-          email: "ahad.aiman@gmail.com",
-          country: "New York",
-          amount: 500,
-        },
-      ];
+     console.log(data);
       const onChange = (date, dateString) => {
         console.log(date, dateString);
+        setStartDate(dateString)
+      };
+      const handleChangePage = (page) => {
+        setCurrentPage(page);
+        console.log(page);
       };
     return (
         <div className=" ml-[24px]">
@@ -239,9 +118,14 @@ const AllClient = () => {
 <Table
           pagination={{
             position: ["bottomCenter"],
+            current: currentPage,
+              pageSize:data?.data?.attributes?.limit,
+              total:data?.data?.attributes?.totalResults,
+              showSizeChanger: false,
+              onChange: handleChangePage,
           }}
           columns={columns}
-          dataSource={data}
+          dataSource={list}
         />
         </ConfigProvider>
       
@@ -255,46 +139,46 @@ const AllClient = () => {
       >
       <div>
         <div className="flex justify-center items-center gap-2 flex-col border-b pt-10 border-b-gray-300">
-          <img className="w-[140px] h-[140px] rounded-full " src={client?.img} alt="" />
-          <p className="text-white text-[16px] mb-[16px]">{client?.name}</p>
+          <img className="w-[140px] h-[140px] rounded-full " src={`${url}${client?.image?.url}`} alt="" />
+          <p className="text-white text-[16px] mb-[16px]">{client?.fullName}</p>
         </div>
         <div className="p-[20px] text-white">
           <div className="flex justify-between border-b py-[16px]">
             <p>Date:</p>
             <p>
-              {client?.date}
+              {client?.createdAt?.split("T")[0]}
             </p>
           </div>
           <div className="flex justify-between border-b py-[16px] ">
             <p>Client Name:</p>
             <p>
-              {client?.name}
+              {client?.fullName}
             </p>
           </div>
-          <div className="flex justify-between border-b py-[16px]">
+          {/* <div className="flex justify-between border-b py-[16px]">
             <p>Task Name:</p>
             <p>
               {client?.task}
             </p>
-          </div>
+          </div> */}
           <div className="flex justify-between border-b py-[16px]">
             <p>Email:</p>
             <p>
               {client?.email}
             </p>
           </div>
-          <div className="flex justify-between border-b py-[16px]">
-            <p>Country:</p>
+          <div className="flex justify-between py-[16px]">
+            <p>Full Address:</p>
             <p>
-              {client?.country}
+              {client?.address}
             </p>
           </div>
-          <div className="flex justify-between items-center pt-[16px]">
+          {/* <div className="flex justify-between items-center pt-[16px]">
             <p>Payment:</p>
             <p className="px-[15px] py-[10px] bg-[#318130] rounded-lg">
               {client?.amount}
             </p>
-          </div>
+          </div> */}
 
         </div>
       </div>
