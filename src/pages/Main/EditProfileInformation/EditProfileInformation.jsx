@@ -85,7 +85,12 @@ const EditProfileInformation = () => {
           formData.append("image", fileList[0]?.originFileObj);
         }
         try {
-          const response = await baseURL.patch(`/users/${id}`, formData);
+          const response = await baseURL.patch(`/users/${id}`, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
           if (response.data.code == 200) {
             Swal.fire({
               position: "top-center",

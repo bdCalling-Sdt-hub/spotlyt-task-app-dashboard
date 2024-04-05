@@ -2,8 +2,11 @@ import { ConfigProvider, DatePicker, Modal, Space, Table } from 'antd';
 import { useState } from 'react';
 import { BsInfoCircle } from "react-icons/bs";
 import { useGetAllWithdrawalQuery } from '../../../redux/features/getAllWithdrawalApi';
+import baseURL from '../../../config';
+import Swal from 'sweetalert2';
 
 const WithdrawRequest = () => {
+  const [startDate,setStartDate] =  useState('')
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [client, setClient] = useState();
@@ -275,19 +278,93 @@ const WithdrawRequest = () => {
       //     withdrawAmount:"500"
       //   },
       // ];
-      const onChange = (date, dateString) => {
-        console.log(date, dateString);
+      // const onChange = (date, dateString) => {
+      //   console.log(date, dateString);
+      // };
+      const handleApprove = async(id) =>{
+        console.log(id);
+
+
+        try {
+          const response = await baseURL.post(`/withdrawal/${id}`,{},
+          {
+            headers: {
+              "Content-Type": "application/json",
+              authentication: `Bearer ${localStorage.getItem("token")}`,
+            }
+          }
+        );
+        console.log(response);
+        if(response?.data?.code === 200){
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: response?.data?.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+         
+        }
+        window.location.reload();
+
+        } catch (error) {
+          Swal.fire({
+            position: "top-center",
+            icon: "error",
+            title: error?.response?.data?.message,
+            showConfirmButton: false,
+            timer: 1500,
+          })
+        }
+       
+      }
+      const handleCancel = async (id) => {
+        try {
+          const response = await baseURL.patch(`/withdrawal/${id}`,{},
+          {
+            headers: {
+              "Content-Type": "application/json",
+              authentication: `Bearer ${localStorage.getItem("token")}`,
+            }
+          }
+        );
+        // console.log(response);
+        if(response?.data?.code === 200){
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: response?.data?.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+         
+        }
+        window.location.reload();
+
+        } catch (error) {
+          Swal.fire({
+            position: "top-center",
+            icon: "error",
+            title: error?.response?.data?.message,
+            showConfirmButton: false,
+            timer: 1500,
+          })
+        }
+      }
+      const handleChangePage = (page) => {
+        setCurrentPage(page);
+        console.log(page);
       };
     return (
         <div className=" ml-[24px]">
         <div className=" flex justify-between items-center">
           <h1 className="text-[30px] font-medium">Withdrawal Request</h1>
-          <DatePicker
+          {/* <DatePicker
             className="custom-date-picker"
             onChange={onChange}
             picker="month"
             suffixIcon
-          />
+          /> */}
         </div>
         <div className=" rounded-t-lg mt-[24px] shadow-2xl">
           <div className="flex py-[22px] mx-[20px] justify-between items-center">
@@ -307,6 +384,11 @@ const WithdrawRequest = () => {
   <Table
             pagination={{
               position: ["bottomCenter"],
+              current: currentPage,
+              pageSize:data?.data?.attributes?.limit,
+              total:data?.data?.attributes?.totalResults,
+              showSizeChanger: false,
+              onChange: handleChangePage,
             }}
             columns={columns}
             dataSource={list}
@@ -365,14 +447,17 @@ const WithdrawRequest = () => {
               </p>
             </div>
       
-            <div className="flex justify-center gap-10 items-center pt-[16px]">
-              <p className="px-[55px] cursor-pointer py-[10px] bg-[#318130] rounded-lg">
-                Approve
-              </p>
-              <p className="px-[55px] cursor-pointer py-[10px] text-[#318130] bg-[white] border-2 border-[#318130] rounded-lg">
-               Cancel
-              </p>
-            </div>
+      {
+        client?.status === "Pending" ? <div className="flex justify-center gap-10 items-center pt-[16px]">
+        <p onClick={()=>handleApprove(client?._id)} className="px-[55px] cursor-pointer py-[10px] bg-[#318130] rounded-lg">
+          Approve
+        </p>
+        <p onClick={()=>handleCancel(client?._id)} className="px-[55px] cursor-pointer py-[10px] text-[#318130] bg-[white] border-2 border-[#318130] rounded-lg">
+         Cancel
+        </p>
+      </div> : ""
+      }
+           
           </div>
         </div>
         </Modal>

@@ -1,17 +1,24 @@
 import { ConfigProvider, DatePicker, Modal, Space, Table } from 'antd';
 import { useState } from 'react';
 import { BsInfoCircle } from "react-icons/bs";
+import { useGetVideoQuery } from '../../../redux/features/getVideoApi';
 
 const Video = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const {data:video,isLoading,isError} = useGetVideoQuery()
     const [client, setClient] = useState();
     const handleView = (value) => {
         setClient(value);
         console.log(value)
         setIsModalOpen(true);
       };
-
+      if(isLoading){
+        return <h1>Loading...</h1>
+      }
+      const url = import.meta.env.VITE_API_URL;
+      console.log(video);
+    console.log(video?.data?.attributes);
       const columns = [
         {
           title: "#SI",
@@ -27,10 +34,10 @@ const Video = () => {
             <div className="flex gap-2 items-center">
               <img
                 className="w-[34px] h-[34px] rounded-full"
-                src={record.img}
+                src={`${url}${record?.user?.image?.url}`}	
                 alt=""
               />
-              <p className="font-medium">{record.name}</p>
+              <p className="font-medium">{record.user?.fullName}</p>
             </div>
           ),
         },
@@ -66,141 +73,8 @@ const Video = () => {
             </Space>
           ),
         },
-      ];
-      const data = [
-        {
-          key: "1",
-          si: 1,
-          name: "John Brown",
-          task:"Request Facebook Like",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-        },
-        {
-            key: "2",
-            si: 2,
-            name: "John Brown",
-            img: "https://xsgames.co/randomusers/avatar.php?g=female",
-            task:"Request Facebook Like",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-          },
-          {
-            key: "3",
-            si: 3,
-            name: "John Brown",
-            img: "https://xsgames.co/randomusers/avatar.php?g=female",
-            task: "Request Facebook Like ",
-            link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-          },
-        {
-          key: "4",
-          si: 4,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-           date: "02-24-2024",
-        },
-        {
-          key: "5",
-          si: 5,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-        },
-        {
-          key: "6",
-          si: 6,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-        },
-        {
-          key: "7",
-          si: 7,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-        },
-        {
-          key: "8",
-          si: 8,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-        },
-        {
-          key: "9",
-          si: 9,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-        },
-        {
-          key: "10",
-          si: 10,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-        },
-        {
-          key: "11",
-          si: 11,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-        },
-        {
-          key: "12",
-          si: 12,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-        },
-      ];
+      ]; 
+      
       const onChange = (date, dateString) => {
         console.log(date, dateString);
       };
@@ -235,7 +109,7 @@ const Video = () => {
               position: ["bottomCenter"],
             }}
             columns={columns}
-            dataSource={data}
+            dataSource={video?.data?.attributes?.tasks}
           />
         </ConfigProvider>
         </div>
@@ -248,7 +122,7 @@ const Video = () => {
         >
         <div>
           <div style={{fontFamily:'Aldrich'}} className="flex justify-center items-center gap-2 flex-col border-b pt-10 border-b-gray-300">
-            <img className="w-[140px] h-[140px] rounded-full " src={client?.img} alt="" />
+            <img className="w-[140px] h-[140px] rounded-full " src={``} alt="" />
             <p className="text-white text-[16px] mb-[16px]">{client?.name}</p>
           </div>
           <div style={{fontFamily:'Aldrich'}} className="p-[20px] text-white">
