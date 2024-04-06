@@ -5,11 +5,13 @@ import JoditEditor from "jodit-react";
 import { useRef, useState } from "react";
 import baseURL from "../../../config";
 import Swal from "sweetalert2";
+import { useGetAboutQuery } from "../../../redux/features/getAboutApi";
 
 const EditAboutUs = () => {
     const navigate = useNavigate();
     const editor = useRef(null);
-    const [content, setContent] = useState("");
+    const {data,isLoading,isFetching} = useGetAboutQuery()
+    const [content, setContent] = useState(data?.data?.attributes[0]?.content);
     
   
     const handleUpdate = async ()=>{

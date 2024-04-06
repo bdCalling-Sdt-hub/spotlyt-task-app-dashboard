@@ -6,11 +6,14 @@ import JoditEditor from "jodit-react";
 import { useRef, useState } from "react";
 import Swal from "sweetalert2";
 import baseURL from "../../../config";
+import { useGetPrivacyQuery } from "../../../redux/features/getProvacyApi";
+
 
 const EditPrivacyPolicy = () => {
   const navigate = useNavigate();
   const editor = useRef(null);
-  const [content, setContent] = useState("");
+  const {data,isLoading,isSuccess} = useGetPrivacyQuery();
+  const [content, setContent] = useState(data?.data?.attributes[0]?.content);
   
 
   const handleUpdate = async ()=>{

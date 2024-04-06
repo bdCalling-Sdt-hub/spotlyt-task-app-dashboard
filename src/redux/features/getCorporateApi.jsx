@@ -3,7 +3,7 @@ import { baseApi } from "../api/baseApi";
 const getCorporateApi = baseApi.injectEndpoints({
     endpoints:(builder)=>({
         getCorporate:builder.query({
-            query:()=>`/tasks/admin?type=video`
+            query:(currentPage)=>`/tasks/admin?type=corporate&page=${currentPage}`
         })
     })
 })

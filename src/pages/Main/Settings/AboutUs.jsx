@@ -7,6 +7,7 @@ const AboutUs = () => {
     const navigate = useNavigate()
     const content = data?.data?.attributes[0]?.content
     console.log(data);
+    console.log(content);
     return (
         <div className="relative ml-[24px] ">
         <div className=" mt-[44px] cursor-pointer flex items-center pb-3 gap-2">

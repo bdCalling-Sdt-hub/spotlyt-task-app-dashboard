@@ -7,7 +7,7 @@ const SocialMedia = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [client, setClient] = useState();
-  const {data:socialMedia,isSuccess,isLoading} = useGetSocialQuery();
+  const {data:socialMedia,isSuccess,isLoading} = useGetSocialQuery(currentPage);
   const handleView = (value) => {
     setClient(value);
     console.log(value);
@@ -24,7 +24,7 @@ console.log(socialMedia?.data?.attributes);
       title: "#SI",
       dataIndex: "si",
       key: "si",
-      render: (text, record, index) => index + 1,
+      render: (text, record, index) => currentPage == 1 ? index + 1 : (index + 1) + ((currentPage-1)*10),
     },
     {
       title: "Client Name",
@@ -79,8 +79,12 @@ console.log(socialMedia?.data?.attributes);
     },
   ];
  
-  const onChange = (date, dateString) => {
-    console.log(date, dateString);
+  // const onChange = (date, dateString) => {
+  //   console.log(date, dateString);
+  // };
+  const handleChangePage = (page) => {
+    setCurrentPage(page);
+    console.log(page);
   };
   return (
     <div className=" ml-[24px]">
@@ -111,6 +115,10 @@ console.log(socialMedia?.data?.attributes);
           <Table
             pagination={{
               position: ["bottomCenter"],
+              pageSize:socialMedia?.data?.attributes?.limit,
+              total:socialMedia?.data?.attributes?.totalResults,
+              showSizeChanger: false,
+              onChange: handleChangePage,
             }}
             columns={columns}
             dataSource={socialMedia?.data?.attributes?.tasks}

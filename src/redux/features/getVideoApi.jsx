@@ -3,7 +3,7 @@ import { baseApi } from "../api/baseApi";
 const getVideoApi = baseApi.injectEndpoints({
     endpoints:(builder)=>({
         getVideo:builder.query({
-            query:()=>`/tasks/admin?type=video`
+            query:(currentPage)=>`/tasks/admin?type=video&page=${currentPage}`
         })
     })
 })

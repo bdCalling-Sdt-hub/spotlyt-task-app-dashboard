@@ -1,23 +1,25 @@
 import { ConfigProvider, DatePicker, Modal, Space, Table } from 'antd';
 import { useState } from 'react';
 import { BsInfoCircle } from "react-icons/bs";
+import { useGetCorporateQuery } from '../../../redux/features/getCorporateApi';
 
 const Corporate = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [client, setClient] = useState();
+    const {data:corporate,isLoading,isSuccess} = useGetCorporateQuery(currentPage)
     const handleView = (value) => {
         setClient(value);
         console.log(value)
         setIsModalOpen(true);
       };
-
+      const url = import.meta.env.VITE_API_URL;
       const columns = [
         {
           title: "#SI",
           dataIndex: "si",
           key: "si",
-          render: (text) => <a>{text}</a>,
+          render: (text, record, index) => currentPage == 1 ? index + 1 : (index + 1) + ((currentPage-1)*10),
         },
         {
           title: "Client Name",
@@ -27,32 +29,35 @@ const Corporate = () => {
             <div className="flex gap-2 items-center">
               <img
                 className="w-[34px] h-[34px] rounded-full"
-                src={record.img}
+                src={`${url}${record?.user?.image?.url}`}
                 alt=""
               />
-              <p className="font-medium">{record.name}</p>
+              <p className="font-medium">{record.user?.fullName}</p>
             </div>
           ),
         },
         {
           title: "Task Name",
-          dataIndex: "task",
-          key: "task",
+          dataIndex: "name",
+          key: "name",
         },
         {
           title: "Task Link",
-          dataIndex: "link",
-          key: "link",
+          dataIndex: "taskLink",
+          key: "taskLink",
         },
         {
             title: "Target",
-            dataIndex: "target",
-            key: "target",
+            dataIndex: "quantity",
+            key: "quantity",
           },
           {
             title: "Total Rand",
             dataIndex: "rand",
             key: "rand",
+            render: (_, record) => (
+              <p>{record?.quantity * record?.price}</p>
+            )
           },
         {
           title: "Action",
@@ -67,153 +72,26 @@ const Corporate = () => {
           ),
         },
       ];
-      const data = [
-        {
-          key: "1",
-          si: 1,
-          name: "John Brown",
-          task:"Request Facebook Like",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-        },
-        {
-            key: "2",
-            si: 2,
-            name: "John Brown",
-            img: "https://xsgames.co/randomusers/avatar.php?g=female",
-            task:"Request Facebook Like",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-          },
-          {
-            key: "3",
-            si: 3,
-            name: "John Brown",
-            img: "https://xsgames.co/randomusers/avatar.php?g=female",
-            task: "Request Facebook Like ",
-            link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-          },
-        {
-          key: "4",
-          si: 4,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-           date: "02-24-2024",
-        },
-        {
-          key: "5",
-          si: 5,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-        },
-        {
-          key: "6",
-          si: 6,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-        },
-        {
-          key: "7",
-          si: 7,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-        },
-        {
-          key: "8",
-          si: 8,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-        },
-        {
-          key: "9",
-          si: 9,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-        },
-        {
-          key: "10",
-          si: 10,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-        },
-        {
-          key: "11",
-          si: 11,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-        },
-        {
-          key: "12",
-          si: 12,
-          name: "John Brown",
-          img: "https://xsgames.co/randomusers/avatar.php?g=female",
-          task: "Request Facebook Like ",
-          link: "https://www.facebook.com/post Image",
-          target:"500 Like",
-          rand: "R3500.00",
-          date: "02-24-2024",
-        },
-      ];
+    
+
+      console.log(corporate);
       const onChange = (date, dateString) => {
         console.log(date, dateString);
+      };
+      const handleChangePage = (page) => {
+        setCurrentPage(page);
+        console.log(page);
       };
     return (
         <div className=" ml-[24px]">
         <div className=" flex justify-between items-center">
           <h1 className="text-[30px] font-medium">Corporate Tasks</h1>
-          <DatePicker
+          {/* <DatePicker
             className="custom-date-picker"
             onChange={onChange}
             picker="month"
             suffixIcon
-          />
+          /> */}
         </div>
         <div className=" rounded-t-lg mt-[24px] shadow-2xl">
           <div className="flex py-[22px] mx-[20px] justify-between items-center">
@@ -233,9 +111,13 @@ const Corporate = () => {
           <Table
             pagination={{
               position: ["bottomCenter"],
+              pageSize: corporate?.data?.attributes?.limit,
+              total: corporate?.data?.attributes?.totalResults,
+              showSizeChanger: false,
+              onChange: handleChangePage,
             }}
             columns={columns}
-            dataSource={data}
+            dataSource={corporate?.data?.attributes?.tasks}
           />
         </ConfigProvider>
         </div>
@@ -248,51 +130,51 @@ const Corporate = () => {
         >
         <div>
           <div  className="flex justify-center items-center gap-2 flex-col border-b pt-10 border-b-gray-300">
-            <img className="w-[140px] h-[140px] rounded-full " src={client?.img} alt="" />
-            <p className="text-white text-[16px] mb-[16px]">{client?.name}</p>
+            <img className="w-[140px] h-[140px] rounded-full " src={`${url}${client?.user?.image?.url}`} alt="" />
+            <p className="text-white text-[16px] mb-[16px]">{client?.user?.fullName}</p>
           </div>
           <div  className="p-[20px] text-white">
             <div className="flex justify-between border-b py-[16px]">
               <p>Date:</p>
               <p>
-                {client?.date}
+                {client?.createdAt?.split("T")[0]}
               </p>
             </div>
             <div className="flex justify-between border-b py-[16px] ">
               <p>Employee Name:</p>
               <p>
-                {client?.name}
+                {client?.user?.fullName}
               </p>
             </div>
             <div className="flex justify-between border-b py-[16px]">
               <p>Task Name:</p>
               <p>
-                {client?.task}
+                {client?.name}
               </p>
             </div>
             <div className="flex justify-between border-b py-[16px]">
               <p>Task Link:</p>
               <p>
-                {client?.link}
+                {client?.taskLink}
               </p>
             </div>
             <div className="flex justify-between border-b py-[16px]">
               <p>Target:</p>
               <p>
-                {client?.target}
+                {client?.quantity}
               </p>
             </div>
-            <div className="flex justify-between border-b py-[16px]">
+            <div className="flex justify-between py-[16px]">
               <p>Total Rand:</p>
               <p>
-                {client?.rand}
+                {client?.quantity * client?.price}
               </p>
             </div>
-            <div className="flex justify-center items-center pt-[16px]">
+            {/* <div className="flex justify-center items-center pt-[16px]">
               <p className="px-[15px] py-[10px] bg-[#318130] rounded-lg">
                 Approve Task
               </p>
-            </div>
+            </div> */}
   
           </div>
         </div>

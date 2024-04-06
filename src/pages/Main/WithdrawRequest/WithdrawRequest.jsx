@@ -28,7 +28,7 @@ const WithdrawRequest = () => {
           title: "#SI",
           dataIndex: "si",
           key: "si",
-          render: (text, record, index) => index + 1,
+          render: (text, record, index) => currentPage == 1 ? index + 1 : (index + 1) + ((currentPage-1)*10),
         },
         {
           title: "Employee Name",
