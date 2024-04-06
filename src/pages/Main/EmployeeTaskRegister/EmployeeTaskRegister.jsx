@@ -2,24 +2,27 @@ import { ConfigProvider, DatePicker, Modal, Space, Table } from "antd";
 import { useState } from "react";
 import { BsInfoCircle } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { useGetEmployeeTaskRegisterQuery } from "../../../redux/features/getEmployeeTaskRegister";
+import { render } from "react-dom";
 
 const EmployeeTaskRegister = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [client, setClient] = useState();
+  const {data:employeeRegister,isSuccess,isLoading,isError} = useGetEmployeeTaskRegisterQuery()
 //   const handleView = (value) => {
 //     setClient(value);
 //     console.log(value);
 //     setIsModalOpen(true);
 //   };
 const navigate = useNavigate()
-
+const url = import.meta.env.VITE_API_URL;
   const columns = [
     {
       title: "#SI",
       dataIndex: "si",
       key: "si",
-      render: (text) => <a>{text}</a>,
+      render: (text, record, index) => currentPage == 1 ? index + 1 : (index + 1) + ((currentPage-1)*10),
     },
     {
       title: "Employee Name",
@@ -29,10 +32,10 @@ const navigate = useNavigate()
         <div className="flex gap-2 items-center">
           <img
             className="w-[34px] h-[34px] rounded-full"
-            src={record.img}
+            src={`${url}${record?.userId.image?.url}`}
             alt=""
           />
-          <p className="font-medium">{record.name}</p>
+          <p className="font-medium">{record?.userId.fullName}</p>
         </div>
       ),
     },
@@ -43,25 +46,42 @@ const navigate = useNavigate()
     // },
     {
       title: "Task Name",
-      dataIndex: "task",
-      key: "task",
+      dataIndex: "name",
+      key: "name",
     },
     {
       title: "Task Link",
       dataIndex: "link",
       key: "link",
+      render: (_, record) => (
+        record?.taskId?.taskLink
+      )
     },
     {
       title: "Date",
       dataIndex: "date",
       key: "date",
+      render: (_, record) => (
+        record?.createdAt?.split("T")[0]
+      )
+    },
+    {
+      title:"Status",
+      dataIndex:"status",
+      key:"status",
+      render: (_, record) => (
+        
+          record?.taskId?.status === "pending" ? <p className="px-5 w-[100px] py-2 bg-[#F5F5F5] text-[#F7931E] cursor-pointer rounded-md">{record?.taskId?.status}</p> : record?.taskId?.status === "rejected" ? <p className="px-5 py-2 bg-[#F5F5F5] text-[red] cursor-pointer rounded-md">{record?.taskId?.status}</p> :  <p className="px-5 py-2 bg-[#BFD8BF] text-[#318130] cursor-pointer rounded-md">{record?.taskId?.status}</p>
+        
+       
+      )
     },
     {
       title: "Action",
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-            <p className="px-5 py-2 bg-[#BFD8BF] text-[#318130] cursor-pointer rounded-md">Approved</p>
+           
           <BsInfoCircle
             onClick={() => navigate(`/employees-task-register/${record?.key}`)}
             size={18}
@@ -73,164 +93,8 @@ const navigate = useNavigate()
       ),
     },
   ];
-  const data = [
-    {
-      key: "1",
-      si: 1,
-      name: "John Brown",
-      img: "https://xsgames.co/randomusers/avatar.php?g=female",
-      task: "Request Facebook Like ",
-      link:"https://www.play store.com/games download",
-      target:"5000 Download",
-      date: "02-24-2024",
-      email: "ahad.aiman@gmail.com",
-      country: "New York",
-      nidNumber: 50041231541,
-    },
-    {
-      key: "2",
-      si: 2,
-      name: "John Brown",
-      img: "https://xsgames.co/randomusers/avatar.php?g=female",
-      task: "Request Facebook Like ",
-      link:"https://www.play store.com/games download",
-      target:"5000 Download",
-      date: "02-24-2024",
-      email: "ahad.aiman@gmail.com",
-      country: "New York",
-      nidNumber: 50041231541,
-    },
-    {
-      key: "3",
-      si: 3,
-      name: "John Brown",
-      img: "https://xsgames.co/randomusers/avatar.php?g=female",
-      task: "Request Facebook Like ",
-      link:"https://www.play store.com/games download",
-      target:"5000 Download",
-      date: "02-24-2024",
-      email: "ahad.aiman@gmail.com",
-      country: "New York",
-      nidNumber: 50041231541,
-    },
-    {
-      key: "4",
-      si: 4,
-      name: "John Brown",
-      img: "https://xsgames.co/randomusers/avatar.php?g=female",
-      task: "Request Facebook Like ",
-      link:"https://www.play store.com/games download",
-      target:"5000 Download",
-      date: "02-24-2024",
-      email: "ahad.aiman@gmail.com",
-      country: "New York",
-      nidNumber: 50041231541,
-    },
-    {
-      key: "5",
-      si: 5,
-      name: "John Brown",
-      img: "https://xsgames.co/randomusers/avatar.php?g=female",
-      task: "Request Facebook Like ",
-      link:"https://www.play store.com/games download",
-      target:"5000 Download",
-      date: "02-24-2024",
-      email: "ahad.aiman@gmail.com",
-      country: "New York",
-      nidNumber: 50041231541,
-    },
-    {
-      key: "6",
-      si: 6,
-      name: "John Brown",
-      img: "https://xsgames.co/randomusers/avatar.php?g=female",
-      task: "Request Facebook Like ",
-      link:"https://www.play store.com/games download",
-      target:"5000 Download",
-      date: "02-24-2024",
-      email: "ahad.aiman@gmail.com",
-      country: "New York",
-      nidNumber: 50041231541,
-    },
-    {
-      key: "7",
-      si: 7,
-      name: "John Brown",
-      img: "https://xsgames.co/randomusers/avatar.php?g=female",
-      task: "Request Facebook Like ",
-      link:"https://www.play store.com/games download",
-      target:"5000 Download",
-      date: "02-24-2024",
-      email: "ahad.aiman@gmail.com",
-      country: "New York",
-      nidNumber: 50041231541,
-    },
-    {
-      key: "8",
-      si: 8,
-      name: "John Brown",
-      img: "https://xsgames.co/randomusers/avatar.php?g=female",
-      task: "Request Facebook Like ",
-      link:"https://www.play store.com/games download",
-      target:"5000 Download",
-      date: "02-24-2024",
-      email: "ahad.aiman@gmail.com",
-      country: "New York",
-      nidNumber: 50041231541,
-    },
-    {
-      key: "9",
-      si: 9,
-      name: "John Brown",
-      img: "https://xsgames.co/randomusers/avatar.php?g=female",
-      task: "Request Facebook Like ",
-      link:"https://www.play store.com/games download",
-      target:"5000 Download",
-      date: "02-24-2024",
-      email: "ahad.aiman@gmail.com",
-      country: "New York",
-      nidNumber: 50041231541,
-    },
-    {
-      key: "10",
-      si: 10,
-      name: "John Brown",
-      img: "https://xsgames.co/randomusers/avatar.php?g=female",
-      task: "Request Facebook Like ",
-      link:"https://www.play store.com/games download",
-      target:"5000 Download",
-      date: "02-24-2024",
-      email: "ahad.aiman@gmail.com",
-      country: "New York",
-      nidNumber: 50041231541,
-    },
-    {
-      key: "11",
-      si: 11,
-      name: "John Brown",
-      img: "https://xsgames.co/randomusers/avatar.php?g=female",
-      task: "Request Facebook Like ",
-      link:"https://www.play store.com/games download",
-      target:"5000 Download",
-      date: "02-24-2024",
-      email: "ahad.aiman@gmail.com",
-      country: "New York",
-      nidNumber: 50041231541,
-    },
-    {
-      key: "12",
-      si: 12,
-      name: "John Brown",
-      img: "https://xsgames.co/randomusers/avatar.php?g=female",
-      task: "Request Facebook Like ",
-      link:"https://www.play store.com/games download",
-      target:"5000 Download",
-      date: "02-24-2024",
-      email: "ahad.aiman@gmail.com",
-      country: "New York",
-      nidNumber: 50041231541,
-    },
-  ];
+  console.log(employeeRegister);
+ 
   const onChange = (date, dateString) => {
     console.log(date, dateString);
   };
@@ -265,7 +129,7 @@ const navigate = useNavigate()
               position: ["bottomCenter"],
             }}
             columns={columns}
-            dataSource={data}
+            dataSource={employeeRegister?.data?.attributes?.tasks}
           />
         </ConfigProvider>
       </div>

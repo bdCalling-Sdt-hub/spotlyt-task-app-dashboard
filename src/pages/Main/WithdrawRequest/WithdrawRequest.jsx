@@ -4,6 +4,7 @@ import { BsInfoCircle } from "react-icons/bs";
 import { useGetAllWithdrawalQuery } from '../../../redux/features/getAllWithdrawalApi';
 import baseURL from '../../../config';
 import Swal from 'sweetalert2';
+import Loading from '../../../components/Loading';
 
 const WithdrawRequest = () => {
   const [startDate,setStartDate] =  useState('')
@@ -18,7 +19,7 @@ const WithdrawRequest = () => {
       };
 
       if(isLoading){
-        return <h1>Loading...</h1>
+        return <Loading/>
       }
       const url = import.meta.env.VITE_API_URL
       const list = data?.data?.attributes?.results;

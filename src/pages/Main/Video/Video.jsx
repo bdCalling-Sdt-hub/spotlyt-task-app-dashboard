@@ -2,6 +2,7 @@ import { ConfigProvider, DatePicker, Modal, Space, Table } from "antd";
 import { useState } from "react";
 import { BsInfoCircle } from "react-icons/bs";
 import { useGetVideoQuery } from "../../../redux/features/getVideoApi";
+import Loading from "../../../components/Loading";
 
 const Video = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,7 +15,7 @@ const Video = () => {
     setIsModalOpen(true);
   };
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loading/>;
   }
   const url = import.meta.env.VITE_API_URL;
   console.log(video);

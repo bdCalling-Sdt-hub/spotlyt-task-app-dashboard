@@ -2,6 +2,7 @@ import { ConfigProvider, DatePicker, Modal, Space, Table } from 'antd';
 import { useState } from 'react';
 import { BsInfoCircle } from "react-icons/bs";
 import { useGetAllEmployeeQuery } from '../../../redux/features/getAllEmployeeApi';
+import Loading from '../../../components/Loading';
 
 const AllEmployee = () => {
   const [startDate,setStartDate] =  useState('')
@@ -15,7 +16,7 @@ const AllEmployee = () => {
         setIsModalOpen(true);
       };
       if(isLoading){
-        return <h1>Loading...</h1>
+        return <Loading/>
       }
       const url = import.meta.env.VITE_API_URL
       const list = data?.data?.attributes?.results;
@@ -55,6 +56,9 @@ const AllEmployee = () => {
           title: "Employee NID Number",
           dataIndex: "nidNumber",
           key: "nidNumber",
+          render: (_, record) => (
+            <p>{record?.nidNumber ? record?.nidNumber : "N/A"}</p>
+          )
         },
         {
           title: "Email",
@@ -82,9 +86,14 @@ const AllEmployee = () => {
           key: "status",
           dataIndex: "status",
           render:(_,record)=>(<>
-              <p className={`text-green-500 font-bold`}>
-                {record?.nidStatus}
+          {
+             record?.nidStatus === "unverified" ? <p className={`text-red-500 font-bold`}>
+             Unverified
+             </p> : <p className={`text-green-500 font-bold`}>
+             Verified
               </p>
+          }
+              
           </>)
 
         },
@@ -173,7 +182,7 @@ const AllEmployee = () => {
           <div className="flex justify-between border-b py-[16px]">
             <p>Employee NID Number:</p>
             <p>
-              {client?.nidNumber}
+              {client?.nidNumber ? client?.nidNumber : "N/A"}
             </p>
           </div>
           <div className="flex justify-between border-b py-[16px]">

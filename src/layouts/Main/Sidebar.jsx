@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { BiSolidDashboard } from "react-icons/bi";
 import { HiOutlineUsers } from "react-icons/hi";
@@ -177,8 +177,11 @@ const Sidebar = ({collapsed}) => {
     <div className="w-[300px] flex flex-col justify-between bg-[#318130] min-h-screen rounded-lg">
       <div className="">
         <div className="p-[32px]">
+        <Link to="/">
           <img src={logo} alt="" />
+        </Link>
         </div>
+        
 
 
         {/* this  */}

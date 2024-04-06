@@ -4,6 +4,7 @@ import { BsInfoCircle } from "react-icons/bs";
 import { useGetVeryfyRequestListQuery } from '../../../redux/features/getVeryfyRequestListApi';
 import baseURL from '../../../config';
 import Swal from 'sweetalert2';
+import Loading from '../../../components/Loading';
 
 
 const VerifyRequest = () => {
@@ -17,7 +18,7 @@ const VerifyRequest = () => {
         setIsModalOpen(true);
       };
       if(isLoading){
-        return <h1>Loading...</h1>
+        return <Loading/>
       }
       const url = import.meta.env.VITE_API_URL
 

@@ -2,6 +2,7 @@ import { ConfigProvider, DatePicker, Modal, Space, Table } from "antd";
 import { useState } from "react";
 import { BsInfoCircle } from "react-icons/bs";
 import { useGetSocialQuery } from "../../../redux/features/getTaskApi";
+import Loading from "../../../components/Loading";
 
 const SocialMedia = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,7 +15,7 @@ const SocialMedia = () => {
     setIsModalOpen(true);
   };
   if(isLoading){
-    return <h1>Loading...</h1>
+    return <Loading/>
   }
   const url = import.meta.env.VITE_API_URL;
   console.log(socialMedia);

@@ -2,6 +2,8 @@ import { ConfigProvider, DatePicker, Modal, Space, Table } from 'antd';
 import { useState } from 'react';
 import { BsInfoCircle } from "react-icons/bs";
 import { useGetCorporateQuery } from '../../../redux/features/getCorporateApi';
+import Loading from '../../../components/Loading';
+
 
 const Corporate = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -72,7 +74,9 @@ const Corporate = () => {
           ),
         },
       ];
-    
+      if(isLoading){
+        return <Loading/>
+      }
 
       console.log(corporate);
       const onChange = (date, dateString) => {

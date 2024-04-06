@@ -2,6 +2,8 @@ import { ConfigProvider, DatePicker, Modal, Space, Table } from 'antd';
 import { useState } from 'react';
 import { BsInfoCircle } from "react-icons/bs";
 import { useGetAllUserQuery } from '../../../redux/features/getAllUserApi';
+import { render } from 'react-dom';
+import Loading from '../../../components/Loading';
 
 const AllClient = () => {
   const [startDate,setStartDate] =  useState('')
@@ -15,7 +17,7 @@ const AllClient = () => {
         setIsModalOpen(true);
       };
       if(isLoading){
-        return <h1>Loading...</h1>
+        return <Loading/>
       }
       const url = import.meta.env.VITE_API_URL
       const list = data?.data?.attributes?.results;
@@ -57,6 +59,9 @@ const AllClient = () => {
             title: "Full Address",
             key: "address",
             dataIndex: "address",
+            render: (_, record) => (
+              <>  { !record?.address ? "N/A" :  record?.address}</>
+            )
           },
         {
           title: "Date",
@@ -170,7 +175,7 @@ const AllClient = () => {
           <div className="flex justify-between py-[16px]">
             <p>Full Address:</p>
             <p>
-              {client?.address}
+              { !client?.address ? "N/A" :  client?.address}
             </p>
           </div>
           {/* <div className="flex justify-between items-center pt-[16px]">
