@@ -2,6 +2,7 @@ import React from "react";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import img from "../../../assets/inbox.png"
+import { Image } from 'antd';
 
 const RegisterTaskDetails = () => {
   const navigate = useNavigate();
@@ -88,9 +89,19 @@ const RegisterTaskDetails = () => {
         <div className="mx-[40px]">
             <h1 className="text-[18px] font-medium">Task Screenshot</h1>
             <div className="flex">
-                <img src={img} alt="" />
-                <img src={img} alt="" />
-                <img src={img} alt="" />
+            <Image
+    width={200}
+    src={img} 
+  />
+                <Image
+    width={200}
+    src={img} 
+  />
+               <Image
+    width={200}
+    src={img} 
+  />
+          
             </div>
         </div>
         <div className="flex justify-end gap-5 mr-10">
