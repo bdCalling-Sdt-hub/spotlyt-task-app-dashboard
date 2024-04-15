@@ -4,18 +4,20 @@ import { BsInfoCircle } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { useGetEmployeeTaskRegisterQuery } from "../../../redux/features/getEmployeeTaskRegister";
 import { render } from "react-dom";
+import Loading from "../../../components/Loading";
 
 const EmployeeTaskRegister = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [client, setClient] = useState();
-  const {data:employeeRegister,isSuccess,isLoading,isError} = useGetEmployeeTaskRegisterQuery()
-//   const handleView = (value) => {
-//     setClient(value);
-//     console.log(value);
-//     setIsModalOpen(true);
-//   };
-const navigate = useNavigate()
+  const [currentPage, setCurrentPage] = useState(1)
+  const navigate = useNavigate()
+  const {data:employeeRegister,isSuccess,isLoading,isError} = useGetEmployeeTaskRegisterQuery(currentPage);
+
+  if (isLoading) {
+    return <Loading/>;
+  }
+  const handleChangePage = (page) => {
+    setCurrentPage(page);
+    console.log(page);
+  };
 const url = import.meta.env.VITE_API_URL;
   const columns = [
     {
@@ -71,7 +73,7 @@ const url = import.meta.env.VITE_API_URL;
       key:"status",
       render: (_, record) => (
         
-          record?.taskId?.status === "pending" ? <p className="px-5 w-[100px] py-2 bg-[#F5F5F5] text-[#F7931E] cursor-pointer rounded-md">{record?.taskId?.status}</p> : record?.taskId?.status === "rejected" ? <p className="px-5 py-2 bg-[#F5F5F5] text-[red] cursor-pointer rounded-md">{record?.taskId?.status}</p> :  <p className="px-5 py-2 bg-[#BFD8BF] text-[#318130] cursor-pointer rounded-md">{record?.taskId?.status}</p>
+          record?.taskId?.status === "pending" ? <p className="px-3 w-[100px] py-2 bg-[#F5F5F5] text-[#F7931E] cursor-pointer rounded-md">{record?.status}</p> : record?.status === "rejected" ? <p className="px-3 py-2 bg-[#F5F5F5] text-[red] cursor-pointer rounded-md">{record?.status}</p> :  <p className="px-3 py-2 bg-[#BFD8BF] text-[#318130] cursor-pointer rounded-md">{record?.status}</p>
         
        
       )
@@ -83,7 +85,7 @@ const url = import.meta.env.VITE_API_URL;
         <Space size="middle">
            
           <BsInfoCircle
-            onClick={() => navigate(`/employees-task-register/${record?.key}`)}
+            onClick={() => navigate(`/employees-task-register/${record?._id}`)}
             size={18}
             className="text-[#318130] cursor-pointer"
           />
@@ -127,6 +129,10 @@ const url = import.meta.env.VITE_API_URL;
           <Table
             pagination={{
               position: ["bottomCenter"],
+              pageSize: employeeRegister?.data?.attributes?.tasks?.limit, 
+              showSizeChanger: false,
+              onChange:handleChangePage,
+              total:employeeRegister?.data?.attributes?.tasks?.totalResult
             }}
             columns={columns}
             dataSource={employeeRegister?.data?.attributes?.tasks}

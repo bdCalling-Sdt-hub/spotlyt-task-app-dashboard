@@ -10,6 +10,8 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { useGetChatQuery } from "../redux/features/getChartApi";
+import { useState } from "react";
 const data = [
   {
     name: "Jan",
@@ -86,9 +88,14 @@ const data = [
 ];
 
 const BarChartIncomeRatio = () => {
+  const [year,setYear ] = useState('2024');
+  const {data:chart,isError,isLoading,isSuccess} = useGetChatQuery(year);
   const onChange = (date, dateString) => {
-    console.log(date, dateString);
+    console.log(dateString);
+    setYear(dateString)
   };
+ 
+  console.log(chart);
   return (
     <div className=" w-[66%] text-white  h-[318px] mt-5 rounded-xl shadow-2xl ">
       <div className="flex justify-between p-[16px] border-b-2">
@@ -109,7 +116,7 @@ const BarChartIncomeRatio = () => {
           <DatePicker
             className="custom-date-picker"
             onChange={onChange}
-            picker="month"
+            picker="year"
             suffixIcon
           />
         </div>
@@ -118,7 +125,7 @@ const BarChartIncomeRatio = () => {
         <BarChart
           width={1000}
           height={250}
-          data={data}
+          data={chart}
           margin={{
             top: 5,
             right: 30,
@@ -128,9 +135,9 @@ const BarChartIncomeRatio = () => {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" tick={{ stroke: "black", strokeWidth: 0.5 }} />
-          <YAxis tick={{ stroke: "black", strokeWidth: 0.5 }} />
+          <YAxis dataKey="total" tick={{ stroke: "black", strokeWidth: 0.5 }} />
           <Bar
-            dataKey="uv"
+            dataKey="total"
             fill="#318130"
             barSize={30}
             // activeBar={<Rectangle fill="pink" stroke="green" />}

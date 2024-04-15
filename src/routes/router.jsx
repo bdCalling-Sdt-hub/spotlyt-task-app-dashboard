@@ -25,6 +25,7 @@ import EditAboutUs from "../pages/Main/Settings/EditAboutUs";
 import VerifyRequest from "../pages/Main/VerifyRequest/VerifyRequest";
 import WithdrawRequest from "../pages/Main/WithdrawRequest/WithdrawRequest";
 import AdminRoutes from "./AdminRoutes";
+import Notification from "../pages/Main/Notification/Notification";
 
 
 
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
         {
           path: "/",
           element: <DashboardHome />,
+        },
+        {
+          path:'notification',
+          element:<Notification/>
         },
         {
           path: "/all-client",

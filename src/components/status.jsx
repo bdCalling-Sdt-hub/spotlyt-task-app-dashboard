@@ -3,7 +3,13 @@ import { MdEmojiEvents } from "react-icons/md";
 // import { FaUsers } from "react-icons/fa";
 import { RiUserStarLine } from "react-icons/ri";
 import { FaUsers } from "react-icons/fa6";
+import { useGetStatusQuery } from "../redux/features/getStatusApi";
 const Status = () => {
+  const {data,isError,isLoading} = useGetStatusQuery();
+  console.log(data);
+  function formatToK(number) {
+    return (number / 1000).toFixed(2) + 'k';
+}
   return (
     <div className="grid grid-cols-4 gap-[24px] mt-[24px]">
       <div className="bg-[white] shadow-xl px-[20px] py-[32px] flex justify-between items-center rounded-lg">
@@ -14,7 +20,7 @@ const Status = () => {
         />
         <div className="">
           <p className="">Total Earnings</p>
-          <h1 className=" text-[44px]">$14k</h1>
+          <h1 className=" text-[44px]">$ {formatToK(data?.data?.attributes?.totalIncome[0]?.totalIncome || 0)}</h1>
         </div>
       </div>
       <div className="bg-[white] px-[20px] py-[32px] flex justify-between items-center rounded-lg shadow-xl">
@@ -25,7 +31,7 @@ const Status = () => {
         />
         <div className="">
           <p className="">Total Client</p>
-          <h1 className=" text-[44px]">$14k</h1>
+          <h1 className=" text-[44px]">{data?.data?.attributes?.totalClient || 0}</h1>
         </div>
       </div>
       <div className="bg-[white] px-[20px] py-[32px] flex justify-between items-center rounded-lg shadow-xl">
@@ -36,7 +42,7 @@ const Status = () => {
         />
         <div className="">
           <p className="">Total Employees</p>
-          <h1 className=" text-[44px]">$14k</h1>
+          <h1 className=" text-[44px]">{data?.data?.attributes?.totalEmployee || 0}</h1>
         </div>
       </div>
       <div className="bg-[white] px-[20px] py-[32px] flex justify-between items-center rounded-lg shadow-xl">
@@ -47,7 +53,7 @@ const Status = () => {
         />
         <div className="">
           <p className="">Total Tasks</p>
-          <h1 className=" text-[44px]">$14k</h1>
+          <h1 className=" text-[44px]"> {data?.data?.attributes?.totalTasks || 0}</h1>
         </div>
       </div>
     </div>
