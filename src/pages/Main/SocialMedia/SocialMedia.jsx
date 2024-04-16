@@ -54,14 +54,14 @@ console.log(socialMedia?.data?.attributes);
     },
     {
       title: "Target",
-      dataIndex: "quantity",
-      key: "quantity",
+      dataIndex: "count",
+      key: "count",
     },
     {
       title: "Total Rand",
       dataIndex: "rand",
       key: "rand",
-      render: (_, record) => <p>{record?.price * record?.quantity}</p>,
+      render: (_, record) => <p>{record?.price * record?.count || "N/A"}</p>,
     },
     {
       title: "Action",
@@ -167,11 +167,11 @@ console.log(socialMedia?.data?.attributes);
             </div>
             <div className="flex justify-between border-b py-[16px]">
               <p>Target:</p>
-              <p>{client?.quantity}</p>
+              <p>{client?.count || "N/A"	}</p>
             </div>
             <div className="flex justify-between  py-[16px]">
               <p>Total Rand:</p>
-              <p>{client?.quantity * client?.price}</p>
+              <p>{ client?.count * client?.price || 0 }</p>
             </div>
             {/* <div className="flex justify-center items-center pt-[16px]">
               <p className="px-[15px] py-[10px] bg-[#318130] rounded-lg">

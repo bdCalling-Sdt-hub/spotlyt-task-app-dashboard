@@ -232,32 +232,38 @@ console.log(list);
       const onChange = (date, dateString) => {
         console.log(date, dateString);
       };
-      const handleApprove = (id) => {
+      const handleApprove = async (id) => {
         console.log(id);
         try {
-          const response = baseURL.post(`/users/nidVerifyApproval?id=${id}`, {
+          const response = await baseURL.post(`/users/nidVerifyApproval?id=${id}`, {
             headers: {
               "Content-Type": "application/json",
               authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           })
+
+
           console.log(response);
           if(response?.data?.code == 200){
             Swal.fire({
               position: 'top-center',
               icon: 'success',
-              title: `${response?.data?.data?.message}`,
+              title: `${response?.data?.message}`,
               showConfirmButton: false,
               timer: 1500
             })
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
           }else{
             Swal.fire({
               position: 'top-center',
               icon: 'error',
-              title: `${response?.data?.data?.message}`,
+              title: `${response?.data?.message}`,
               showConfirmButton: false,
               timer: 1500
             })
+
           }
         } catch (error) {
         Swal.fire({
@@ -269,8 +275,46 @@ console.log(list);
         })
         }
       }
-      const handleCancel = (id) => {
-        
+      const handleCancel = async (id) => {
+        console.log(id);
+        try {
+          const response = await baseURL.post(`/users/nidVerifyReject?id=${id}`, {
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          })
+
+          console.log(response);
+          if(response?.data?.code == 200){
+            Swal.fire({
+              position: 'top-center',
+              icon: 'cancel',
+              title: `${response?.data?.message}`,
+              showConfirmButton: false,
+              timer: 1500
+            })
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+          }else{
+            Swal.fire({
+              position: 'top-center',
+              icon: 'error',
+              title: `${response?.data?.message}`,
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
+        } catch (error) {
+          Swal.fire({
+            position: 'top-center',
+            icon: 'error',
+            title: `${error?.response?.data?.message}`,
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
       }
     return (
         <div className=" ml-[24px]">
@@ -356,7 +400,7 @@ console.log(list);
               <p onClick={()=>handleApprove(client?.id)} className="px-[55px] cursor-pointer py-[10px] bg-[#318130] rounded-lg">
                 Approve
               </p>
-              <p onClick={handleCancel} className="px-[55px] cursor-pointer py-[10px] text-[#318130] bg-[white] border-2 border-[#318130] rounded-lg">
+              <p onClick={()=>handleCancel(client?.id)} className="px-[55px] cursor-pointer py-[10px] text-[#318130] bg-[white] border-2 border-[#318130] rounded-lg">
                Cancel
               </p>
             </div>

@@ -3,15 +3,15 @@ import { ConfigProvider, DatePicker, Modal, Space, Table } from "antd";
 import React, { useState } from 'react';
 import { BsInfoCircle } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import { useGetSocialQuery } from '../redux/features/getTaskApi';
 import { render } from "react-dom";
+import { useGetVideoQuery } from "../redux/features/getVideoApi";
 
   
 
 const RecentVideo = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [client, setClient] = useState();
-  const {data:video,isLoading,isSuccess} = useGetSocialQuery();
+  const {data:video,isLoading,isSuccess} = useGetVideoQuery();
   const handleView = (value) => {
     setClient(value);
     console.log(value);
@@ -30,7 +30,7 @@ const RecentVideo = () => {
       dataIndex: "name",
       key: "name",
       render: (_, record) => (
-        <div className="flex gap-2 items-center">
+        <div className="flex flex-col gap-2 items-center">
           <img
             className="w-[34px] h-[34px] rounded-full"
             src={`${url}${record?.user?.image?.url}`}	
@@ -54,14 +54,14 @@ const RecentVideo = () => {
     },
     {
       title: "Target",
-      dataIndex: "quantity",
-      key: "quantity",
+      dataIndex: "count",
+      key: "count",
     },
     {
       title: "Total Rand",
       dataIndex: "rand",
       key: "rand",
-      render: (_, record) => <p>{record?.price * record?.quantity}</p>,
+      render: (_, record) => <p>{record?.price * record?.count || 0}</p>,
     },
     {
       title: "Action",

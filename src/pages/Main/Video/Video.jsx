@@ -55,14 +55,14 @@ const Video = () => {
     },
     {
       title: "Target",
-      dataIndex: "quantity",
-      key: "quantity",
+      dataIndex: "count",
+      key: "count",
     },
     {
       title: "Total Rand",
       dataIndex: "rand",
       key: "rand",
-      render: (_, record) => record?.quantity * record?.price,
+      render: (_, record) => record?.count * record?.price,
     },
     {
       title: "Action",
@@ -170,11 +170,11 @@ const Video = () => {
             </div>
             <div className="flex justify-between border-b py-[16px]">
               <p>Target:</p>
-              <p>{client?.quantity}</p>
+              <p>{client?.count || "N/A"}</p>
             </div>
             <div className="flex justify-between border-b py-[16px]">
               <p>Total Rand:</p>
-              <p>{client?.quantity * client?.price}</p>
+              <p>{client?.count * client?.price ||"N/A"}</p>
             </div>
             {/* <div className="flex justify-center items-center pt-[16px]">
               <p className="px-[15px] py-[10px] bg-[#318130] rounded-lg">

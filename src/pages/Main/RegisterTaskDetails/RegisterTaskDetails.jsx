@@ -14,10 +14,10 @@ const RegisterTaskDetails = () => {
   const navigate = useNavigate();
   console.log(data);
   const url = import.meta.env.VITE_API_URL;
-  const handleReject = (id) => {
+  const handleReject = async (id) => {
     console.log(id);
     try {
-      const response = baseURL.put(`/tasks/register/admin?id=${id}&status=rejected`, {
+      const response = await baseURL.put(`/tasks/register/admin?id=${id}&status=rejected`, {
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -43,10 +43,10 @@ const RegisterTaskDetails = () => {
       })
     }
   }
-  const handleApprove = (id) => {
+  const handleApprove = async (id) => {
     console.log(id);
     try {
-      const response = baseURL.put(`/tasks/register/admin?id=${id}&status=accepted`, {
+      const response = await baseURL.put(`/tasks/register?status=accepted&id=${id}`, {
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -62,6 +62,13 @@ const RegisterTaskDetails = () => {
           timer: 1500,
         });
         navigate("/employees-task-register");
+      }else{
+        Swal.fire({
+          icon: "error",
+          title: "Try Again...",
+          text: response?.data?.message,
+          footer: '<a href="#">Why do I have this issue?</a>',
+        })
       }
     } catch (error) {
       Swal.fire({
@@ -98,7 +105,7 @@ const RegisterTaskDetails = () => {
               </div>
               <div className="flex justify-between items-center mb-[14px]">
                 <p>Employees NID Number:</p>
-                <p>{data?.data?.attributes?.userId?.nidNumber}</p>
+                <p>{data?.data?.attributes?.userId?.nidNumber || "N/A"}</p>
               </div>
               <div className="flex justify-between items-center mb-[14px]">
                 <p>Email:</p>
@@ -121,21 +128,28 @@ const RegisterTaskDetails = () => {
                 <p>Task Link:</p>
                 <p>{data?.data?.attributes?.taskId?.taskLink}</p>
               </div>
-              <div className="flex justify-between items-center  mb-[14px]">
+              {/* <div className="flex justify-between items-center  mb-[14px]">
                 <p>Target:</p>
-                <p>{data?.data?.attributes?.taskId?.quantity}</p>
-              </div>
+                <p>{data?.data?.attributes?.taskId?.count || "N/A"}</p>
+              </div> */}
+              {
+                data?.data?.attributes?.taskId?.timeline && (
+                  <>
+                  <div className="flex justify-between items-center  mb-[14px]">
+                  <p>Start Date:</p>
+                  <p>{data?.data?.attributes?.taskId?.timeline?.start?.split("T")[0]}</p>
+                </div>
+                <div className="flex justify-between items-center  mb-[14px]">
+                  <p>End Date:</p>
+                  <p>{data?.data?.attributes?.taskId?.timeline?.end?.split("T")[0]}</p>
+                </div>
+                </>
+                ) 
+              }
+             
               <div className="flex justify-between items-center  mb-[14px]">
-                <p>Start Date:</p>
-                <p>01-24-2024</p>
-              </div>
-              <div className="flex justify-between items-center  mb-[14px]">
-                <p>End Date:</p>
-                <p>01-24-2024</p>
-              </div>
-              <div className="flex justify-between items-center  mb-[14px]">
-                <p>Total Rand:</p>
-                <p>R {data?.data?.attributes?.taskId?.price * data?.data?.attributes?.taskId?.quantity}</p>
+                <p>Price:</p>
+                <p>R {data?.data?.attributes?.price}</p>
               </div>
 
             </div>
@@ -148,6 +162,8 @@ const RegisterTaskDetails = () => {
                 data?.data?.attributes?.image?.map(img => (
                   <Image
                   width={200}
+                  // className="mx-2 my-5"
+                  height={200}
                   src={`${url}${img?.url}`} 
                 />
                 ))

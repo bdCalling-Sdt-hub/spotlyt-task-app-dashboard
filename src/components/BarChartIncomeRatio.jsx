@@ -95,7 +95,7 @@ const BarChartIncomeRatio = () => {
     setYear(dateString)
   };
  
-  console.log(chart);
+  console.log("chart",chart);
   return (
     <div className=" w-[66%] text-white  h-[318px] mt-5 rounded-xl shadow-2xl ">
       <div className="flex justify-between p-[16px] border-b-2">
@@ -125,7 +125,7 @@ const BarChartIncomeRatio = () => {
         <BarChart
           width={1000}
           height={250}
-          data={chart}
+          data={chart?.data}
           margin={{
             top: 5,
             right: 30,

@@ -50,15 +50,15 @@ const Corporate = () => {
         },
         {
             title: "Target",
-            dataIndex: "quantity",
-            key: "quantity",
+            dataIndex: "count",
+            key: "count",
           },
           {
             title: "Total Rand",
             dataIndex: "rand",
             key: "rand",
             render: (_, record) => (
-              <p>{record?.quantity * record?.price}</p>
+              <p>{record?.count * record?.price}</p>
             )
           },
         {
@@ -165,13 +165,13 @@ const Corporate = () => {
             <div className="flex justify-between border-b py-[16px]">
               <p>Target:</p>
               <p>
-                {client?.quantity}
+                {client?.count}
               </p>
             </div>
             <div className="flex justify-between py-[16px]">
               <p>Total Rand:</p>
               <p>
-                {client?.quantity * client?.price}
+                {client?.count * client?.price}
               </p>
             </div>
             {/* <div className="flex justify-center items-center pt-[16px]">

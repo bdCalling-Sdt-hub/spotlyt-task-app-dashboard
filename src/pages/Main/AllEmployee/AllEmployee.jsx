@@ -89,9 +89,9 @@ const AllEmployee = () => {
           {
              record?.nidStatus === "unverified" ? <p className={`text-red-500 font-bold`}>
              Unverified
-             </p> : <p className={`text-green-500 font-bold`}>
-             Verified
-              </p>
+             </p> : record?.nidStatus === "pending" ? <p className={`text-yellow-500 font-bold`}>Pending</p> : <p className={`text-green-500 font-bold`}>Verified</p>
+             
+              
           }
               
           </>)

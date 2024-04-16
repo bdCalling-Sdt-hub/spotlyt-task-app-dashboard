@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Badge, Dropdown, Button, Menu } from "antd";
 import { IoIosNotificationsOutline } from "react-icons/io";
@@ -10,10 +10,25 @@ import {
   MenuUnfoldOutlined,
 
 } from '@ant-design/icons';
+import { io } from "socket.io-client";
+import { useGetNotificationQuery } from "../../redux/features/getNotificationApi";
 // import SearchBox from "../SearchBox/SearchBox";
 
 const Header = ({toggleCollapsed,collapsed}) => {
   const navigate = useNavigate();
+  const [socketNotification,setSocketNotification] = useState([]);
+  const {data,isError,isLoading,isSuccess} = useGetNotificationQuery(1);
+
+  useEffect(() => {
+    const socketNotification = io("ws://103.145.138.54:8282");
+    socketNotification.on("connect", () => {
+      socketNotification.on("admin-notification", (data) => {
+        console.log(data);
+        setSocketNotification(data);
+      })
+    })
+    socketNotification.off("admin-notification",data)
+  })
   return (
     <div className="flex justify-between items-center rounded-md mb-[24px] p-[16px] bg-[#318130]">
       <div className="flex items-center gap-5">

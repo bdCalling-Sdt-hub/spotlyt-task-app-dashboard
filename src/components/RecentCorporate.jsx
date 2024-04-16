@@ -54,15 +54,15 @@ const RecentCorporate = () => {
       },
       {
           title: "Target",
-          dataIndex: "quantity",
-          key: "quantity",
+          dataIndex: "count",
+          key: "count",
         },
         {
           title: "Total Rand",
           dataIndex: "rand",
           key: "rand",
           render: (_, record) => (
-            <p>{record?.quantity * record?.price}</p>
+            <p>{record?.count * record?.price || 0}</p>
           )
         },
       {

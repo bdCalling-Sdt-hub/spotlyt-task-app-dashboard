@@ -1,30 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Pagination } from "antd";
 import NotificationCart from "../../../components/NotificationCart";
-
+import { useGetNotificationQuery } from "../../../redux/features/getNotificationApi";
+import Loading from "../../../components/Loading";
+import { io } from "socket.io-client";
 const Notification = () => {
   const [page, setPage] = useState(1);
-//   const [socketNotification,setSocketNotification] = useState([]);
-//   const { data, isError, isLoading, isSuccess } = useGetNotificationQuery(page);
+  const [socketNotification,setSocketNotification] = useState([]);
+  const { data, isError, isLoading, isSuccess } = useGetNotificationQuery(page);
 
   const onChange = (values) => {
     setPage(values);
   };
 
-//   useEffect(() => {
-//      const socket = io("ws://103.145.138.54:8282");
-//      socket.on("admin-notification", (data) => {
-//        setSocketNotification(data);
-//      });
+  useEffect(() => {
+     const socket = io("ws://103.145.138.54:8282");
+     socket.on("admin-notification", (data) => {
+       setSocketNotification(data);
+     });
  
-//      return () => {
-//        socket.disconnect();
-//      };
-//    }, [socketNotification]);
+     return () => {
+       socket.disconnect();
+     };
+   }, [socketNotification]);
    
-//    if (isLoading) {
-//      return <Loading />;
-//    }
+   if (isLoading) {
+     return <Loading/>;
+   }
   return (
     <div>
       <div className="pl-[24px] ">

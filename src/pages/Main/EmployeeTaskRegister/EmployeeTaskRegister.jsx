@@ -73,7 +73,7 @@ const url = import.meta.env.VITE_API_URL;
       key:"status",
       render: (_, record) => (
         
-          record?.taskId?.status === "pending" ? <p className="px-3 w-[100px] py-2 bg-[#F5F5F5] text-[#F7931E] cursor-pointer rounded-md">{record?.status}</p> : record?.status === "rejected" ? <p className="px-3 py-2 bg-[#F5F5F5] text-[red] cursor-pointer rounded-md">{record?.status}</p> :  <p className="px-3 py-2 bg-[#BFD8BF] text-[#318130] cursor-pointer rounded-md">{record?.status}</p>
+          record?.status === "pending" ? <p className="px-2 text-center py-2 w-[100px] bg-[#F5F5F5] text-[#F7931E] cursor-pointer rounded-md">{record?.status}</p> : record?.status === "rejected" ? <p className="px-3 w-[100px]  text-center  py-2 bg-[#F5F5F5] text-[red] cursor-pointer rounded-md">{record?.status}</p> :  <p className="px-2 w-[100px]  py-2 bg-[#BFD8BF] text-[#318130]  text-center cursor-pointer rounded-md">{record?.status}</p>
         
        
       )
@@ -113,7 +113,7 @@ const url = import.meta.env.VITE_API_URL;
       </div>
       <div className=" rounded-t-lg mt-[24px] shadow-2xl">
         <div className="flex py-[22px] mx-[20px] justify-between items-center">
-          <p className=" text-[24px] font-medium">Task Register List</p>
+          <p className="text-[24px] font-medium">Task Register List</p>
         </div>
         <ConfigProvider
           theme={{
@@ -139,57 +139,6 @@ const url = import.meta.env.VITE_API_URL;
           />
         </ConfigProvider>
       </div>
-      {/* <Modal
-        open={isModalOpen}
-        onOk={() => setIsModalOpen(false)}
-        onCancel={() => setIsModalOpen(false)}
-        footer={[]}
-        closeIcon
-      >
-        <div>
-          <div
-            style={{ fontFamily: "Aldrich" }}
-            className="flex justify-center items-center gap-2 flex-col border-b pt-10 border-b-gray-300"
-          >
-            <img
-              className="w-[140px] h-[140px] rounded-full "
-              src={client?.img}
-              alt=""
-            />
-            <p className="text-white text-[16px] mb-[16px]">{client?.name}</p>
-          </div>
-          <div
-            style={{ fontFamily: "Aldrich" }}
-            className="p-[20px] text-white"
-          >
-            <div className="flex justify-between border-b py-[16px]">
-              <p>Date:</p>
-              <p>{client?.date}</p>
-            </div>
-            <div className="flex justify-between border-b py-[16px] ">
-              <p>Employee Name:</p>
-              <p>{client?.name}</p>
-            </div>
-            <div className="flex justify-between border-b py-[16px]">
-              <p>Employee NID Number:</p>
-              <p>{client?.nidNumber}</p>
-            </div>
-            <div className="flex justify-between border-b py-[16px]">
-              <p>Email:</p>
-              <p>{client?.email}</p>
-            </div>
-            <div className="flex justify-between border-b py-[16px]">
-              <p>Country:</p>
-              <p>{client?.country}</p>
-            </div>
-            <div className="flex justify-center items-center pt-[16px]">
-              <p className="px-[15px] py-[10px] bg-[#318130] rounded-lg">
-                Approve Employee
-              </p>
-            </div>
-          </div>
-        </div>
-      </Modal> */}
     </div>
   );
 };

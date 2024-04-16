@@ -49,6 +49,9 @@ const LogIn = () => {
         timer: 1500,
       });
       navigate("/");
+      setInterval(() => {
+        window.location.reload();
+      }, 1600);
     } catch (error) {
       console.log(error);
       Swal.fire({
