@@ -81,7 +81,9 @@ const WithdrawRequest = () => {
               record?.status === "Completed" ? 
                 <p className={`text-green-500 font-bold`}>
                 {record?.status}
-              </p> :  <p className={`text-yellow-500 font-bold`}>
+              </p> :  record?.status === "Failed"? <p className={`text-red-500 font-bold`}>
+                {record?.status}
+              </p> : <p className={`text-yellow-500 font-bold`}>
                 {record?.status}
               </p>
               

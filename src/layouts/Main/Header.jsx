@@ -17,7 +17,7 @@ import { useGetNotificationQuery } from "../../redux/features/getNotificationApi
 const Header = ({toggleCollapsed,collapsed}) => {
   const navigate = useNavigate();
   const [socketNotification,setSocketNotification] = useState([]);
-  const {data,isError,isLoading,isSuccess} = useGetNotificationQuery(1);
+  const {data:notification,isError,isLoading,isSuccess} = useGetNotificationQuery(1);
 
   useEffect(() => {
     const socketNotification = io("ws://103.145.138.54:8282");
@@ -27,7 +27,7 @@ const Header = ({toggleCollapsed,collapsed}) => {
         setSocketNotification(data);
       })
     })
-    socketNotification.off("admin-notification",data)
+    socketNotification.off("admin-notification",notification)
   })
   return (
     <div className="flex justify-between items-center rounded-md mb-[24px] p-[16px] bg-[#318130]">
@@ -60,7 +60,8 @@ const Header = ({toggleCollapsed,collapsed}) => {
           onClick={(e) => navigate("notification")}
           className="relative flex items-center "
         >
-          <Badge style={{ backgroundColor: "#318130" }} count={5}>
+          <Badge style={{ backgroundColor: "#318130" }} count={notification?.data?.attributes?.unReadCount
+}>
             <IoIosNotificationsOutline
               style={{ cursor: "pointer" }}
               className={` bg-primary w-[52px] h-[52px] text-[white] border-2 border-[white] rounded-full p-2 `}

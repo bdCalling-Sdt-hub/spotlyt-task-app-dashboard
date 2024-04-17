@@ -185,7 +185,7 @@ const LogIn = () => {
                   htmlType="submit"
                   className="block w-[500px] h-[56px] px-2 py-4 mt-2 text-white bg-gradient-to-r from-[#318130] to-[#318130] rounded-lg hover:bg-[#318130]"
                 >
-                  Log in
+                  Log In
                 </Button>
                 {/* <Link to="/dashboard"
               // type="primary"

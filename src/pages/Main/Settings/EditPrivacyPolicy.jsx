@@ -40,6 +40,7 @@ const EditPrivacyPolicy = () => {
 
       }
       navigate("/settings/privacy-policy")
+      setInterval(()=>window.location.reload(),1600)
       console.log(response);
     }catch(error){
       console.log(error);

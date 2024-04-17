@@ -7,9 +7,12 @@ import { io } from "socket.io-client";
 const Notification = () => {
   const [page, setPage] = useState(1);
   const [socketNotification,setSocketNotification] = useState([]);
-  const { data, isError, isLoading, isSuccess } = useGetNotificationQuery(page);
+  const { data:notification, isError, isLoading, isSuccess } = useGetNotificationQuery(page);
+
+  console.log("notification",notification);
 
   const onChange = (values) => {
+    console.log(values);
     setPage(values);
   };
 
@@ -40,13 +43,19 @@ const Notification = () => {
             {/* {allNotifications?.map((item, index) => (
               <NotificationCart key={index} item={item} />
             ))} */}
-              <NotificationCart />
+            {
+
+              notification?.data?.attributes?.results.map((item,index) => (
+                <NotificationCart key={index} item={item} />
+              ))
+            }
+             
           </div>
           <div className="flex justify-center my-10">
             <Pagination
               onChange={onChange}
               defaultCurrent={1}
-          //     total={totalResults}
+              total={notification?.data?.attributes?.totalResults}
             />
           </div>
         </div>

@@ -14,7 +14,7 @@ import { useGetUserQuery } from "../../../redux/features/getSingleUser";
 import baseURL from "../../../config";
 // import { useGetAllUserQuery } from "../../../redux/features/AllUser/getAllUser";
 // import { useGetUserQuery } from "../../../redux/features/AllUser/getSingleUser";
-// import Loading from "../../../components/Loading/Loading";
+import Loading from "../../../components/Loading";
 
 const EditProfileInformation = () => {
     const navigate = useNavigate();
@@ -26,15 +26,17 @@ const EditProfileInformation = () => {
     const [phoneNumber, setPhoneNumber] = useState(user?.phoneNumber);
     const [imageUrl, setImageUrl] = useState(`${baseUrl}${user?.image?.url}`);
     //  const [imageUrl, setImageUrl] = useState();
+    const [email,setEmail] = useState(user?.email)
     const [fileList, setFileList] = useState([]);
     useEffect(()=>{
       setImageUrl(`${baseUrl}${user?.image?.url}`)
+      setEmail(user?.email)
       // setPhoneNumber(user?.phoneNumber)
     },[data])
     console.log(phoneNumber);
-    // if (isLoading) {
-    //   return <Loading />;
-    // }
+    if (isLoading) {
+      return <Loading />;
+    }
     const props = {
         action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
         listType: "picture",
@@ -262,11 +264,11 @@ const EditProfileInformation = () => {
                     className="flex-1"
                     rules={[
                       {
-                        required: true,
+                        // required: true,
                         message: "Please input your Email!",
                       },
                     ]}
-                    initialValue={user?.email}
+                    initialValue={email || user?.email}
                   >
                     <Input
                       placeholder="Email"

@@ -1,7 +1,8 @@
 import { IoIosNotificationsOutline } from "react-icons/io";
 
 
-const NotificationCart = () => {
+const NotificationCart = ({item}) => {
+  console.log(item);
 
      function calculateTimeDifference(dateString) {
           const now = new Date();
@@ -26,7 +27,7 @@ const NotificationCart = () => {
           }
       }
      return (
-          <div className="flex cursor-pointer justify-between items-center border-2 px-3 rounded-lg border-[#318130]">
+          <div className="flex cursor-pointer my-4 justify-between items-center border-2 px-3 rounded-lg border-[#318130]">
                
         <div className={`flex gap-[16px] items-center p-[16px]`}>
            
@@ -37,14 +38,14 @@ const NotificationCart = () => {
        
               
                 <h1 className="text-[16px] font-normal">
-                  {/* {message}. */}
-                  notification
+                  {item?.message}.
+                 
                 </h1>
                 {/* <p className="text-[14px] text-[#979797]">{formatDate(createdAt)}</p> */}
             
             </div>
             <div>
-                <small>{calculateTimeDifference("2024-04-06T06:55:28.481Z")}</small>
+                <small>{calculateTimeDifference(item?.createdAt)}</small>
             </div>
           </div>
      );
