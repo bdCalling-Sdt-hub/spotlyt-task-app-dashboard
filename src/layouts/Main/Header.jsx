@@ -12,6 +12,7 @@ import {
 } from '@ant-design/icons';
 import { io } from "socket.io-client";
 import { useGetNotificationQuery } from "../../redux/features/getNotificationApi";
+import baseURL from "../../config";
 // import SearchBox from "../SearchBox/SearchBox";
 
 const Header = ({toggleCollapsed,collapsed}) => {
@@ -29,6 +30,27 @@ const Header = ({toggleCollapsed,collapsed}) => {
     })
     socketNotification.off("admin-notification",notification)
   })
+
+
+
+const handleClick = () => {
+  try {
+    const response = baseURL.post("notification/admin", {
+
+    }, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      }
+    })
+    navigate("profile-information")
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+ 
+
+}
   return (
     <div className="flex justify-between items-center rounded-md mb-[24px] p-[16px] bg-[#318130]">
       <div className="flex items-center gap-5">
@@ -70,7 +92,7 @@ const Header = ({toggleCollapsed,collapsed}) => {
         </div>
         {/* </Dropdown> */}
         <div
-          onClick={() => navigate("profile-information")}
+          onClick={() => handleClick()}
           className="flex items-center cursor-pointer mr-[30px] bg-primary text-white rounded-full p-1"
         >
           <FaRegUser className="text-[white] border-2 border-[white] rounded-full p-2 w-[52px] h-[52px]" />

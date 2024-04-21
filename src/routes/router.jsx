@@ -26,6 +26,16 @@ import VerifyRequest from "../pages/Main/VerifyRequest/VerifyRequest";
 import WithdrawRequest from "../pages/Main/WithdrawRequest/WithdrawRequest";
 import AdminRoutes from "./AdminRoutes";
 import Notification from "../pages/Main/Notification/Notification";
+import AddFacebook from "../pages/Main/AddSocialMedia/AddFacebook";
+import AddInstagram from "../pages/Main/AddSocialMedia/AddInstagram";
+import AddTiktok from "../pages/Main/AddSocialMedia/AddTiktok";
+import AddVideo from "../pages/Main/AddSocialMedia/AddVideo";
+import AddCorporate from "../pages/Main/AddSocialMedia/AddCorporate";
+import ViewFacebook from "../pages/Main/ViewService/ViewFacebook";
+import ViewInstagram from "../pages/Main/ViewService/ViewInstagram";
+import ViewTikTok from "../pages/Main/ViewService/ViewTikTok";
+import ViewVideo from "../pages/Main/ViewService/ViewVideo";
+import ViewCorporate from "../pages/Main/ViewService/ViewCorporate";
 
 
 
@@ -63,6 +73,46 @@ const router = createBrowserRouter([
         {
           path: "/tasks/social-media",
           element: <SocialMedia/>,
+        },
+        {
+          path: "/add-service/add-facebook",
+          element: <AddFacebook/>,
+        },
+        {
+          path: "/add-service/add-instagram",
+          element: <AddInstagram/>,
+        },
+        {
+          path: "/add-service/add-tiktok",
+          element: <AddTiktok/>,
+        },
+        {
+          path: "/add-service/add-video",
+          element: <AddVideo/>,
+        },
+        {
+          path: "/add-service/add-corporate",
+          element: <AddCorporate/>,
+        },
+        {
+          path: "/view-service/facebook",
+          element: <ViewFacebook/>,
+        },
+        {
+          path: "/view-service/instagram",
+          element: <ViewInstagram/>,
+        },
+        {
+          path: "/view-service/tiktok",
+          element: <ViewTikTok/>,
+        },
+        {
+          path: "/view-service/video",
+          element: <ViewVideo/>,
+        },
+        {
+          path: "/view-service/corporate",
+          element: <ViewCorporate/>,
         },
         {
           path: "/tasks/video",

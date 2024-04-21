@@ -62,6 +62,7 @@ const RegisterTaskDetails = () => {
           timer: 1500,
         });
         navigate("/employees-task-register");
+        setInterval(()=>window.location.reload(),1600)
       }else{
         Swal.fire({
           icon: "error",

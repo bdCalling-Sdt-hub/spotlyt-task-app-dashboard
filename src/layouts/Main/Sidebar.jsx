@@ -18,9 +18,13 @@ import { Menu } from "antd";
 import { useState } from "react";
 import { BiMoneyWithdraw } from "react-icons/bi";
 import { MdVerifiedUser } from "react-icons/md";
+import { SlSocialInstagram } from "react-icons/sl";
+import { SlSocialFacebook } from "react-icons/sl";
+import { FaTiktok } from "react-icons/fa";
+import { MdSocialDistance } from "react-icons/md";
+import { GrServices } from "react-icons/gr";
+import { HiMiniViewfinderCircle } from "react-icons/hi2";
 import Swal from "sweetalert2";
-
-
 
 function getItem(label, key, icon, children) {
   return {
@@ -31,8 +35,7 @@ function getItem(label, key, icon, children) {
   };
 }
 
-
-const Sidebar = ({collapsed}) => {
+const Sidebar = ({ collapsed }) => {
   const [mode, setMode] = useState("inline");
   const [theme, setTheme] = useState("light");
   const navigate = useNavigate();
@@ -40,7 +43,6 @@ const Sidebar = ({collapsed}) => {
     // localStorage.removeItem('token')
     // localStorage.removeItem('login-user')
     // localStorage.removeItem('user-update')
-   
   };
 
   const logout = () => {
@@ -62,7 +64,6 @@ const Sidebar = ({collapsed}) => {
     });
   };
 
-
   const items = [
     getItem(
       <p onClick={(e) => navigate("/")} className="text-[20px] leading-normal">
@@ -72,45 +73,93 @@ const Sidebar = ({collapsed}) => {
       <BiSolidDashboard style={{ fontSize: "24px" }} />
     ),
     getItem(
-      <p onClick={(e) => navigate("/all-client")} className="text-[18px] leading-normal">All Client</p>,
+      <p
+        onClick={(e) => navigate("/all-client")}
+        className="text-[18px] leading-normal"
+      >
+        All Client
+      </p>,
       "2",
-      <FaUsers  style={{ fontSize: "24px" }} />,
+      <FaUsers style={{ fontSize: "24px" }} />
     ),
 
     getItem(
-      <p onClick={(e) => navigate("/all-employee")} className="text-[18px] leading-normal">All Employee</p>,
+      <p
+        onClick={(e) => navigate("/all-employee")}
+        className="text-[18px] leading-normal"
+      >
+        All Employee
+      </p>,
       "3",
-      <FaUsers  style={{ fontSize: "24px" }} />
-     
+      <FaUsers style={{ fontSize: "24px" }} />
     ),
     getItem(
-      <p onClick={(e) => navigate("/verify-request")} className="text-[18px] leading-normal">Verify Request</p>,
+      <p
+        onClick={(e) => navigate("/verify-request")}
+        className="text-[18px] leading-normal"
+      >
+        Verify Request
+      </p>,
       "4",
-      <MdVerifiedUser  style={{ fontSize: "24px" }} />
-     
+      <MdVerifiedUser style={{ fontSize: "24px" }} />
     ),
+
     getItem(
       <p
         // onClick={(e) => navigate("/appointments")}
         className="text-[18px] leading-normal"
       >
-        Tasks
+        Add Service
       </p>,
       "5",
-      <FaRegClipboard  style={{ fontSize: "24px" }} />,
-       [
+      <GrServices style={{ fontSize: "24px" }} />,
+      [
         getItem(
-          <li
-            onClick={(e) => navigate("/tasks/social-media")}
+          <p
+            // onClick={(e) => navigate("/tasks/social-media")}
             className="text-[18px] leading-normal"
           >
             Social Media
-          </li>,
-          "6"
+          </p>,
+          "6",
+          <MdSocialDistance style={{ fontSize: "24px" }} />,
+
+          [
+            getItem(
+              <p
+                onClick={(e) => navigate("/add-service/add-facebook")}
+                className="text-[18px] leading-normal"
+              >
+                Facebook
+              </p>,
+              "13",
+              <SlSocialFacebook style={{ fontSize: "24px" }} />
+            ),
+            getItem(
+              <p
+                onClick={(e) => navigate("/add-service/add-instagram")}
+                className="text-[18px] leading-normal"
+              >
+                Instagram
+              </p>,
+              "14",
+              <SlSocialInstagram style={{ fontSize: "24px" }} />
+            ),
+            getItem(
+              <p
+                onClick={(e) => navigate("/add-service/add-tiktok")}
+                className="text-[18px] leading-normal"
+              >
+                TikTok
+              </p>,
+              "15",
+              <FaTiktok style={{ fontSize: "24px" }} />
+            ),
+          ]
         ),
         getItem(
           <li
-            onClick={(e) => navigate("/tasks/video")}
+            onClick={(e) => navigate("/add-service/add-video")}
             className="text-[18px] leading-normal"
           >
             Video
@@ -119,7 +168,7 @@ const Sidebar = ({collapsed}) => {
         ),
         getItem(
           <li
-            onClick={(e) => navigate("/tasks/corporate")}
+            onClick={(e) => navigate("/add-service/add-corporate")}
             className="text-[18px] leading-normal"
           >
             Corporate
@@ -127,8 +176,120 @@ const Sidebar = ({collapsed}) => {
           "8"
         ),
       ]
-
     ),
+    getItem(
+      <p
+        // onClick={(e) => navigate("/appointments")}
+        className="text-[18px] leading-normal"
+      >
+        View Service
+      </p>,
+      "20",
+      <HiMiniViewfinderCircle style={{ fontSize: "24px" }} />,
+      [
+        getItem(
+          <p
+            // onClick={(e) => navigate("/tasks/social-media")}
+            className="text-[18px] leading-normal"
+          >
+            Social Media
+          </p>,
+          "21",
+          <MdSocialDistance style={{ fontSize: "24px" }} />,
+
+          [
+            getItem(
+              <p
+                onClick={(e) => navigate("/view-service/facebook")}
+                className="text-[18px] leading-normal"
+              >
+                Facebook
+              </p>,
+              "22",
+              <SlSocialFacebook style={{ fontSize: "24px" }} />
+            ),
+            getItem(
+              <p
+                onClick={(e) => navigate("/view-service/instagram")}
+                className="text-[18px] leading-normal"
+              >
+                Instagram
+              </p>,
+              "23",
+              <SlSocialInstagram style={{ fontSize: "24px" }} />
+            ),
+            getItem(
+              <p
+                onClick={(e) => navigate("/view-service/tiktok")}
+                className="text-[18px] leading-normal"
+              >
+                TikTok
+              </p>,
+              "24",
+              <FaTiktok style={{ fontSize: "24px" }} />
+            ),
+          ]
+        ),
+        getItem(
+          <li
+            onClick={(e) => navigate("/view-service/video")}
+            className="text-[18px] leading-normal"
+          >
+            Video
+          </li>,
+          "25"
+        ),
+        getItem(
+          <li
+            onClick={(e) => navigate("/view-service/corporate")}
+            className="text-[18px] leading-normal"
+          >
+            Corporate
+          </li>,
+          "26"
+        ),
+      ]
+    ),
+    getItem(
+      <p
+        // onClick={(e) => navigate("/appointments")}
+        className="text-[18px] leading-normal"
+      >
+        Tasks
+      </p>,
+      "19",
+      <FaRegClipboard style={{ fontSize: "24px" }} />,
+      [
+        getItem(
+          <li
+            onClick={(e) => navigate("/tasks/social-media")}
+            className="text-[18px] leading-normal"
+          >
+            Social Media
+          </li>,
+          "16"
+        ),
+        getItem(
+          <li
+            onClick={(e) => navigate("/tasks/video")}
+            className="text-[18px] leading-normal"
+          >
+            Video
+          </li>,
+          "17"
+        ),
+        getItem(
+          <li
+            onClick={(e) => navigate("/tasks/corporate")}
+            className="text-[18px] leading-normal"
+          >
+            Corporate
+          </li>,
+          "18"
+        ),
+      ]
+    ),
+
     getItem(
       <p
         onClick={(e) => navigate("/employees-task-register")}
@@ -137,17 +298,20 @@ const Sidebar = ({collapsed}) => {
         Employees Task Register
       </p>,
       "9",
-      <FaClipboardCheck  style={{ fontSize: "24px" }} />
+      <FaClipboardCheck style={{ fontSize: "24px" }} />
     ),
-   
+
     getItem(
-      <p onClick={(e) => navigate("/withdraw-request")} className="text-[18px] leading-normal">Withdrawal Request</p>,
+      <p
+        onClick={(e) => navigate("/withdraw-request")}
+        className="text-[18px] leading-normal"
+      >
+        Withdrawal Request
+      </p>,
       "10",
-      <BiMoneyWithdraw  style={{ fontSize: "24px" }} />
-     
+      <BiMoneyWithdraw style={{ fontSize: "24px" }} />
     ),
-   
- 
+
     getItem(
       <p
         onClick={(e) => navigate("/settings")}
@@ -155,51 +319,38 @@ const Sidebar = ({collapsed}) => {
       >
         Settings
       </p>,
-    "11",
-      <CiSettings   style={{ fontSize: "24px" }}/> 
+      "11",
+      <CiSettings style={{ fontSize: "24px" }} />
     ),
     getItem(
       <p onClick={logout} className="text-[18px] leading-normal">
         Logout
       </p>,
       "12",
-      <MdLogout  style={{ fontSize: "24px" }}/>
+      <MdLogout style={{ fontSize: "24px" }} />
     ),
   ];
-
-
-
-
-
-
 
   return (
     <div className="w-[300px] flex flex-col justify-between bg-[#318130] min-h-screen rounded-lg">
       <div className="">
         <div className="p-[32px]">
-        <Link to="/">
-          <img src={logo} alt="" />
-        </Link>
+          <Link to="/">
+            <img src={logo} alt="" />
+          </Link>
         </div>
-        
-
 
         {/* this  */}
 
-
-
-
         <Menu
-            style={{ width:"295px" }}
-            className={`w-[300px] p-[10px] bg-[#318130] `}
-            defaultSelectedKeys={["1"]}
-            mode={mode}
-            theme={theme}
-            items={items}
-            inlineCollapsed={collapsed}
-          />
-
-        
+          style={{ width: "295px" }}
+          className={`w-[300px] p-[10px] bg-[#318130] `}
+          defaultSelectedKeys={["1"]}
+          mode={mode}
+          theme={theme}
+          items={items}
+          inlineCollapsed={collapsed}
+        />
       </div>
       <div className="mb-[32px]">
         {/* <div
