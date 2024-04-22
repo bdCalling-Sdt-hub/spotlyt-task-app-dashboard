@@ -17,113 +17,112 @@ import baseURL from "../../../config";
 import Loading from "../../../components/Loading";
 
 const EditProfileInformation = () => {
-    const navigate = useNavigate();
-    const baseUrl = import.meta.env.VITE_API_URL;
-    const { id } = useParams();
-    const { data, isLoading } = useGetUserQuery(id);
-    const user = data?.data?.attributes;
-    console.log(user);
-    const [phoneNumber, setPhoneNumber] = useState(user?.phoneNumber);
-    const [imageUrl, setImageUrl] = useState(`${baseUrl}${user?.image?.url}`);
-    //  const [imageUrl, setImageUrl] = useState();
-    const [email,setEmail] = useState(user?.email)
-    const [fileList, setFileList] = useState([]);
-    useEffect(()=>{
-      setImageUrl(`${baseUrl}${user?.image?.url}`)
-      setEmail(user?.email)
-      // setPhoneNumber(user?.phoneNumber)
-    },[data])
-    console.log(phoneNumber);
-    if (isLoading) {
-      return <Loading />;
-    }
-    const props = {
-        action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
-        listType: "picture",
-        showUploadList: false, // Disable the default upload list
-        beforeUpload(file) {
-          return new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-              const img = document.createElement("img");
-              img.src = reader.result;
-              img.onload = () => {
-                const canvas = document.createElement("canvas");
-                canvas.width = img.naturalWidth;
-                canvas.height = img.naturalHeight;
-                const ctx = canvas.getContext("2d");
-                ctx.drawImage(img, 0, 0);
-                ctx.fillStyle = "red";
-                ctx.textBaseline = "middle";
-                ctx.font = "33px Arial";
-                ctx.fillText("", 20, 20);
-                canvas.toBlob((result) => {
-                  resolve(result);
-                  setImageUrl(URL.createObjectURL(result));
-                  // console.log(result);// Update the image URL
-                });
-              };
-            };
-          });
-        },
-      };
-      const handleUpdateProfile = async (values) => {
-        const updateProfile = {
-          ...values,
-          image: fileList[0]?.originFileObj,
-          // dateOfBirth: `${values.dateOfBirth.$D}-${values.dateOfBirth.$M + 1}-${
-          //   values.dateOfBirth.$y
-          // }`,
-          phoneNumber,
-        };
-        console.log(updateProfile);
-        const formData = new FormData();
-        formData.append("fullName", updateProfile?.fullName);
-        // formData.append("email", updateProfile?.email);
-        formData.append("phoneNumber", updateProfile?.phoneNumber);
-        // formData.append("dateOfBirth", updateProfile?.dateOfBirth);
-        if (fileList[0]?.originFileObj) {
-          formData.append("image", fileList[0]?.originFileObj);
-        }
-        try {
-          const response = await baseURL.patch(`/users/${id}`, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          });
-          if (response.data.code == 200) {
-            Swal.fire({
-              position: "top-center",
-              icon: "success",
-              title: response.data.message,
-              showConfirmButton: false,
-              timer: 1500,
+  const navigate = useNavigate();
+  const baseUrl = import.meta.env.VITE_API_URL;
+  const { id } = useParams();
+  const { data, isLoading } = useGetUserQuery(id);
+  const user = data?.data?.attributes;
+  console.log(user);
+  const [phoneNumber, setPhoneNumber] = useState(user?.phoneNumber);
+  const [imageUrl, setImageUrl] = useState(`${baseUrl}${user?.image?.url}`);
+  //  const [imageUrl, setImageUrl] = useState();
+  const [email, setEmail] = useState(user?.email);
+  const [fileList, setFileList] = useState([]);
+  useEffect(() => {
+    setImageUrl(`${baseUrl}${user?.image?.url}`);
+    setEmail(user?.email);
+    // setPhoneNumber(user?.phoneNumber)
+  }, [data]);
+  console.log(phoneNumber);
+  if (isLoading) {
+    return <Loading />;
+  }
+  const props = {
+    action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
+    listType: "picture",
+    showUploadList: false, // Disable the default upload list
+    beforeUpload(file) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          const img = document.createElement("img");
+          img.src = reader.result;
+          img.onload = () => {
+            const canvas = document.createElement("canvas");
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+            ctx.fillStyle = "red";
+            ctx.textBaseline = "middle";
+            ctx.font = "33px Arial";
+            ctx.fillText("", 20, 20);
+            canvas.toBlob((result) => {
+              resolve(result);
+              setImageUrl(URL.createObjectURL(result));
+              // console.log(result);// Update the image URL
             });
-            localStorage.removeItem("admin");
-            localStorage.setItem(
-              "admin",
-              JSON.stringify(response?.data?.data?.attributes)
-            );
-            console.log(response.data);
-            // navigate('/dashboard/', { replace: true });
-            setTimeout(()=>window.location.reload() , 1700);
-            
-          }
-        } catch (error) {
-          console.log("Registration Fail", error?.response?.data?.message);
-          Swal.fire({
-            icon: "error",
-            title: "Error...",
-            text: error?.response?.data?.message,
-            footer: '<a href="#">Why do I have this issue?</a>',
-          });
-        }
-        console.log(updateProfile);
-      };
-    return (
-        <div >
+          };
+        };
+      });
+    },
+  };
+  const handleUpdateProfile = async (values) => {
+    const updateProfile = {
+      ...values,
+      image: fileList[0]?.originFileObj,
+      // dateOfBirth: `${values.dateOfBirth.$D}-${values.dateOfBirth.$M + 1}-${
+      //   values.dateOfBirth.$y
+      // }`,
+      phoneNumber,
+    };
+    console.log(updateProfile);
+    const formData = new FormData();
+    formData.append("fullName", updateProfile?.fullName);
+    // formData.append("email", updateProfile?.email);
+    formData.append("phoneNumber", updateProfile?.phoneNumber);
+    // formData.append("dateOfBirth", updateProfile?.dateOfBirth);
+    if (fileList[0]?.originFileObj) {
+      formData.append("image", fileList[0]?.originFileObj);
+    }
+    try {
+      const response = await baseURL.patch(`/users/${id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (response.data.code == 200) {
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: response.data.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        localStorage.removeItem("admin");
+        localStorage.setItem(
+          "admin",
+          JSON.stringify(response?.data?.data?.attributes)
+        );
+        console.log(response.data);
+        // navigate('/dashboard/', { replace: true });
+        setTimeout(() => window.location.reload(), 1700);
+      }
+    } catch (error) {
+      console.log("Registration Fail", error?.response?.data?.message);
+      Swal.fire({
+        icon: "error",
+        title: "Error...",
+        text: error?.response?.data?.message,
+        footer: '<a href="#">Why do I have this issue?</a>',
+      });
+    }
+    console.log(updateProfile);
+  };
+  return (
+    <div>
       <div
         onClick={() => navigate("/profile-information")}
         className="flex cursor-pointer  items-center ml-[24px] mt-[40px] mb-[63px]"
@@ -155,12 +154,12 @@ const EditProfileInformation = () => {
                   {...props}
                   name="avatar"
                   listType="picture-circle"
-                //   className={styles.avatarUploader}
-                //   fileList={fileList}
+                  //   className={styles.avatarUploader}
+                  //   fileList={fileList}
                   // className={styles.ant-upload}
                   showUploadList={false}
                   action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                //   beforeUpload={beforeUpload}
+                  //   beforeUpload={beforeUpload}
                   onChange={({ fileList: newFileList }) => {
                     // console.log(fileList?.fileList[0].originFileObj);
                     setFileList(newFileList);
@@ -207,11 +206,9 @@ const EditProfileInformation = () => {
               <div className="flex flex-col justify-center items-center">
                 <p className="text-[20px] text-[#4E4E4E]">
                   {user?.role?.toUpperCase()}
-                 
                 </p>
                 <h1 className="text-[#222222] text-[30px] font-medium">
                   {user?.fullName?.toUpperCase()}
-                
                 </h1>
               </div>
             </div>
@@ -246,9 +243,9 @@ const EditProfileInformation = () => {
                          items-center 
                          gap-4 inline-flex
                           outline-none
-                           focus:border-none
-                            focus:bg-[#F7F7F7]
-                             hover:bg-[#F7F7F7]"
+                         focus:border-none
+                         focus:bg-[#F7F7F7]
+                          hover:bg-[#F7F7F7]"
                       />
                     </Form.Item>
                   </div>
@@ -315,7 +312,7 @@ const EditProfileInformation = () => {
         </Form>
       </div>
     </div>
-    );
-}
+  );
+};
 
 export default EditProfileInformation;

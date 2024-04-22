@@ -20,9 +20,13 @@ const AboutUs = () => {
           About Us
         </h1>
       </div>
-      <div className=" text-justify mt-[24px] h-screen text-black" dangerouslySetInnerHTML={{ __html: content }}>
-        
+    
+      <div className=" text-justify mt-[24px] text-black " dangerouslySetInnerHTML={{ __html: content }}>
       </div>
+     
+    
+        
+      
     <Link to='/settings/edit-about-us' className="absolute text-center bottom-0 bg-gradient-to-r from-[#318130] via-[#318130] to-[#318130] 
         text-white  mt-5 py-3 rounded-lg w-full text-[18px] font-medium  duration-200">Edit</Link>
         </div>

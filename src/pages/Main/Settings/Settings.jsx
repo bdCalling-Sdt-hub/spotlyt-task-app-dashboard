@@ -54,6 +54,14 @@ const Settings = () => {
         title: "About us",
         path: "about-us",
       },
+      {
+        title: "Add Interest",
+        path: "add-interest",
+      },
+      {
+        title: "Refer Amount",
+        path: "refer-amount",
+      },
   ]; 
 
 

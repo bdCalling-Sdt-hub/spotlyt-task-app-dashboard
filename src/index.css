@@ -176,3 +176,8 @@ li.ant-menu-item.ant-menu-item-only-child {
   cursor: not-allowed;
   opacity: 0.5;
 }
+
+.ant-select-selector{
+  border: none !important;
+  background-color: #F7F7F7 !important;
+}

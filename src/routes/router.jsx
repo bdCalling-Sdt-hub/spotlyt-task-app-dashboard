@@ -36,6 +36,11 @@ import ViewInstagram from "../pages/Main/ViewService/ViewInstagram";
 import ViewTikTok from "../pages/Main/ViewService/ViewTikTok";
 import ViewVideo from "../pages/Main/ViewService/ViewVideo";
 import ViewCorporate from "../pages/Main/ViewService/ViewCorporate";
+import AddInterest from "../pages/Main/Settings/AddInterest";
+import AddReferAmount from "../pages/Main/Settings/AddReferAmount";
+import AddServices from "../pages/Main/AddSocialMedia/AddServices";
+import AddCategoryService from "../pages/Main/AddSocialMedia/AddCategoryService";
+import AddCategory from "../pages/Main/AddSocialMedia/AddCategory";
 
 
 
@@ -75,8 +80,20 @@ const router = createBrowserRouter([
           element: <SocialMedia/>,
         },
         {
-          path: "/add-service/add-facebook",
+          path: "/services",
+          element: <AddServices/>,
+        },
+        {
+          path: "/services/add",
           element: <AddFacebook/>,
+        },
+        {
+          path: "categoryService/:id",
+          element: <AddCategoryService/>,
+        },
+        {
+          path: "addCategoryService/:id",
+          element: <AddCategory/>,
         },
         {
           path: "/add-service/add-instagram",
@@ -174,6 +191,14 @@ const router = createBrowserRouter([
         {
           path: "/settings/edit-about-us",
           element: <EditAboutUs/>,
+        },
+        {
+          path: "/settings/add-interest",
+          element: <AddInterest/>,
+        },
+        {
+          path: "/settings/refer-amount",
+          element: <AddReferAmount/>,
         },
        
         // {

@@ -103,153 +103,163 @@ const Sidebar = ({ collapsed }) => {
       "4",
       <MdVerifiedUser style={{ fontSize: "24px" }} />
     ),
-
     getItem(
       <p
-        // onClick={(e) => navigate("/appointments")}
+        onClick={(e) => navigate("/services")}
         className="text-[18px] leading-normal"
       >
-        Add Service
+        Services
       </p>,
-      "5",
-      <GrServices style={{ fontSize: "24px" }} />,
-      [
-        getItem(
-          <p
-            // onClick={(e) => navigate("/tasks/social-media")}
-            className="text-[18px] leading-normal"
-          >
-            Social Media
-          </p>,
-          "6",
-          <MdSocialDistance style={{ fontSize: "24px" }} />,
-
-          [
-            getItem(
-              <p
-                onClick={(e) => navigate("/add-service/add-facebook")}
-                className="text-[18px] leading-normal"
-              >
-                Facebook
-              </p>,
-              "13",
-              <SlSocialFacebook style={{ fontSize: "24px" }} />
-            ),
-            getItem(
-              <p
-                onClick={(e) => navigate("/add-service/add-instagram")}
-                className="text-[18px] leading-normal"
-              >
-                Instagram
-              </p>,
-              "14",
-              <SlSocialInstagram style={{ fontSize: "24px" }} />
-            ),
-            getItem(
-              <p
-                onClick={(e) => navigate("/add-service/add-tiktok")}
-                className="text-[18px] leading-normal"
-              >
-                TikTok
-              </p>,
-              "15",
-              <FaTiktok style={{ fontSize: "24px" }} />
-            ),
-          ]
-        ),
-        getItem(
-          <li
-            onClick={(e) => navigate("/add-service/add-video")}
-            className="text-[18px] leading-normal"
-          >
-            Video
-          </li>,
-          "7"
-        ),
-        getItem(
-          <li
-            onClick={(e) => navigate("/add-service/add-corporate")}
-            className="text-[18px] leading-normal"
-          >
-            Corporate
-          </li>,
-          "8"
-        ),
-      ]
+      "30",
+      <GrServices style={{ fontSize: "24px" }} />
     ),
-    getItem(
-      <p
-        // onClick={(e) => navigate("/appointments")}
-        className="text-[18px] leading-normal"
-      >
-        View Service
-      </p>,
-      "20",
-      <HiMiniViewfinderCircle style={{ fontSize: "24px" }} />,
-      [
-        getItem(
-          <p
-            // onClick={(e) => navigate("/tasks/social-media")}
-            className="text-[18px] leading-normal"
-          >
-            Social Media
-          </p>,
-          "21",
-          <MdSocialDistance style={{ fontSize: "24px" }} />,
 
-          [
-            getItem(
-              <p
-                onClick={(e) => navigate("/view-service/facebook")}
-                className="text-[18px] leading-normal"
-              >
-                Facebook
-              </p>,
-              "22",
-              <SlSocialFacebook style={{ fontSize: "24px" }} />
-            ),
-            getItem(
-              <p
-                onClick={(e) => navigate("/view-service/instagram")}
-                className="text-[18px] leading-normal"
-              >
-                Instagram
-              </p>,
-              "23",
-              <SlSocialInstagram style={{ fontSize: "24px" }} />
-            ),
-            getItem(
-              <p
-                onClick={(e) => navigate("/view-service/tiktok")}
-                className="text-[18px] leading-normal"
-              >
-                TikTok
-              </p>,
-              "24",
-              <FaTiktok style={{ fontSize: "24px" }} />
-            ),
-          ]
-        ),
-        getItem(
-          <li
-            onClick={(e) => navigate("/view-service/video")}
-            className="text-[18px] leading-normal"
-          >
-            Video
-          </li>,
-          "25"
-        ),
-        getItem(
-          <li
-            onClick={(e) => navigate("/view-service/corporate")}
-            className="text-[18px] leading-normal"
-          >
-            Corporate
-          </li>,
-          "26"
-        ),
-      ]
-    ),
+    // getItem(
+    //   <p
+    //     // onClick={(e) => navigate("/appointments")}
+    //     className="text-[18px] leading-normal"
+    //   >
+    //     Add Service
+    //   </p>,
+    //   "5",
+    //   <GrServices style={{ fontSize: "24px" }} />,
+    //   [
+    //     getItem(
+    //       <p
+    //         // onClick={(e) => navigate("/tasks/social-media")}
+    //         className="text-[18px] leading-normal"
+    //       >
+    //         Social Media
+    //       </p>,
+    //       "6",
+    //       <MdSocialDistance style={{ fontSize: "24px" }} />,
+
+    //       [
+    //         getItem(
+    //           <p
+    //             onClick={(e) => navigate("/add-service/add-facebook")}
+    //             className="text-[18px] leading-normal"
+    //           >
+    //             Facebook
+    //           </p>,
+    //           "13",
+    //           <SlSocialFacebook style={{ fontSize: "24px" }} />
+    //         ),
+    //         getItem(
+    //           <p
+    //             onClick={(e) => navigate("/add-service/add-instagram")}
+    //             className="text-[18px] leading-normal"
+    //           >
+    //             Instagram
+    //           </p>,
+    //           "14",
+    //           <SlSocialInstagram style={{ fontSize: "24px" }} />
+    //         ),
+    //         getItem(
+    //           <p
+    //             onClick={(e) => navigate("/add-service/add-tiktok")}
+    //             className="text-[18px] leading-normal"
+    //           >
+    //             TikTok
+    //           </p>,
+    //           "15",
+    //           <FaTiktok style={{ fontSize: "24px" }} />
+    //         ),
+    //       ]
+    //     ),
+    //     getItem(
+    //       <li
+    //         onClick={(e) => navigate("/add-service/add-video")}
+    //         className="text-[18px] leading-normal"
+    //       >
+    //         Video
+    //       </li>,
+    //       "7"
+    //     ),
+    //     getItem(
+    //       <li
+    //         onClick={(e) => navigate("/add-service/add-corporate")}
+    //         className="text-[18px] leading-normal"
+    //       >
+    //         Corporate
+    //       </li>,
+    //       "8"
+    //     ),
+    //   ]
+    // ),
+    // getItem(
+    //   <p
+    //     // onClick={(e) => navigate("/appointments")}
+    //     className="text-[18px] leading-normal"
+    //   >
+    //     View Service
+    //   </p>,
+    //   "20",
+    //   <HiMiniViewfinderCircle style={{ fontSize: "24px" }} />,
+    //   [
+    //     getItem(
+    //       <p
+    //         // onClick={(e) => navigate("/tasks/social-media")}
+    //         className="text-[18px] leading-normal"
+    //       >
+    //         Social Media
+    //       </p>,
+    //       "21",
+    //       <MdSocialDistance style={{ fontSize: "24px" }} />,
+
+    //       [
+    //         getItem(
+    //           <p
+    //             onClick={(e) => navigate("/view-service/facebook")}
+    //             className="text-[18px] leading-normal"
+    //           >
+    //             Facebook
+    //           </p>,
+    //           "22",
+    //           <SlSocialFacebook style={{ fontSize: "24px" }} />
+    //         ),
+    //         getItem(
+    //           <p
+    //             onClick={(e) => navigate("/view-service/instagram")}
+    //             className="text-[18px] leading-normal"
+    //           >
+    //             Instagram
+    //           </p>,
+    //           "23",
+    //           <SlSocialInstagram style={{ fontSize: "24px" }} />
+    //         ),
+    //         getItem(
+    //           <p
+    //             onClick={(e) => navigate("/view-service/tiktok")}
+    //             className="text-[18px] leading-normal"
+    //           >
+    //             TikTok
+    //           </p>,
+    //           "24",
+    //           <FaTiktok style={{ fontSize: "24px" }} />
+    //         ),
+    //       ]
+    //     ),
+    //     getItem(
+    //       <li
+    //         onClick={(e) => navigate("/view-service/video")}
+    //         className="text-[18px] leading-normal"
+    //       >
+    //         Video
+    //       </li>,
+    //       "25"
+    //     ),
+    //     getItem(
+    //       <li
+    //         onClick={(e) => navigate("/view-service/corporate")}
+    //         className="text-[18px] leading-normal"
+    //       >
+    //         Corporate
+    //       </li>,
+    //       "26"
+    //     ),
+    //   ]
+    // ),
     getItem(
       <p
         // onClick={(e) => navigate("/appointments")}
