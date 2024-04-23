@@ -1,58 +1,57 @@
-import React from 'react';
-import { Button, Form, Input } from "antd";
-import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
-import baseURL from '../../../config';
-import Swal from 'sweetalert2';
+import React from "react";
+import { Button, Dropdown, Form, Input, Select } from "antd";
+import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
+import { useNavigate, useParams } from "react-router-dom";
+import baseURL from "../../../config";
+import Swal from "sweetalert2";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import { useGetSingleCartQuery } from "../../../redux/features/getSingleCartApi";
+import Loading from "../../../components/Loading";
 
-const AddTiktok = () => {
+const EditServices = () => {
     const navigate = useNavigate();
-
+    const {id} = useParams()
+    const {data,isSuccess,isLoading,} = useGetSingleCartQuery(id);
+    if(isLoading){
+        return <Loading/>
+    }
     const handleAddService = async (values) => {
         console.log(values);
-        try{
-          const response = await baseURL.post(`/membership`,values,{
-            headers: {
-                "Content-Type": "application/json",
-                authorization: `Bearer ${localStorage.getItem('token')}`,
-               
-            }});
-    
-          console.log(response.data)
-          
-          if(response.data.code==201){
-              Swal.fire({
-                  position: 'top-center',
-                  icon: 'success',
-                  title: response.data.message,
-                  showConfirmButton: false,
-                  timer: 1500
-              });
-            //   navigate('/dashboard/membership', { replace: true });
-            //   window.location.reload();
-          }
-      }catch(error){
-          console.log("Registration Fail",error?.response?.data?.message);
-          Swal.fire({
-              icon: "error",
-              title: "Error...",
-              text: error?.response?.data?.message,
-              footer: '<a href="#">Why do I have this issue?</a>'
-            });
-      }
-      };
+        try {
+            const response = await baseURL.put(`/service?id=${id}`, values, {
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            })
+            if(response?.status == 200){
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: response?.data?.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                navigate('/services', { replace: true });
+                setTimeout(() => {
+                    window.location.reload()
+                },1600)
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Error...",
+                text: error?.response?.data?.message,
+                footer: '<a href="#">Why do I have this issue?</a>',
+            })
+        }
+    }
+    console.log(data);
     return (
-        <div>
-             <div className="ml-[24px] overflow-auto">
+        <div className="ml-[24px] overflow-auto">
         <div className="mt-[32px] flex items-center pb-3 gap-2 cursor-pointer">
-          <MdOutlineKeyboardArrowLeft
-            onClick={() => navigate("/")}
-            size={34}
-          />
-          <h1 className="text-[24px] text-primary font-semibold">
-            Add Service
-          </h1>
+          <MdOutlineKeyboardArrowLeft onClick={() => navigate("/services")} size={34} />
+          <h1 className="text-[24px] text-primary font-semibold">Add Service</h1>
         </div>
         <div className="mt-[20px]">
           <Form
@@ -60,60 +59,31 @@ const AddTiktok = () => {
             labelCol={{ span: 22 }}
             wrapperCol={{ span: 40 }}
             layout="vertical"
-            initialValues={{
-              // remember: true,
-            }}
+            initialValues={
+              {
+                name:data?.data?.attributes?.name,
+                description:data?.data?.attributes?.description
+            }
+
+            }
             onFinish={handleAddService}
             //   onFinishFailed={handleCompanyInformationFailed}
             autoComplete="off"
           >
             <div className="flex flex-col gap-[24px]">
-            <div className="flex-1">
-                <Form.Item
-                  label={
-                    <span className="text-[#222222] text-[18px] font-medium">
-                      Tiktok
-                    </span>
-                  }
-                  name="category"
-                  className="flex-1"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input your Price!",
-                    },
-                  ]}
-                >
-                  <Input
-                    // onChange={(e) => setPrice(e.target.value)}
-                    placeholder="Price Per Service"
-                    className="p-4 bg-[white]
-                rounded w-full 
-                justify-start 
-                border-2
-                border-[#318130]
-                mt-[12px]
-                items-center 
-                gap-4 inline-flex "
-                    type="text"
-                    defaultValue={"Tiktok"}
-                 readOnly />
-                </Form.Item>
-              </div>
-
               <div className="flex-1">
                 <Form.Item
                   label={
                     <span className="text-[#222222] text-[18px] font-medium">
-                      Price Per Services
+                      Service Title
                     </span>
                   }
-                  name="price"
+                  name="name"
                   className="flex-1"
                   rules={[
                     {
                       required: true,
-                      message: "Please input your Price!",
+                      message: "Please input Title!",
                     },
                   ]}
                 >
@@ -121,18 +91,21 @@ const AddTiktok = () => {
                     // onChange={(e) => setPrice(e.target.value)}
                     placeholder="Price Per Service"
                     className="p-4 bg-[white]
-                rounded w-full 
-                justify-start 
-                border-2
-                border-[#318130]
-                mt-[12px]
-                items-center 
-                gap-4 inline-flex "
+                  rounded w-full 
+                  justify-start 
+                  border-2
+                  border-[#318130]
+                  mt-[12px]
+                  items-center 
+                  gap-4 inline-flex"
                     type="text"
                   />
                 </Form.Item>
               </div>
-             
+            
+  
+            
+  
               <div className="flex-1">
                 <label
                   htmlFor=""
@@ -142,25 +115,25 @@ const AddTiktok = () => {
                 </label>
   
                 {/* {features.map((value, index) => {
-                return (
-                  <Input
-                    key={index}
-                    onChange={(e) => handleInputChange(index, e.target.value)}
-                    placeholder="Features"
-                    className="p-4 bg-[white]
-                  rounded w-full 
-                  justify-start 
-                  border-none
-                  mt-[12px]
-                  items-center 
-                  gap-4 inline-flex outline-none focus:border-none"
-                    type="text"
-                  />
-                );
-              })} */}
+                  return (
+                    <Input
+                      key={index}
+                      onChange={(e) => handleInputChange(index, e.target.value)}
+                      placeholder="Features"
+                      className="p-4 bg-[white]
+                    rounded w-full 
+                    justify-start 
+                    border-none
+                    mt-[12px]
+                    items-center 
+                    gap-4 inline-flex outline-none focus:border-none"
+                      type="text"
+                    />
+                  );
+                })} */}
   
                 <Form.List
-                  name="services"
+                  name="description"
                   rules={[
                     {
                       validator: async (_, names) => {
@@ -200,12 +173,12 @@ const AddTiktok = () => {
                               //   width: '100%',
                               // }}
                               className="p-4 bg-[white]
-                      rounded
-                      justify-start w-[96%]
-                      border-2 border-[#318130]
-                      mt-[12px]
-                      items-center 
-                      gap-4 inline-flex"
+                        rounded
+                        justify-start w-[96%]
+                        border-2 border-[#318130]
+                        mt-[12px]
+                        items-center 
+                        gap-4 inline-flex"
                             />
                           </Form.Item>
   
@@ -244,9 +217,9 @@ const AddTiktok = () => {
             </Button>
           </Form>
         </div>
-            </div>
-        </div>
+      </div>
     );
+    
 }
 
-export default AddTiktok;
+export default EditServices;

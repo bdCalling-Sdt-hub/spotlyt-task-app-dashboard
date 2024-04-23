@@ -30,7 +30,7 @@ const AllEmployee = () => {
           title: "#SI",
           dataIndex: "si",
           key: "si",
-          render: (text, record, index) => index + 1,
+          render: (text, record, index) => (currentPage - 1) * 10 + index + 1,
         },
         {
           title: "Employee Name",

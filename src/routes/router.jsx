@@ -41,6 +41,9 @@ import AddReferAmount from "../pages/Main/Settings/AddReferAmount";
 import AddServices from "../pages/Main/AddSocialMedia/AddServices";
 import AddCategoryService from "../pages/Main/AddSocialMedia/AddCategoryService";
 import AddCategory from "../pages/Main/AddSocialMedia/AddCategory";
+import AddedCategoryService from "../pages/Main/AddSocialMedia/addedCategoryService";
+import EdittedCategoryServices from "../pages/Main/AddSocialMedia/EdittedCategoryServices";
+import EditServices from "../pages/Main/AddSocialMedia/EditServices";
 
 
 
@@ -92,8 +95,20 @@ const router = createBrowserRouter([
           element: <AddCategoryService/>,
         },
         {
+          path: "categoryService/add/:id",
+          element: <AddedCategoryService/>,
+        },
+        {
+          path:"/categoryService/edit/:id",
+          element:<EdittedCategoryServices/>
+        },
+        {
           path: "addCategoryService/:id",
           element: <AddCategory/>,
+        },
+        {
+          path: "editService/:id",
+          element: <EditServices/>,
         },
         {
           path: "/add-service/add-instagram",

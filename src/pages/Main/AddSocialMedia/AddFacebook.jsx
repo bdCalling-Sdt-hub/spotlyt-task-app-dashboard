@@ -36,9 +36,9 @@ const AddFacebook = () => {
         },
       });
 
-      console.log(response.data);
+      console.log("cccccccccc",response);
 
-      if (response.data.code == 201) {
+      if (response.status == 200) {
         Swal.fire({
           position: "top-center",
           icon: "success",
@@ -46,8 +46,11 @@ const AddFacebook = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        //   navigate('/dashboard/membership', { replace: true });
-        //   window.location.reload();
+          navigate('/services', { replace: true });
+          setInterval(() => {
+            window.location.reload();
+          },1600)
+     
       }
     } catch (error) {
       console.log("Registration Fail", error?.response?.data?.message);
@@ -62,7 +65,7 @@ const AddFacebook = () => {
   return (
     <div className="ml-[24px] overflow-auto">
       <div className="mt-[32px] flex items-center pb-3 gap-2 cursor-pointer">
-        <MdOutlineKeyboardArrowLeft onClick={() => navigate("/")} size={34} />
+        <MdOutlineKeyboardArrowLeft onClick={() => navigate("/services")} size={34} />
         <h1 className="text-[24px] text-primary font-semibold">Add Service</h1>
       </div>
       <div className="mt-[20px]">
