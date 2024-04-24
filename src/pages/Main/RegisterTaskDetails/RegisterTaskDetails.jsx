@@ -52,7 +52,7 @@ const RegisterTaskDetails = () => {
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
-      console.log(response);
+      console.log("-------------",response);
       if (response?.data?.code === 200) {
         Swal.fire({
           position: "top-center",

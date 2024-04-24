@@ -7,9 +7,9 @@ import { useGetStatusQuery } from "../redux/features/getStatusApi";
 const Status = () => {
   const {data,isError,isLoading} = useGetStatusQuery();
   console.log(data);
-  function formatToK(number) {
-    return (number / 1000).toFixed(2) + 'k';
-}
+//   function formatToK(number) {
+//     return (number / 1000).toFixed(2) + 'k';
+// }
   return (
     <div className="grid grid-cols-4 gap-[24px] mt-[24px]">
       <div className="bg-[white] shadow-xl px-[20px] py-[32px] flex justify-between items-center rounded-lg">
@@ -20,7 +20,7 @@ const Status = () => {
         />
         <div className="">
           <p className="">Total Earnings</p>
-          <h1 className=" text-[44px]">$ {formatToK(data?.data?.attributes?.totalIncome[0]?.totalIncome || 0)}</h1>
+          <h1 className=" text-[44px]">R {data?.data?.attributes?.totalIncome[0]?.totalIncome || "0.00"} </h1>
         </div>
       </div>
       <div className="bg-[white] px-[20px] py-[32px] flex justify-between items-center rounded-lg shadow-xl">
