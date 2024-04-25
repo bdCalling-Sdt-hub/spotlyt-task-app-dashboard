@@ -20,7 +20,7 @@ const Status = () => {
         />
         <div className="">
           <p className="">Total Earnings</p>
-          <h1 className=" text-[44px]">R {data?.data?.attributes?.totalIncome[0]?.totalIncome || "0.00"} </h1>
+          <h1 className=" text-[44px]">R {data?.data?.attributes?.totalIncome[0]?.totalIncome.toFixed(2) || "0.00"} </h1>
         </div>
       </div>
       <div className="bg-[white] px-[20px] py-[32px] flex justify-between items-center rounded-lg shadow-xl">
