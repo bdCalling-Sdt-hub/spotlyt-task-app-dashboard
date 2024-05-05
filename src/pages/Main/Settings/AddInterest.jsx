@@ -101,13 +101,13 @@ console.log(tags);
 
   return (
     <Flex className='ml-5' gap="4px 0" wrap="wrap">
-      {/* Rendering tags */}{tags.length > 0 && tags?.map((tag, index) => {
+      {/* Rendering tags */}{tags.length >= 0 && tags?.map((tag, index) => {
   const { _id, title } = tag;
   const isLongTag = tags?.length > 50;
   const tagElem = (
     <Tag
       key={_id}
-      closable={index !== 0}
+      closable={index >= 0}
       onClose={() => handleClose(tag)}
       style={{
         margin: '8px',
