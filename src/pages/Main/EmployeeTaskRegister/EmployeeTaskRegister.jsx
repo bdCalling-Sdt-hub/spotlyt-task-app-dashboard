@@ -95,7 +95,7 @@ const url = import.meta.env.VITE_API_URL;
       ),
     },
   ];
-  console.log(employeeRegister);
+  console.log("aiman------------------",employeeRegister);
  
   const onChange = (date, dateString) => {
     console.log(date, dateString);
@@ -129,11 +129,10 @@ const url = import.meta.env.VITE_API_URL;
           <Table
             pagination={{
               position: ["bottomCenter"],
-              pageSize: employeeRegister?.data?.attributes?.tasks?.limit, 
-          
+              pageSize: employeeRegister?.data?.attributes?.limit,
               showSizeChanger: false,
               onChange:handleChangePage,
-              total:employeeRegister?.data?.attributes?.tasks?.totalResult
+              total:employeeRegister?.data?.attributes?.totalResults
             }}
             columns={columns}
             dataSource={employeeRegister?.data?.attributes?.tasks}
