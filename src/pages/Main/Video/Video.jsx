@@ -157,7 +157,7 @@ const Video = () => {
               <p>{client?.createdAt?.split("T")[0]}</p>
             </div>
             <div className="flex justify-between border-b py-[16px] ">
-              <p>Employee Name:</p>
+              <p>Client Name:</p>
               <p>{client?.user?.fullName}</p>
             </div>
             <div className="flex justify-between border-b py-[16px]">

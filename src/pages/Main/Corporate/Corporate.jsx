@@ -145,7 +145,7 @@ const Corporate = () => {
               </p>
             </div>
             <div className="flex justify-between border-b py-[16px] ">
-              <p>Employee Name:</p>
+              <p>Client Name:</p>
               <p>
                 {client?.user?.fullName}
               </p>
