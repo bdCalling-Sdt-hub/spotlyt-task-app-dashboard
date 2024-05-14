@@ -10,7 +10,7 @@ const AllClient = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [client, setClient] = useState();
-    const {data,isLoading,isSuccess} = useGetAllUserQuery(currentPage,startDate);
+    const {data,isLoading,isSuccess} = useGetAllUserQuery({currentPage,startDate});
     const handleView = (value) => {
         setClient(value);
         console.log(value)

@@ -130,6 +130,7 @@ const url = import.meta.env.VITE_API_URL;
             pagination={{
               position: ["bottomCenter"],
               pageSize: employeeRegister?.data?.attributes?.tasks?.limit, 
+          
               showSizeChanger: false,
               onChange:handleChangePage,
               total:employeeRegister?.data?.attributes?.tasks?.totalResult

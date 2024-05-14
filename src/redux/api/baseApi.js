@@ -6,6 +6,7 @@ export const baseApi = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
       baseUrl: 'https://api.spotlyt.co.za/v1/',
+      // baseUrl: 'http://103.145.138.54:3232/v1/',
       headers:{
           "Content-Type": "application/json",
           authorization:`Bearer ${localStorage.getItem("token")}`

@@ -9,7 +9,8 @@ const AllEmployee = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [client, setClient] = useState();
-    const {data,isLoading} = useGetAllEmployeeQuery(currentPage)
+    console.log("currentPage",currentPage);
+    const {data,isLoading,isError} = useGetAllEmployeeQuery({ currentPage, startDate })
     const handleView = (value) => {
         setClient(value);
         console.log(value)
@@ -25,6 +26,7 @@ const AllEmployee = () => {
         setCurrentPage(page);
         console.log(page);
       };
+
     const columns = [
         {
           title: "#SI",

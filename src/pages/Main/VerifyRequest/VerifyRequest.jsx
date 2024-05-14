@@ -316,6 +316,7 @@ console.log(list);
           })
         }
       }
+      console.log(veryfyRequest);
     return (
         <div className=" ml-[24px]">
         <div className=" flex justify-between items-center">
@@ -343,9 +344,7 @@ console.log(list);
     }}
   >
   <Table
-            pagination={{
-              position: ["bottomCenter"],
-            }}
+           pagination={false}
             columns={columns}
             dataSource={list}
           />
