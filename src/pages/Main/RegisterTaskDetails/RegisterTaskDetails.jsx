@@ -17,7 +17,7 @@ const RegisterTaskDetails = () => {
   const handleReject = async (id) => {
     console.log(id);
     try {
-      const response = await baseURL.put(`/tasks/register/admin?id=${id}&status=rejected`, {
+      const response = await baseURL.put(`/tasks/register?id=${id}&status=rejected`, {
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${localStorage.getItem("token")}`,
