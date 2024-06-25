@@ -5,6 +5,8 @@ import { useGetVeryfyRequestListQuery } from '../../../redux/features/getVeryfyR
 import baseURL from '../../../config';
 import Swal from 'sweetalert2';
 import Loading from '../../../components/Loading';
+import { usePostNidApproveMutation } from '../../../redux/features/postNidApproveApi';
+import { usePostNidRejectMutation } from '../../../redux/features/postNidRejectApi';
 
 
 const VerifyRequest = () => {
@@ -12,6 +14,8 @@ const VerifyRequest = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [client, setClient] = useState();
+    const [setNidApprove,res] = usePostNidApproveMutation();
+    const [setNidReject,resReject] = usePostNidRejectMutation()
     const handleView = (value) => {
         setClient(value);
         console.log(value)
@@ -234,13 +238,16 @@ console.log(list);
       };
       const handleApprove = async (id) => {
         console.log(id);
+
         try {
-          const response = await baseURL.post(`/users/nidVerifyApproval?id=${id}`, {
-            headers: {
-              "Content-Type": "application/json",
-              authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
+          // const response = await baseURL.post(`/users/nidVerifyApproval?id=${id}`, {
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //     authorization: `Bearer ${localStorage.getItem("token")}`,
+          //   },
+          // })
+
+          const response = await setNidApprove(id)
 
 
           console.log(response);
@@ -252,9 +259,10 @@ console.log(list);
               showConfirmButton: false,
               timer: 1500
             })
-            setTimeout(() => {
-              window.location.reload();
-            }, 2000);
+            setIsModalOpen(false);
+            // setTimeout(() => {
+            //   window.location.reload();
+            // }, 2000);
           }else{
             Swal.fire({
               position: 'top-center',
@@ -263,7 +271,6 @@ console.log(list);
               showConfirmButton: false,
               timer: 1500
             })
-
           }
         } catch (error) {
         Swal.fire({
@@ -278,12 +285,13 @@ console.log(list);
       const handleCancel = async (id) => {
         console.log(id);
         try {
-          const response = await baseURL.post(`/users/nidVerifyReject?id=${id}`, {
-            headers: {
-              "Content-Type": "application/json",
-              authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
+          // const response = await baseURL.post(`/users/nidVerifyReject?id=${id}`, {
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //     authorization: `Bearer ${localStorage.getItem("token")}`,
+          //   },
+          // })
+          const response = await setNidReject(id)
 
           console.log(response);
           if(response?.data?.code == 200){
@@ -294,9 +302,10 @@ console.log(list);
               showConfirmButton: false,
               timer: 1500
             })
-            setTimeout(() => {
-              window.location.reload();
-            }, 2000);
+            // setTimeout(() => {
+            //   window.location.reload();
+            // }, 2000);
+            setIsModalOpen(false);
           }else{
             Swal.fire({
               position: 'top-center',

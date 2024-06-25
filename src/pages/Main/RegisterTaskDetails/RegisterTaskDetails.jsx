@@ -7,22 +7,28 @@ import { Image } from 'antd';
 import { useGetSingleEmployeeTaskRegisterQuery } from "../../../redux/features/getSingleEmployeeRegisterTask";
 import baseURL from "../../../config";
 import Swal from "sweetalert2";
+import { usePostHandleRegisterMutation } from "../../../redux/features/postHandleRegisterApi";
 const RegisterTaskDetails = () => {
   const {id} = useParams();
+  const [setData,res] = usePostHandleRegisterMutation();
   console.log(id);
   const {data,isSuccess,isLoading,isError} = useGetSingleEmployeeTaskRegisterQuery(id)
+ 
   const navigate = useNavigate();
   console.log(data);
   const url = import.meta.env.VITE_API_URL;
+
+
   const handleReject = async (id) => {
     console.log(id);
     try {
-      const response = await baseURL.put(`/tasks/register?id=${id}&status=rejected`, {
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
+      // const response = await baseURL.put(`/tasks/register?id=${id}&status=rejected`, {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     authorization: `Bearer ${localStorage.getItem("token")}`,
+      //   },
+      // })
+      const response = await setData({id:id,status:"rejected"})
       console.log(response);
       if (response?.data?.code === 200) {
         Swal.fire({
@@ -43,15 +49,18 @@ const RegisterTaskDetails = () => {
       })
     }
   }
+
+
   const handleApprove = async (id) => {
     console.log(id);
     try {
-      const response = await baseURL.put(`/tasks/register?status=accepted&id=${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
+      // const response = await baseURL.put(`/tasks/register?status=accepted&id=${id}`, {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     authorization: `Bearer ${localStorage.getItem("token")}`,
+      //   },
+      // })
+      const response = await setData({id:id,status:"accepted"})
       console.log("-------------",response);
       if (response?.data?.code === 200) {
         Swal.fire({
@@ -62,7 +71,7 @@ const RegisterTaskDetails = () => {
           timer: 1500,
         });
         navigate("/employees-task-register");
-        setInterval(()=>window.location.reload(),1600)
+        // setInterval(()=>window.location.reload(),1600)
       }else{
         Swal.fire({
           icon: "error",
@@ -72,6 +81,7 @@ const RegisterTaskDetails = () => {
         })
       }
     } catch (error) {
+      console.log(error);
       Swal.fire({
         icon: "error",
         title: "Try Again...",
@@ -80,6 +90,9 @@ const RegisterTaskDetails = () => {
       })
     }
   }
+
+
+
   return (
     <div className="ml-[34px]">
       <div className="cursor-pointer mt-[44px] flex items-center pb-3 gap-2">
